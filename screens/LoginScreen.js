@@ -1,19 +1,77 @@
-import {
-  View,
-  Text,
-  Image,
-  KeyboardAvoidingView,
-  ScrollView,
-} from "react-native";
-import React from "react";
+import { View, Text, Image, TextInput, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { themeColors } from "../theme/index";
-import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 import { ArrowLeftIcon } from "react-native-heroicons/solid";
 
 export default function LoginScreen() {
   const navigation = useNavigation();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorDataLogin, setErrorDataLogin] = useState({ message: "" });
+
+  const acasa = "http://192.168.1.130";
+  const hotspot = "http://172.20.10.3";
+
+  const IPv4 = acasa;
+
+  const loginData = {
+    email: "",
+    password: "",
+  };
+
+  const handleLogin = async () => {
+    loginData.email = email;
+    loginData.password = password;
+
+    if (loginData.email !== "" && loginData.password !== "") {
+      setEmail("");
+      setPassword("");
+
+      const requestOptions = {
+        method: "POST",
+        body: JSON.stringify(loginData),
+        headers: { "Content-Type": "application/json" },
+      };
+
+      console.log(requestOptions);
+      let input = IPv4 + ":5000/login";
+
+      fetch(input, requestOptions)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          if (data.message === "Login efectuat cu succes!") {
+            navigation
+              .navigate("Home")
+              .then(() => {
+                //se navigheaza la ecranul studentului
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          }
+
+          setErrorDataLogin({ message: data.message });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+      console.log("date login resetate");
+      setErrorDataLogin({ message: "Te-ai logat cu succes!" });
+
+      if (loginData.email !== "" && loginData.password !== "") {
+        //se reseteaza datele completate
+        console.log("Date invalide!");
+        setErrorDataLogin({ message: "Date invalide!" });
+        loginData.email = "";
+        loginData.password = "";
+      }
+    }
+  };
+
   return (
     <View
       className="flex-1 bg-white"
@@ -43,20 +101,25 @@ export default function LoginScreen() {
           <Text className="text-gray-700 ml-4">Email Address</Text>
           <TextInput
             className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
-            value="youremail@email.com"
+            value="email"
+            onChangeText={setEmail}
             placeholder="Enter email"
           />
           <Text className="text-gray-700 ml-4">Password</Text>
           <TextInput
-            className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb"
+            className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
             secureTextEntry
-            value="test1234"
+            value="password"
+            onChangeText={setPassword}
             placeholder="Enter your password"
           />
           <TouchableOpacity className="flex items-end mb-5">
             <Text className="text-gray-700">Forgot password?</Text>
           </TouchableOpacity>
-          <TouchableOpacity className="py-3 bg-yellow-400 rounded-xl">
+          <TouchableOpacity
+            className="py-3 bg-yellow-400 rounded-xl"
+            onPress={handleLogin}
+          >
             <Text className="font-xl font-bold text-center text-gray-700">
               Login
             </Text>

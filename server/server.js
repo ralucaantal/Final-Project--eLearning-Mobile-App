@@ -17,6 +17,52 @@ app.get("/", (req, res) => {
   );
 });
 
+app.post("/login", (req, res) => {
+  console.log("Ai facut POST cu datele: ", req.body);
+  let username = req.body.email;
+  let password = req.body.password;
+  //verific daca exista utilizatorul in baza de date
+  pgClient
+    .query("select id,email, password, tip from users where email=$1;", [
+      username,
+    ])
+    .then((res) => res.rows)
+    .then((data) => {
+      console.log("sunt in fetch de la baza de date");
+      console.log(data);
+      console.log(data.length);
+      if (data.length == 0) {
+        console.log("nu exista");
+        res.send({ message: "Username sau parola invalide" });
+      } else {
+        console.log("utilizatorul exista");
+
+        //verific parolele
+        if (password === data[0].password) {
+          // let token = jwt.sign(
+          //   {
+          //     data: {
+          //       id: data[0].id_user,
+          //       username: data[0].username,
+          //       password: data[0].password,
+          //       type: data[0].tip,
+          //     },
+          //   },
+          //   serverSecret,
+          //   { expiresIn: "24h" }
+          // );
+          // console.log("tokenul tau este: ", token);
+
+          res.send({
+            message: "Login efectuat cu succes!",
+          });
+        } else {
+          res.send({ message: "Date invalide" });
+        }
+      }
+    });
+});
+
 app.listen(5000, () => {
   console.log("Server started on port 5000");
 });
