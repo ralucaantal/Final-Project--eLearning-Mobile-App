@@ -61,6 +61,36 @@ app.post("/login", (req, res) => {
     });
 });
 
+app.post("/register", (req, res) => {
+  console.log("Ai facut POST cu datele: ", req.body);
+  let fullName = req.body.fullName;
+  let email = req.body.email;
+  let password = req.body.password;
+  //verific daca exista utilizatorul in baza de date
+  pgClient
+    .query("select email from users where email=$1;", [email])
+    .then((res) => res.rows)
+    .then((data) => {
+      console.log("sunt in fetch de la baza de date");
+      console.log(data);
+      console.log(data.length);
+      if (data.length == 0) {
+        console.log("nu exista");
+        pgClient
+          .query(
+            "insert into users (user_name,email, password) values($1,$2,$3);",
+            [fullName, email, password]
+          )
+          .then((result) => {
+            res.send({ message: "s-a adaugat cu succes!" });
+          });
+      } else {
+        console.log("utilizatorul exista");
+        res.send({ message: "utilizatorul deja exista" });
+      }
+    });
+});
+
 app.listen(5000, () => {
   console.log("Server started on port 5000");
 });
