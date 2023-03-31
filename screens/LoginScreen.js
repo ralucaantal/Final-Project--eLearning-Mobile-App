@@ -17,32 +17,31 @@ export default function LoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorDataLogin, setErrorDataLogin] = useState({ message: "" });
+  const [loginData, setLoginData] = useState({ email: "", password: "" });
 
   const acasa = "http://192.168.1.130";
   const hotspot = "http://172.20.10.3";
 
-  const IPv4 = acasa;
-
-  const loginData = {
-    email: "",
-    password: "",
-  };
+  const IPv4 = "http://192.168.1.130";
 
   const handleChangeEmail = (inputText) => {
+    // console.log(inputText);
     setEmail(inputText);
   };
 
   const handleChangePassword = (inputText) => {
+    //console.log(inputText);
     setPassword(inputText);
   };
 
   const handleLogin = async () => {
-    loginData.email = email;
-    loginData.password = password;
-
-    if (loginData.email !== "" && loginData.password !== "") {
-      setEmail("");
-      setPassword("");
+    if (email !== "" && password !== "") {
+      console.log(email);
+      console.log(password);
+      loginData.email = email;
+      loginData.password = password;
+      //setEmail("");
+      //setPassword("");
 
       const requestOptions = {
         method: "POST",
@@ -50,40 +49,34 @@ export default function LoginScreen() {
         headers: { "Content-Type": "application/json" },
       };
 
-      console.log(requestOptions);
+      console.log(requestOptions.body);
       let input = IPv4 + ":5000/login";
-
+      console.log("input: ", input);
       fetch(input, requestOptions)
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
+          console.log("nimic............");
           if (data.message === "Login efectuat cu succes!") {
-            navigation
-              .navigate("Home")
-              .then(() => {
-                //se navigheaza la ecranul studentului
-              })
-              .catch((error) => {
-                console.log(error);
-              });
+            console.log("Login ok");
+            setErrorDataLogin({ message: "Te-ai logat cu succes........!" });
+            navigation.navigate("Home");
+          } else {
+            setErrorDataLogin({ message: "Date invalide" });
           }
 
-          setErrorDataLogin({ message: data.message });
+          //setErrorDataLogin({ message: data.message });
         })
         .catch((error) => {
           console.log(error);
         });
 
       console.log("date login resetate");
-      setErrorDataLogin({ message: "Te-ai logat cu succes!" });
-
-      if (loginData.email !== "" && loginData.password !== "") {
-        //se reseteaza datele completate
-        console.log("Date invalide!");
-        setErrorDataLogin({ message: "Date invalide!" });
-        loginData.email = "";
-        loginData.password = "";
-      }
+    } else {
+      console.log("Date invalide");
+      setErrorDataLogin({ message: "Date invalide" });
+      alert(errorDataLogin.message);
+      setLoginData({ email, password });
     }
   };
 
@@ -109,7 +102,7 @@ export default function LoginScreen() {
           <View className="flex-row justify-center">
             <Image
               source={require("../assets/images/login.png")}
-              style={{ width: 200, height: 200 }}
+              style={{ width: 180, height: 180 }}
             />
           </View>
         </SafeAreaView>
@@ -176,6 +169,11 @@ export default function LoginScreen() {
               <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
                 <Text className="font-semibold text-yellow-500">Sign In!</Text>
               </TouchableOpacity>
+            </View>
+            <View className="flex-row justify-center mt-7">
+              <Text className=" text-gray-500 font-semibold">
+                {errorDataLogin.message}
+              </Text>
             </View>
           </View>
         </View>

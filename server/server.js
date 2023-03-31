@@ -21,15 +21,13 @@ app.post("/login", (req, res) => {
   console.log("Ai facut POST cu datele: ", req.body);
   let username = req.body.email;
   let password = req.body.password;
+  console.log(req.body.email, req.body.password);
   //verific daca exista utilizatorul in baza de date
   pgClient
-    .query("select id,email, password, tip from users where email=$1;", [
-      username,
-    ])
+    .query("select id,email, password from users where email=$1;", [username])
     .then((res) => res.rows)
     .then((data) => {
       console.log("sunt in fetch de la baza de date");
-      console.log(data);
       console.log(data.length);
       if (data.length == 0) {
         console.log("nu exista");
