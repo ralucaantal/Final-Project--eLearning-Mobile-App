@@ -108,40 +108,40 @@ export default function SignUpScreen() {
           style={{ borderTopLeftRadius: 50, borderTopRightRadius: 50 }}
         >
           <View className="form space-y-2">
-            <Text className="text-gray-700 ml-4">Full Name</Text>
+            <Text className="text-gray-700 ml-4">Numele Tău</Text>
             <TextInput
               className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
               value={fullName}
               onChangeText={handleChangeFullName}
-              placeholder="Enter Your Name"
+              placeholder="harry potter"
             />
-            <Text className="text-gray-700 ml-4">Email Address</Text>
+            <Text className="text-gray-700 ml-4">Adresa De Email</Text>
             <TextInput
               className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
               value={email}
               onChangeText={handleChangeEmail}
-              placeholder="Enter email"
+              placeholder="emailulTău@email.com"
             />
-            <Text className="text-gray-700 ml-4">Password</Text>
+            <Text className="text-gray-700 ml-4">Parolă</Text>
             <TextInput
               className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-7"
               secureTextEntry
               value={password}
               onChangeText={handleChangePassword}
-              placeholder="Enter your password"
+              placeholder="**********"
             />
             <TouchableOpacity
               className="py-3 bg-yellow-400 rounded-xl"
               onPress={handleRegister}
             >
               <Text className="font-xl font-bold text-center text-gray-700">
-                Sign Up
+                Înscrie-te
               </Text>
             </TouchableOpacity>
           </View>
           <View>
             <Text className="text-xl text-gray-700 font-bold text-center py-5">
-              Or
+              Sau
             </Text>
             <View className="flex-row justify-center space-x-7">
               <TouchableOpacity className="p-2 bg-gray-100 rounded-2xl">
@@ -165,10 +165,10 @@ export default function SignUpScreen() {
             </View>
             <View className="flex-row justify-center mt-7">
               <Text className=" text-gray-500 font-semibold">
-                Already have an account?
+                Ai deja un cont?
               </Text>
               <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-                <Text className="font-semibold text-yellow-500">Login!</Text>
+                <Text className="font-semibold text-yellow-500">Loghează-te!</Text>
               </TouchableOpacity>
             </View>
             <View className="flex-row justify-center mt-7">

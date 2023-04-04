@@ -9,7 +9,6 @@ import AppNavigation from './navigation/appNavigation';
 
 // const Tab = createBottomTabNavigator();
 
-
 export default function App() {
   return (
     <AppNavigation />

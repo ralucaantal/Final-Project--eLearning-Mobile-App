@@ -5,7 +5,7 @@ import { themeColors } from "../theme/index";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 
-export default function WelcomeScreen() {
+export default function HomeScreen() {
   const navigation = useNavigation();
   return (
     <SafeAreaView
@@ -14,7 +14,7 @@ export default function WelcomeScreen() {
     >
       <View className="flex-1 flex justify-around my-4">
         <Text className="text-white font-bold text-4xl text-center">
-          Let's Get Started!
+          Să începem!
         </Text>
         <View className="flex-row justify-center">
           <Image
@@ -28,7 +28,7 @@ export default function WelcomeScreen() {
             className="py-3 bg-yellow-400 mx-7 rounded-xl"
           >
             <Text className="text-xl font-bold text-center text-gray-700">
-              Sign Up!
+              Înscrie-te!
             </Text>
           </TouchableOpacity>
           <View className="flex-row justify-center">

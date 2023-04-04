@@ -21,8 +21,9 @@ export default function LoginScreen() {
 
   const acasa = "http://192.168.1.130";
   const hotspot = "http://172.20.10.3";
+  const alex="http://172.20.10.2";
 
-  const IPv4 = "http://192.168.1.130";
+  const IPv4 = acasa;
 
   const handleChangeEmail = (inputText) => {
     // console.log(inputText);
@@ -71,7 +72,7 @@ export default function LoginScreen() {
           console.log(error);
         });
 
-      console.log("date login resetate");
+      // console.log("date login resetate");
     } else {
       console.log("Date invalide");
       setErrorDataLogin({ message: "Date invalide" });
@@ -111,36 +112,36 @@ export default function LoginScreen() {
           style={{ borderTopLeftRadius: 50, borderTopRightRadius: 50 }}
         >
           <View className="form space-y-2">
-            <Text className="text-gray-700 ml-4">Email Address</Text>
+            <Text className="text-gray-700 ml-4">Adresă De Email</Text>
             <TextInput
               className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
               value={email}
               onChangeText={handleChangeEmail}
-              placeholder="Enter email"
+              placeholder="emailulTău@email.com"
             />
-            <Text className="text-gray-700 ml-4">Password</Text>
+            <Text className="text-gray-700 ml-4">Parolă</Text>
             <TextInput
               className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
               secureTextEntry
               value={password}
               onChangeText={handleChangePassword}
-              placeholder="Enter your password"
+              placeholder="**********"
             />
             <TouchableOpacity className="flex items-end mb-5">
-              <Text className="text-gray-700">Forgot password?</Text>
+              <Text className="text-gray-700">Ți-ai uitat parola?</Text>
             </TouchableOpacity>
             <TouchableOpacity
               className="py-3 bg-yellow-400 rounded-xl"
               onPress={handleLogin}
             >
               <Text className="font-xl font-bold text-center text-gray-700">
-                Login
+                Loghează-te
               </Text>
             </TouchableOpacity>
           </View>
           <View>
             <Text className="text-xl text-gray-700 font-bold text-center py-5">
-              Or
+              Sau
             </Text>
             <View className="flex-row justify-center space-x-7">
               <TouchableOpacity className="p-2 bg-gray-100 rounded-2xl">
@@ -164,10 +165,10 @@ export default function LoginScreen() {
             </View>
             <View className="flex-row justify-center mt-7">
               <Text className=" text-gray-500 font-semibold">
-                Don't have an account?
+                Nu ai un cont?
               </Text>
               <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
-                <Text className="font-semibold text-yellow-500">Sign In!</Text>
+                <Text className="font-semibold text-yellow-500">Înscrie-te!</Text>
               </TouchableOpacity>
             </View>
             <View className="flex-row justify-center mt-7">

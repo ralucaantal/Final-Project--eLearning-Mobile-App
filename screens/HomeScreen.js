@@ -13,13 +13,13 @@ export default function HomeScreen() {
       style={{ backgroundColor: themeColors.bg }}
     >
       <View className="flex-1 flex justify-around my-4">
-        <Text className="text-white font-bold text-4xl text-center">
-          Let's Get Started!
+        <Text className="font-bold text-4xl text-center">
+          Bine ai venit!
         </Text>
         <View className="flex-row justify-center">
           <Image
-            source={require("../assets/images/welcome.png")}
-            style={{ width: 350, height: 350 }}
+            source={require("../assets/images/Home.png")}
+            style={{ width: 300, height: 300 }}
           />
         </View>
         <View className="space-y-4">
@@ -28,7 +28,7 @@ export default function HomeScreen() {
             className="py-3 bg-yellow-400 mx-7 rounded-xl"
           >
             <Text className="text-xl font-bold text-center text-gray-700">
-              Sign Up!
+              Înscrie-te!
             </Text>
           </TouchableOpacity>
           <View className="flex-row justify-center">

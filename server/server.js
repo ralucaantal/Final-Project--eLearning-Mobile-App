@@ -1,5 +1,12 @@
 const express = require("express");
+const cors = require("cors");
 const app = express();
+
+const corsOptions = {
+  origin: "*",
+  credentials: true, //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
+};
 
 var pg = require("pg");
 var connectionString = "postgres://postgres:6203@localhost:5432/eLearningApp";
@@ -10,6 +17,8 @@ var bodyParser = require("body-parser");
 app.use(bodyParser.json({ type: "application/json" }));
 
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(cors(corsOptions));
 
 app.get("/", (req, res) => {
   res.send(
