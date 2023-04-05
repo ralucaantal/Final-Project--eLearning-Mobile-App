@@ -1,14 +1,31 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { themeColors } from "../theme/index";
-import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Bars3CenterLeftIcon, BellIcon } from "react-native-heroicons/solid";
-import GradientButton from "./../theme/GradientButton";
+import CourseCard from "../theme/CourseCard";
 
 const detaliiCont = ["Zile ⚡", "Puncte 🚀", "Vieți 🤍"];
+
+const cursuriDisponibile = [
+  {
+    id: 1,
+    title: "Bazele Programării Calculatoarelor",
+    image: require("../assets/images/bazeleProgramarii.png"),
+  },
+  {
+    id: 2,
+    title: "Programare Orietată Obiect (POO)",
+    image: require("../assets/images/POO.png"),
+  },
+  {
+    id: 3,
+    title: "Baze De Date",
+    image: require("../assets/images/bd.png"),
+  },
+];
 
 export default function HomeScreen() {
   const navigation = useNavigation();
@@ -34,7 +51,8 @@ export default function HomeScreen() {
             <View className="pl-4">
               <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                 {detaliiCont.map((cat) => {
-                  {/* if (cat == activeDetail) {
+                  {
+                    /* if (cat == activeDetail) {
                     // show gradient category
                     return (
                       <GradientButton
@@ -54,16 +72,32 @@ export default function HomeScreen() {
                         <Text>{cat}</Text>
                       </TouchableOpacity>
                     );
-                  } */}
+                  } */
+                  }
                   return (
-                      <TouchableOpacity
-                        onPress={() => setActiveDetail(cat)}
-                        key={cat}
-                        className="bg-purple-100 p-3 px-4 rounded-full mr-2"
-                      >
-                        <Text>{cat}</Text>
-                      </TouchableOpacity>
-                    );
+                    <TouchableOpacity
+                      onPress={() => setActiveDetail(cat)}
+                      key={cat}
+                      className="bg-purple-100 p-3 px-4 rounded-full mr-2"
+                    >
+                      <Text>{cat}</Text>
+                    </TouchableOpacity>
+                  );
+                })}
+              </ScrollView>
+            </View>
+          </View>
+          <View className="mt-3 space-y-4">
+            <Text
+              style={{ color: themeColors.white }}
+              className="ml-4 text-lg font-bold"
+            >
+              Cursuri disponibile 👩🏻‍💻
+            </Text>
+            <View className="pl-4">
+              <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                {cursuriDisponibile.map((item, index) => {
+                  return <CourseCard key={index} course={item} />;
                 })}
               </ScrollView>
             </View>
