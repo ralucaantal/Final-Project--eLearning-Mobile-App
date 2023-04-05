@@ -14,16 +14,19 @@ const cursuriDisponibile = [
     id: 1,
     title: "Bazele Programării Calculatoarelor",
     image: require("../assets/images/bazeleProgramarii.png"),
+    stars: 5,
   },
   {
     id: 2,
     title: "Programare Orietată Obiect (POO)",
     image: require("../assets/images/POO.png"),
+    stars: 5,
   },
   {
     id: 3,
     title: "Baze De Date",
     image: require("../assets/images/bd.png"),
+    stars: 5,
   },
 ];
 
@@ -43,6 +46,19 @@ export default function HomeScreen() {
           </View>
           <View className="mt-3 space-y-3">
             <Text
+              style={{
+                color: themeColors.white,
+                backgroundColor: "black",
+                padding: 10,
+                borderRadius: 10,
+                alignSelf: "flex-start",
+              }}
+              className="ml-3 text-5xl font-bold"
+            >
+              RaluCodes
+            </Text>
+
+            <Text
               style={{ color: themeColors.white }}
               className="ml-4 text-3xl font-bold"
             >
@@ -51,29 +67,6 @@ export default function HomeScreen() {
             <View className="pl-4">
               <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                 {detaliiCont.map((cat) => {
-                  {
-                    /* if (cat == activeDetail) {
-                    // show gradient category
-                    return (
-                      <GradientButton
-                        key={cat}
-                        containerClass="rounded-full mr-2"
-                        value={cat}
-                      />
-                    );
-                  } else {
-                    // show normal category
-                    return (
-                      <TouchableOpacity
-                        onPress={() => setActiveDetail(cat)}
-                        key={cat}
-                        className="bg-purple-100 p-3 px-4 rounded-full mr-2"
-                      >
-                        <Text>{cat}</Text>
-                      </TouchableOpacity>
-                    );
-                  } */
-                  }
                   return (
                     <TouchableOpacity
                       onPress={() => setActiveDetail(cat)}
