@@ -1,46 +1,75 @@
 import { View, Text, Image } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { themeColors } from "../theme/index";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
+import { LinearGradient } from "expo-linear-gradient";
+import { Bars3CenterLeftIcon, BellIcon } from "react-native-heroicons/solid";
+import GradientButton from "./../theme/GradientButton";
+
+const detaliiCont = ["Zile ⚡", "Puncte 🚀", "Vieți 🤍"];
 
 export default function HomeScreen() {
   const navigation = useNavigation();
+  const [activeDetail, setActiveDetail] = useState("Zile ⚡");
   return (
-    <SafeAreaView
-      className="flex-1"
-      style={{ backgroundColor: themeColors.bg }}
+    <LinearGradient
+      colors={["rgba(135, 125, 250, 0.9)", "rgba(180, 174, 232, 0.7)"]}
+      className="w-full flex-1"
     >
-      <View className="flex-1 flex justify-around my-4">
-        <Text className="font-bold text-4xl text-center">
-          Bine ai venit!
-        </Text>
-        <View className="flex-row justify-center">
-          <Image
-            source={require("../assets/images/Home.png")}
-            style={{ width: 300, height: 300 }}
-          />
-        </View>
-        <View className="space-y-4">
-          <TouchableOpacity
-            onPress={() => navigation.navigate("SignUp")}
-            className="py-3 bg-yellow-400 mx-7 rounded-xl"
-          >
-            <Text className="text-xl font-bold text-center text-gray-700">
-              Înscrie-te!
+      <SafeAreaView>
+        <View className="container">
+          <View className="flex-row justify-between items-center px-4">
+            <Bars3CenterLeftIcon color={themeColors.galben} size="30" />
+            <BellIcon color={themeColors.galben} size="30" />
+          </View>
+          <View className="mt-3 space-y-3">
+            <Text
+              style={{ color: themeColors.white }}
+              className="ml-4 text-3xl font-bold"
+            >
+              Bine ai venit! ✨
             </Text>
-          </TouchableOpacity>
-          <View className="flex-row justify-center">
-            <Text className="text-white font-semibold">
-              Already have an account?
-            </Text>
-            <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-              <Text className="font-semibold text-yellow-400">Log In!</Text>
-            </TouchableOpacity>
+            <View className="pl-4">
+              <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                {detaliiCont.map((cat) => {
+                  {/* if (cat == activeDetail) {
+                    // show gradient category
+                    return (
+                      <GradientButton
+                        key={cat}
+                        containerClass="rounded-full mr-2"
+                        value={cat}
+                      />
+                    );
+                  } else {
+                    // show normal category
+                    return (
+                      <TouchableOpacity
+                        onPress={() => setActiveDetail(cat)}
+                        key={cat}
+                        className="bg-purple-100 p-3 px-4 rounded-full mr-2"
+                      >
+                        <Text>{cat}</Text>
+                      </TouchableOpacity>
+                    );
+                  } */}
+                  return (
+                      <TouchableOpacity
+                        onPress={() => setActiveDetail(cat)}
+                        key={cat}
+                        className="bg-purple-100 p-3 px-4 rounded-full mr-2"
+                      >
+                        <Text>{cat}</Text>
+                      </TouchableOpacity>
+                    );
+                })}
+              </ScrollView>
+            </View>
           </View>
         </View>
-      </View>
-    </SafeAreaView>
+      </SafeAreaView>
+    </LinearGradient>
   );
 }

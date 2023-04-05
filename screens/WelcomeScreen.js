@@ -33,10 +33,10 @@ export default function HomeScreen() {
           </TouchableOpacity>
           <View className="flex-row justify-center">
             <Text className="text-white font-semibold">
-              Already have an account?
+              Ai deja un cont?
             </Text>
             <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-              <Text className="font-semibold text-yellow-400">Log In!</Text>
+              <Text className="font-semibold text-yellow-400">Loghează-te!</Text>
             </TouchableOpacity>
           </View>
         </View>
