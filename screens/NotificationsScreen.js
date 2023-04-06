@@ -8,6 +8,7 @@ import {
 } from "react-native-heroicons/solid";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { themeColors } from "../theme/index";
+import { useNavigation } from "@react-navigation/native";
 
 const notificari = [
   {
@@ -25,6 +26,7 @@ const notificari = [
 ];
 
 export default function NotificationsScreen() {
+  const navigation = useNavigation();
   return (
     <LinearGradient
       colors={["rgba(135, 125, 250, 0.9)", "rgba(180, 174, 232, 0.7)"]}
@@ -32,13 +34,12 @@ export default function NotificationsScreen() {
     >
       <SafeAreaView>
         <View className="container">
-          <View className="flex-row justify-between items-center px-4">
-            <ArrowLeftIcon
-              color={themeColors.galben}
-              size="30"
-              onPress={() => navigation.goBack()}
-            />
-          </View>
+          <TouchableOpacity
+            className="flex-row justify-between items-center px-4"
+            onPress={() => navigation.goBack()}
+          >
+            <ArrowLeftIcon color={themeColors.galben} size="30" />
+          </TouchableOpacity>
         </View>
         <View className="mt-3">
           <View className="flex-row justify-between mb-2">
