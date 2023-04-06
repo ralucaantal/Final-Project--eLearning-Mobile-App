@@ -21,9 +21,10 @@ export default function LoginScreen() {
 
   const acasa = "http://192.168.1.130";
   const hotspot = "http://172.20.10.3";
-  const alex="http://172.20.10.2";
+  const alex = "http://172.20.10.2";
+  const eu = "http://172.20.10.3";
 
-  const IPv4 = acasa;
+  const IPv4 = eu;
 
   const handleChangeEmail = (inputText) => {
     // console.log(inputText);
@@ -168,7 +169,9 @@ export default function LoginScreen() {
                 Nu ai un cont?
               </Text>
               <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
-                <Text className="font-semibold text-yellow-500">Înscrie-te!</Text>
+                <Text className="font-semibold text-yellow-500">
+                  Înscrie-te!
+                </Text>
               </TouchableOpacity>
             </View>
             <View className="flex-row justify-center mt-7">

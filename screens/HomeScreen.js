@@ -57,7 +57,7 @@ export default function HomeScreen() {
         <View className="container">
           <View className="flex-row justify-between items-center px-4">
             <Bars3CenterLeftIcon color={themeColors.galben} size="30" />
-            <BellIcon color={themeColors.galben} size="30" />
+            <BellIcon color={themeColors.galben} size="30" onPress={()=>navigation.navigate("Notifications")} />
           </View>
           <View className="mt-3 space-y-3">
             <Text
