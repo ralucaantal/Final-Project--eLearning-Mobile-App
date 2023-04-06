@@ -30,6 +30,21 @@ const cursuriDisponibile = [
   },
 ];
 
+const actiuni = [
+  {
+    id: 1,
+    title: "Învață! 📚",
+    description: "Selectează un curs și învață ceva nou!",
+    image: require("../assets/images/learn.png"),
+  },
+  {
+    id: 2,
+    title: "Antrenează-te! 💡",
+    description: "Exersează ceea ce ai învățaț pănă acum rezolvând quiz-uri!",
+    image: require("../assets/images/antreneaza.png"),
+  },
+];
+
 export default function HomeScreen() {
   const navigation = useNavigation();
   const [activeDetail, setActiveDetail] = useState("Zile ⚡");
@@ -95,6 +110,54 @@ export default function HomeScreen() {
               </ScrollView>
             </View>
           </View>
+        </View>
+        <View className="mt-3">
+          <View className="flex-row justify-between mb-2">
+            <Text
+              style={{ color: themeColors.white }}
+              className="ml-4 text-lg font-bold"
+            >
+              Ce poți face? 🤷🏻‍♀️
+            </Text>
+          </View>
+          <ScrollView
+            style={{ height: 320 }}
+            showsVerticalScrollIndicator={false}
+          >
+            {actiuni.map((actiune, index) => {
+              return (
+                <TouchableOpacity
+                  className="mx-4 p-2 mb-2 flex-row"
+                  key={index}
+                  style={{backgroundColor: 'rgba(255,255,255,0.4)',borderRadius: 10}}
+                >
+                  <Image
+                    source={actiune.image}
+                    style={{ width: 80, height: 80 ,backgroundColor:'black'}}
+                    className="rounded-2xl"
+                  />
+                  <View className="flex-1 flex justify-center pl-3 space-y-3">
+                    <Text
+                      style={{ color: themeColors.white }}
+                      className="font-semibold"
+                    >
+                      {actiune.title}
+                    </Text>
+                    <View className="flex-row space-x-1"> 
+                    <Text
+                      // style={{ color: themeColors.galben }}
+                      className="text-xs text-gray-700"
+                    >
+                      {actiune.description}
+                    </Text>
+                   
+                    </View>
+                  </View>
+
+                </TouchableOpacity>
+              );
+            })}
+          </ScrollView>
         </View>
       </SafeAreaView>
     </LinearGradient>
