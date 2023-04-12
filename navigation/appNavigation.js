@@ -7,6 +7,7 @@ import LoginScreen from "../screens/LoginScreen";
 import SignUpScreen from "../screens/SignUpScreen";
 import WelcomeScreen from "../screens/WelcomeScreen";
 import NotificationsScreen from "../screens/NotificationsScreen";
+import Invata from "../screens/Invata";
 
 const Stack = createNativeStackNavigator();
 
@@ -38,6 +39,11 @@ export default function AppNavigation() {
           name="Notifications"
           options={{ headerShown: false }}
           component={NotificationsScreen}
+        />
+        <Stack.Screen
+          name="Invata"
+          options={{ headerShown: false }}
+          component={Invata}
         />
       </Stack.Navigator>
     </NavigationContainer>

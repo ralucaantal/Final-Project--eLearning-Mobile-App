@@ -145,6 +145,12 @@ export default function HomeScreen() {
                     backgroundColor: "rgba(255,255,255,0.4)",
                     borderRadius: 10,
                   }}
+                  onPress={() => {
+                    console.log("Ai apasat pe actiunea cu nr: ", actiune.id);
+                    if(actiune.id===1){
+                      navigation.navigate("Invata");
+                    }
+                  }}
                 >
                   <Image
                     source={actiune.image}
