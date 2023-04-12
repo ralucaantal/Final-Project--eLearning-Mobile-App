@@ -50,6 +50,12 @@ const actiuni = [
       "Alege materiile, tipul întrebărilor, și trimite-le colegilor codul generat pentru a vă antrena împreună!",
     image: require("../assets/images/organizeaza.png"),
   },
+  {
+    id: 4,
+    title: "Ajută-ne să ne îmbunătățim! 🙌🏻",
+    description: "Propune întrebări noi pentru quiz-uri sau pur și simplu oferă-ne un review!",
+    image: require("../assets/images/review.png"),
+  },
 ];
 
 export default function HomeScreen() {
