@@ -52,8 +52,9 @@ const actiuni = [
   },
   {
     id: 4,
-    title: "Ajută-ne să ne îmbunătățim! 🙌🏻",
-    description: "Propune întrebări noi pentru quiz-uri sau pur și simplu oferă-ne un review!",
+    title: "Ajută-ne să ne îmbunătățim aplicația! 🙌🏻",
+    description:
+      "Propune întrebări noi pentru quiz-uri sau pur și simplu oferă-ne un review!",
     image: require("../assets/images/review.png"),
   },
 ];
@@ -69,12 +70,14 @@ export default function HomeScreen() {
       <SafeAreaView>
         <View className="container">
           <View className="flex-row justify-between items-center px-4">
-            <Bars3CenterLeftIcon color={themeColors.galben} size="30" />
-            <BellIcon
-              color={themeColors.galben}
-              size="30"
+            <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
+              <Bars3CenterLeftIcon color={themeColors.galben} size="32" />
+            </TouchableOpacity>
+            <TouchableOpacity
               onPress={() => navigation.navigate("Notifications")}
-            />
+            >
+              <BellIcon color={themeColors.galben} size="28" />
+            </TouchableOpacity>
           </View>
           <View className="mt-3 space-y-3">
             <Text
@@ -153,7 +156,7 @@ export default function HomeScreen() {
                   }}
                   onPress={() => {
                     console.log("Ai apasat pe actiunea cu nr: ", actiune.id);
-                    if(actiune.id===1){
+                    if (actiune.id === 1) {
                       navigation.navigate("Invata");
                     }
                   }}
