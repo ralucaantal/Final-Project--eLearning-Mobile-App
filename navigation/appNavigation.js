@@ -9,6 +9,9 @@ import WelcomeScreen from "../screens/WelcomeScreen";
 import NotificationsScreen from "../screens/NotificationsScreen";
 import Invata from "../screens/Invata";
 import Profile from "../screens/Profile";
+import Antreneaza from "../screens/Antreneaza";
+import Organizeaza from "../screens/Organizeaza";
+import Ajuta from "../screens/Ajuta";
 
 const Stack = createNativeStackNavigator();
 
@@ -50,6 +53,21 @@ export default function AppNavigation() {
           name="Profile"
           options={{ headerShown: false }}
           component={Profile}
+        />
+        <Stack.Screen
+          name="Antreneaza"
+          options={{ headerShown: false }}
+          component={Antreneaza}
+        />
+        <Stack.Screen
+          name="Organizeaza"
+          options={{ headerShown: false }}
+          component={Organizeaza}
+        />
+        <Stack.Screen
+          name="Ajuta"
+          options={{ headerShown: false }}
+          component={Ajuta}
         />
       </Stack.Navigator>
     </NavigationContainer>

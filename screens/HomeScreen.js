@@ -158,6 +158,12 @@ export default function HomeScreen() {
                     console.log("Ai apasat pe actiunea cu nr: ", actiune.id);
                     if (actiune.id === 1) {
                       navigation.navigate("Invata");
+                    } else if (actiune.id === 2) {
+                      navigation.navigate("Antreneaza");
+                    } else if (actiune.id === 3) {
+                      navigation.navigate("Organizeaza");
+                    } else if (actiune.id === 4) {
+                      navigation.navigate("Ajuta");
                     }
                   }}
                 >
