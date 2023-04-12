@@ -5,7 +5,7 @@ import { themeColors } from "../theme/index";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import { ArrowLeftIcon } from "react-native-heroicons/solid";
-import CourseCard from "../theme/CourseCard";
+import CourseCardV from "../theme/CourseCardV";
 
 const detaliiCont = ["Zile ⚡", "Puncte 🚀", "Vieți 🤍"];
 
@@ -79,14 +79,10 @@ export default function Invata() {
             <ScrollView
               vertical
               showsVerticalScrollIndicator={false}
-              style={{
-                flex: 1,
-                backgroundColor: "#f2f2f2",
-                paddingVertical: 100,
-              }}
+              contentContainerStyle={{ paddingBottom: 350 }}
             >
               {cursuriDisponibile.map((item, index) => {
-                return <CourseCard key={index} course={item} />;
+                return <CourseCardV key={index} course={item} />;
               })}
             </ScrollView>
           </View>
