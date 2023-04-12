@@ -23,8 +23,10 @@ export default function LoginScreen() {
   const hotspot = "http://172.20.10.3";
   const alex = "http://172.20.10.2";
   const eu = "http://172.20.10.3";
+  const bacau="http://192.168.1.20";
+  const bacauZ="http://192.168.0.165";
 
-  const IPv4 = eu;
+  const IPv4 = bacau;
 
   const handleChangeEmail = (inputText) => {
     // console.log(inputText);

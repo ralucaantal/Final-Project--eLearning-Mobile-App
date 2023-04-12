@@ -43,6 +43,13 @@ const actiuni = [
     description: "Exersează ceea ce ai învățaț pănă acum rezolvând quiz-uri!",
     image: require("../assets/images/antreneaza.png"),
   },
+  {
+    id: 3,
+    title: "Organizează un quiz! 🎳",
+    description:
+      "Alege materiile, tipul întrebărilor, și trimite-le colegilor codul generat pentru a vă antrena împreună!",
+    image: require("../assets/images/organizeaza.png"),
+  },
 ];
 
 export default function HomeScreen() {
@@ -57,7 +64,11 @@ export default function HomeScreen() {
         <View className="container">
           <View className="flex-row justify-between items-center px-4">
             <Bars3CenterLeftIcon color={themeColors.galben} size="30" />
-            <BellIcon color={themeColors.galben} size="30" onPress={()=>navigation.navigate("Notifications")} />
+            <BellIcon
+              color={themeColors.galben}
+              size="30"
+              onPress={() => navigation.navigate("Notifications")}
+            />
           </View>
           <View className="mt-3 space-y-3">
             <Text
@@ -123,17 +134,21 @@ export default function HomeScreen() {
           <ScrollView
             style={{ height: 320 }}
             showsVerticalScrollIndicator={false}
+            contentContainerStyle={{ paddingBottom: 100 }}
           >
             {actiuni.map((actiune, index) => {
               return (
                 <TouchableOpacity
                   className="mx-4 p-2 mb-2 flex-row"
                   key={index}
-                  style={{backgroundColor: 'rgba(255,255,255,0.4)',borderRadius: 10}}
+                  style={{
+                    backgroundColor: "rgba(255,255,255,0.4)",
+                    borderRadius: 10,
+                  }}
                 >
                   <Image
                     source={actiune.image}
-                    style={{ width: 80, height: 80 ,backgroundColor:'black'}}
+                    style={{ width: 80, height: 80, backgroundColor: "black" }}
                     className="rounded-2xl"
                   />
                   <View className="flex-1 flex justify-center pl-3 space-y-3">
@@ -143,17 +158,15 @@ export default function HomeScreen() {
                     >
                       {actiune.title}
                     </Text>
-                    <View className="flex-row space-x-1"> 
-                    <Text
-                      // style={{ color: themeColors.galben }}
-                      className="text-xs text-gray-700"
-                    >
-                      {actiune.description}
-                    </Text>
-                   
+                    <View className="flex-row space-x-1">
+                      <Text
+                        // style={{ color: themeColors.galben }}
+                        className="text-xs text-gray-700"
+                      >
+                        {actiune.description}
+                      </Text>
                     </View>
                   </View>
-
                 </TouchableOpacity>
               );
             })}
