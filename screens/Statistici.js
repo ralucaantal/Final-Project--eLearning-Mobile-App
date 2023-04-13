@@ -33,7 +33,7 @@ const Utilizatori = [
   },
 ];
 
-export default function Top() {
+export default function Statistici() {
   const navigation = useNavigation();
   return (
     <LinearGradient
@@ -50,7 +50,7 @@ export default function Top() {
           </TouchableOpacity>
         </View>
         <View className="mt-3 space-y-3">
-          <View className="mt-3 space-y-3">
+        <View className="mt-3 space-y-3">
             <Text
               style={{
                 color: themeColors.white,
@@ -68,8 +68,9 @@ export default function Top() {
             style={{ color: themeColors.white }}
             className="ml-4 text-3xl font-bold"
           >
-            Top Utilizatori🌟
+            Statisticile tale 🧩
           </Text>
+
         </View>
 
         <ScrollView
@@ -77,48 +78,7 @@ export default function Top() {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: 100 }}
         >
-          {Utilizatori.map((utilizator, index) => {
-            return (
-              <TouchableOpacity
-                className="mx-4 p-2 mb-2 flex-row"
-                key={index}
-                style={{
-                  backgroundColor: "rgba(255,255,255,0.4)",
-                  borderRadius: 10,
-                }}
-              >
-                <View
-                  className="flex-row space-x-1"
-                  style={{ marginRight: 10, marginTop: 25 }}
-                >
-                  <Text
-                    className="font-semibold"
-                    style={{ color: themeColors.white }}
-                  >
-                    {utilizator.id}
-                  </Text>
-                </View>
-                <Image
-                  source={utilizator.image}
-                  style={{ width: 70, height: 70 }}
-                  className="rounded-2xl"
-                />
-                <View className="flex-1 flex justify-center pl-3 space-y-3">
-                  <Text
-                    style={{ color: themeColors.white }}
-                    className="font-semibold"
-                  >
-                    {utilizator.nume}
-                  </Text>
-                  <View className="flex-row space-x-1">
-                    <TouchableOpacity className="bg-purple-100 p-3 px-4 rounded-full mr-2">
-                      <Text>{utilizator.puncte} Puncte 🚀</Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              </TouchableOpacity>
-            );
-          })}
+         
         </ScrollView>
       </SafeAreaView>
     </LinearGradient>

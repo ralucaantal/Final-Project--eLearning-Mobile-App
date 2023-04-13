@@ -80,7 +80,7 @@ export default function HomeScreen() {
             </TouchableOpacity>
           </View>
           <View className="mt-3 space-y-3">
-            <Text
+          <Text
               style={{
                 color: themeColors.white,
                 backgroundColor: "black",
@@ -88,7 +88,7 @@ export default function HomeScreen() {
                 borderRadius: 10,
                 alignSelf: "flex-start",
               }}
-              className="ml-3 text-5xl font-bold"
+              className="ml-4 text-3xl font-bold"
             >
               CodeCampus
             </Text>

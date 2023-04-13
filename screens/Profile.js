@@ -146,6 +146,10 @@ export default function Profile() {
               <Text
                 style={{ color: themeColors.white }}
                 className="font-semibold"
+                onPress={() => {
+                  console.log("se vor afisa statisticile utilizatorului.");
+                  navigation.navigate("Statistici");
+                }}
               >
                 Statistici utilizator
               </Text>

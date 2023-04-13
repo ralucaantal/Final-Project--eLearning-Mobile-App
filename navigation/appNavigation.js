@@ -13,6 +13,7 @@ import Antreneaza from "../screens/Antreneaza";
 import Organizeaza from "../screens/Organizeaza";
 import Ajuta from "../screens/Ajuta";
 import Top from "../screens/Top";
+import Statistici from "../screens/Statistici";
 
 const Stack = createNativeStackNavigator();
 
@@ -74,6 +75,11 @@ export default function AppNavigation() {
           name="Top"
           options={{ headerShown: false }}
           component={Top}
+        />
+        <Stack.Screen
+          name="Statistici"
+          options={{ headerShown: false }}
+          component={Statistici}
         />
       </Stack.Navigator>
     </NavigationContainer>
