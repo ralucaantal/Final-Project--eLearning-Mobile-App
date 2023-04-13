@@ -90,7 +90,7 @@ export default function HomeScreen() {
               }}
               className="ml-3 text-5xl font-bold"
             >
-              RaluCodes
+              CodeCampus
             </Text>
 
             <Text
