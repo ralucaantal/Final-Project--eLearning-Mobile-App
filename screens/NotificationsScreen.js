@@ -61,7 +61,7 @@ export default function NotificationsScreen() {
                 className="mx-4 p-2 mb-2 flex-row"
                 key={index}
                 style={{
-                  backgroundColor: "rgba(255,255,255,0.4)",
+                  backgroundColor: "rgba(255,255,255,0.3)",
                   borderRadius: 10,
                 }}
               >

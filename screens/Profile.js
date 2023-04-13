@@ -2,10 +2,20 @@ import { View, Text, ScrollView, TouchableOpacity, Image } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
-import { ArrowLeftIcon, BellIcon } from "react-native-heroicons/solid";
+import {
+  ArrowLeftIcon,
+  BellIcon,
+  AtSymbolIcon,
+  ChartPieIcon,
+  ClipboardDocumentListIcon,
+  ClockIcon,
+  XMarkIcon,
+} from "react-native-heroicons/solid";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { themeColors } from "../theme/index";
 import FeatherIcon from "react-native-vector-icons/Feather";
+
+const detaliiCont = ["Zile ⚡", "Puncte 🚀", "Vieți 🤍"];
 
 export default function Profile() {
   const navigation = useNavigation();
@@ -88,25 +98,110 @@ export default function Profile() {
               </Text>
             </View>
           </View>
+          <View className="pl-4" style={{ alignItems: "center" }}>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              {detaliiCont.map((cat) => {
+                return (
+                  <TouchableOpacity
+                    onPress={() => setActiveDetail(cat)}
+                    key={cat}
+                    className="bg-purple-100 p-3 px-4 rounded-full mr-2"
+                  >
+                    <Text>{cat}</Text>
+                  </TouchableOpacity>
+                );
+              })}
+            </ScrollView>
+          </View>
         </ScrollView>
         <ScrollView
-          style={{ height: 320 }}
+          style={{ height: 500 }}
           showsVerticalScrollIndicator={false}
         >
           <TouchableOpacity
             className="mx-4 p-2 mb-2 flex-row"
             style={{
-              backgroundColor: "rgba(255,255,255,0.4)",
+              backgroundColor: "rgba(255,255,255,0.3)",
               borderRadius: 10,
             }}
           >
-             <BellIcon color={themeColors.galben} size="50" />
-             <View className="flex-1 flex justify-center pl-3 space-y-3">
-             <Text
-                    style={{ color: themeColors.white }}
-                    className="font-semibold"
-                  >Incercare</Text>
-             </View>
+            <AtSymbolIcon color={themeColors.galben} size="50" />
+            <View className="flex-1 flex justify-center pl-3 space-y-3">
+              <Text
+                style={{ color: themeColors.white }}
+                className="font-semibold"
+              >
+                Setări profil
+              </Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            className="mx-4 p-2 mb-2 flex-row"
+            style={{
+              backgroundColor: "rgba(255,255,255,0.3)",
+              borderRadius: 10,
+            }}
+          >
+            <ChartPieIcon color={themeColors.galben} size="50" />
+            <View className="flex-1 flex justify-center pl-3 space-y-3">
+              <Text
+                style={{ color: themeColors.white }}
+                className="font-semibold"
+              >
+                Statistici utilizator
+              </Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            className="mx-4 p-2 mb-2 flex-row"
+            style={{
+              backgroundColor: "rgba(255,255,255,0.3)",
+              borderRadius: 10,
+            }}
+          >
+            <ClipboardDocumentListIcon color={themeColors.galben} size="50" />
+            <View className="flex-1 flex justify-center pl-3 space-y-3">
+              <Text
+                style={{ color: themeColors.white }}
+                className="font-semibold"
+              >
+                Top utilizatori
+              </Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            className="mx-4 p-2 mb-2 flex-row"
+            style={{
+              backgroundColor: "rgba(255,255,255,0.3)",
+              borderRadius: 10,
+            }}
+          >
+            <ClockIcon color={themeColors.galben} size="50" />
+            <View className="flex-1 flex justify-center pl-3 space-y-3">
+              <Text
+                style={{ color: themeColors.white }}
+                className="font-semibold"
+              >
+                Status întrebări propuse 
+              </Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            className="mx-4 p-2 mb-2 flex-row"
+            style={{
+              backgroundColor: "rgba(255,255,255,0.3)",
+              borderRadius: 10,
+            }}
+          >
+            <XMarkIcon color={themeColors.galben} size="50" />
+            <View className="flex-1 flex justify-center pl-3 space-y-3">
+              <Text
+                style={{ color: themeColors.white }}
+                className="font-semibold"
+              >
+                Deloghează-te
+              </Text>
+            </View>
           </TouchableOpacity>
         </ScrollView>
       </SafeAreaView>
