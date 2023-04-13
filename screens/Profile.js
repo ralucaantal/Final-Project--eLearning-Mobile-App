@@ -115,7 +115,7 @@ export default function Profile() {
           </View>
         </ScrollView>
         <ScrollView
-          style={{ height: 500 }}
+          style={{ height: 400 }}
           showsVerticalScrollIndicator={false}
         >
           <TouchableOpacity
@@ -182,7 +182,7 @@ export default function Profile() {
                 style={{ color: themeColors.white }}
                 className="font-semibold"
               >
-                Status întrebări propuse 
+                Status întrebări propuse
               </Text>
             </View>
           </TouchableOpacity>
@@ -204,6 +204,20 @@ export default function Profile() {
             </View>
           </TouchableOpacity>
         </ScrollView>
+        <View className="mt-3 space-y-3">
+          <Text
+            style={{
+              color: themeColors.white,
+                backgroundColor: "black",
+                padding: 10,
+                borderRadius: 10,
+                alignSelf: "center",
+            }}
+            className="ml-4 text-3xl font-bold"
+          >
+            CodeCampus
+          </Text>
+        </View>
       </SafeAreaView>
     </LinearGradient>
   );
