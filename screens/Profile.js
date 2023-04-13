@@ -157,6 +157,10 @@ export default function Profile() {
               backgroundColor: "rgba(255,255,255,0.3)",
               borderRadius: 10,
             }}
+            onPress={() => {
+              console.log("se va afisa topul utilizatorilor aplicatiei.");
+              navigation.navigate("Top");
+            }}
           >
             <ClipboardDocumentListIcon color={themeColors.galben} size="50" />
             <View className="flex-1 flex justify-center pl-3 space-y-3">
@@ -191,7 +195,7 @@ export default function Profile() {
               backgroundColor: "rgba(255,255,255,0.3)",
               borderRadius: 10,
             }}
-            onPress={()=>navigation.navigate("Welcome")}
+            onPress={() => navigation.navigate("Welcome")}
           >
             <XMarkIcon color={themeColors.galben} size="50" />
             <View className="flex-1 flex justify-center pl-3 space-y-3">

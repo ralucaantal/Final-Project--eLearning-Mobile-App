@@ -12,6 +12,7 @@ import Profile from "../screens/Profile";
 import Antreneaza from "../screens/Antreneaza";
 import Organizeaza from "../screens/Organizeaza";
 import Ajuta from "../screens/Ajuta";
+import Top from "../screens/Top";
 
 const Stack = createNativeStackNavigator();
 
@@ -68,6 +69,11 @@ export default function AppNavigation() {
           name="Ajuta"
           options={{ headerShown: false }}
           component={Ajuta}
+        />
+        <Stack.Screen
+          name="Top"
+          options={{ headerShown: false }}
+          component={Top}
         />
       </Stack.Navigator>
     </NavigationContainer>
