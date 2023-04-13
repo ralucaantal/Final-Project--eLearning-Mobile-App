@@ -103,7 +103,6 @@ export default function Profile() {
               {detaliiCont.map((cat) => {
                 return (
                   <TouchableOpacity
-                    onPress={() => setActiveDetail(cat)}
                     key={cat}
                     className="bg-purple-100 p-3 px-4 rounded-full mr-2"
                   >
@@ -192,6 +191,7 @@ export default function Profile() {
               backgroundColor: "rgba(255,255,255,0.3)",
               borderRadius: 10,
             }}
+            onPress={()=>navigation.navigate("Welcome")}
           >
             <XMarkIcon color={themeColors.galben} size="50" />
             <View className="flex-1 flex justify-center pl-3 space-y-3">
@@ -208,10 +208,10 @@ export default function Profile() {
           <Text
             style={{
               color: themeColors.white,
-                backgroundColor: "black",
-                padding: 10,
-                borderRadius: 10,
-                alignSelf: "center",
+              backgroundColor: "black",
+              padding: 10,
+              borderRadius: 10,
+              alignSelf: "center",
             }}
             className="ml-4 text-3xl font-bold"
           >
