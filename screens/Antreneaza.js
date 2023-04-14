@@ -183,8 +183,8 @@ export default function Antreneaza() {
                 className="py-3 bg-yellow-400 rounded-xl"
                 style={{ width: "100%", opacity: 0.8 }}
                 onPress={() => {
-                  // console.log("S-au facut modificari pt utilizator");
-                  // navigation.navigate("Profile");
+                  console.log("Utilizatorul a ales cum vrea sa fie quiz-ul.");
+                  navigation.navigate("Question");
                 }}
               >
                 <Text className="font-xl font-bold text-center text-gray-700">
