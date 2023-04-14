@@ -138,8 +138,8 @@ export default function QuestionT2() {
                   className="py-3 bg-yellow-400 rounded-xl"
                   style={{ width: "30%", opacity: 0.8, alignSelf: "flex-end" }}
                   onPress={() => {
-                    // console.log("S-au facut modificari pt utilizator");
-                    // navigation.navigate("Profile");
+                    console.log("Redirectionez spre final quiz");
+                    navigation.navigate("FinalQuiz");
                   }}
                 >
                   <Text className="font-xl font-bold text-center text-gray-700">
