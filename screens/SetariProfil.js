@@ -48,34 +48,78 @@ export default function SetariProfil() {
         <View
           className="mx-4 p-2 mb-2 flex-row"
           style={{
-            // backgroundColor: "rgba(245, 165, 197, 0.5)",
-            backgroundColor: "rgba(180, 174, 232, 0.5)",
+            backgroundColor: "rgba(245, 165, 197, 0.2)",
+            // backgroundColor: "rgba(180, 174, 232, 0.5)",
             borderRadius: 10,
             marginTop: 10,
+            display: "flex",
+            flexDirection: "row",
           }}
         >
           <View
             style={{
-              padding: 24,
-              flexDirection: "row",
+              padding: 10,
               alignItems: "center",
               justifyContent: "center",
+              flexDirection: "row",
             }}
           >
-            <Image
-              alt=""
-              source={require("../assets/images/avatar.jpg")}
+            <View
               style={{
-                width: 72,
-                height: 72,
-                borderRadius: 9999,
-                borderWidth: 1,
-                borderColor: "transparent",
-                marginTop: -36,
-                alignSelf: "center",
-                backgroundColor: "transparent",
+                display: "flex",
+                flexDirection: "column",
               }}
-            />
+            >
+              <Image
+                alt=""
+                source={require("../assets/images/avatar.jpg")}
+                style={{
+                  width: 72,
+                  height: 72,
+                  borderRadius: 9999,
+                  borderWidth: 1,
+                  borderColor: "transparent",
+                  alignSelf: "center",
+                  backgroundColor: "transparent",
+                }}
+              />
+              <TouchableOpacity
+                onPress={() => {
+                  // handle onPress
+                }}
+              >
+                <View
+                  style={{
+                    position: "absolute",
+                    right: -4,
+                    bottom: -10,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: 28,
+                    height: 28,
+                    borderRadius: 9999,
+                    backgroundColor: themeColors.rozPal,
+                  }}
+                >
+                  <FeatherIcon
+                    color={themeColors.white}
+                    name="edit-3"
+                    size={15}
+                  />
+                </View>
+              </TouchableOpacity>
+            </View>
+            <View className="mt-3 space-y-4" style={{ alignItems: "center" }}>
+              <Text
+                className="ml-4 text-lg font-bold"
+                style={{
+                  color: themeColors.white,
+                  textAlign: "center",
+                }}
+              >
+                @ralucaantal
+              </Text>
+            </View>
           </View>
         </View>
         <ScrollView
