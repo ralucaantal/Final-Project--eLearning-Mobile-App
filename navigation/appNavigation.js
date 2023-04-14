@@ -14,6 +14,7 @@ import Organizeaza from "../screens/Organizeaza";
 import Ajuta from "../screens/Ajuta";
 import Top from "../screens/Top";
 import Statistici from "../screens/Statistici";
+import SetariProfil from "../screens/SetariProfil";
 
 const Stack = createNativeStackNavigator();
 
@@ -80,6 +81,11 @@ export default function AppNavigation() {
           name="Statistici"
           options={{ headerShown: false }}
           component={Statistici}
+        />
+        <Stack.Screen
+          name="SetariProfil"
+          options={{ headerShown: false }}
+          component={SetariProfil}
         />
       </Stack.Navigator>
     </NavigationContainer>

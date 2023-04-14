@@ -123,6 +123,10 @@ export default function Profile() {
               backgroundColor: "rgba(255,255,255,0.3)",
               borderRadius: 10,
             }}
+            onPress={() => {
+              console.log("Redirectionare spre setari profil");
+              navigation.navigate("SetariProfil");
+            }}
           >
             <AtSymbolIcon color={themeColors.galben} size="50" />
             <View className="flex-1 flex justify-center pl-3 space-y-3">
