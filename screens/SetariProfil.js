@@ -144,7 +144,7 @@ export default function SetariProfil() {
           <ScrollView
             style={{ height: "100%", marginTop: 20 }}
             showsVerticalScrollIndicator={false}
-            contentContainerStyle={{ paddingBottom: 100 }}
+            contentContainerStyle={{ paddingBottom: 250 }}
           >
             <View
               className="mx-4 p-2 mb-2 flex-row"
@@ -162,18 +162,42 @@ export default function SetariProfil() {
                   placeholder={`@${User.username}`}
                   style={{ width: "100%", opacity: 0.5 }}
                 />
+                <TouchableOpacity
+                  className="py-3 bg-yellow-400 rounded-xl"
+                  style={{ width: "100%", opacity: 0.8 }}
+                  onPress={() => {
+                    // console.log("S-au facut modificari pt utilizator");
+                    // navigation.navigate("Profile");
+                  }}
+                >
+                  <Text className="font-xl font-bold text-center text-gray-700">
+                    Modifică username
+                  </Text>
+                </TouchableOpacity>
                 <Text className="text-white ml-4">Adresă De Email</Text>
                 <TextInput
                   className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
                   placeholder={User.email}
                   style={{ width: "100%", opacity: 0.5 }}
                 />
-                <Text className="text-white ml-4">Număr de telefon</Text>
+                <TouchableOpacity
+                  className="py-3 bg-yellow-400 rounded-xl"
+                  style={{ width: "100%", opacity: 0.8 }}
+                  onPress={() => {
+                    // console.log("S-au facut modificari pt utilizator");
+                    // navigation.navigate("Profile");
+                  }}
+                >
+                  <Text className="font-xl font-bold text-center text-gray-700">
+                    Modifică adresă de email
+                  </Text>
+                </TouchableOpacity>
+                {/* <Text className="text-white ml-4">Număr de telefon</Text>
                 <TextInput
                   className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
                   placeholder={`+4${User.nrTelefon}`}
                   style={{ width: "100%", opacity: 0.5 }}
-                />
+                /> */}
                 <Text className="text-white ml-4">Parolă veche</Text>
                 <TextInput
                   className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
@@ -186,17 +210,16 @@ export default function SetariProfil() {
                   placeholder="* * * * * * * * * *"
                   style={{ width: "100%", opacity: 0.5 }}
                 />
-
-                <TouchableOpacity
+                                <TouchableOpacity
                   className="py-3 bg-yellow-400 rounded-xl"
                   style={{ width: "100%", opacity: 0.8 }}
                   onPress={() => {
-                    console.log("S-au facut modificari pt utilizator");
-                    navigation.navigate("Profile");
+                    // console.log("S-au facut modificari pt utilizator");
+                    // navigation.navigate("Profile");
                   }}
                 >
                   <Text className="font-xl font-bold text-center text-gray-700">
-                    Salvează modificări
+                    Modifică parolă
                   </Text>
                 </TouchableOpacity>
               </ScrollView>
