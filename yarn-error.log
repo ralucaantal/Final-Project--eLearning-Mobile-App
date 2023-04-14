@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\40754\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add @vue-hero-icons
+  C:\Program Files\nodejs\node.exe C:\Users\40754\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add react-native-comunity
 
 PATH: 
   C:\Program Files\Eclipse Adoptium\jdk-17.0.6.10-hotspot\bin;C:\Program Files\Python310\Scripts\;C:\Program Files\Python310\;C:\Program Files\Python37\Scripts\;C:\Program Files\Python37\;C:\Program Files\Microsoft\jdk-11.0.12.7-hotspot\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files\dotnet\;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\Program Files (x86)\Bitvise SSH Client;C:\Users\40754\AppData\Local\Microsoft\WindowsApps;C:\Users\40754\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\40754\.dotnet\tools;C:\Program Files\JetBrains\PyCharm Community Edition 2022.2.2\bin;;C:\Dev Tools\sqlite-tools-win32-x86-3400000\sqlite-tools-win32-x86-3400000;C:\Users\40754\AppData\Roaming\npm
@@ -14,8 +14,8 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@vue-hero-icons: Request "https://registry.yarnpkg.com/@vue-hero-icons" returned a 405
-      at params.callback [as _callback] (C:\Users\40754\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:66154:18)
+  Error: https://registry.yarnpkg.com/react-native-comunity: Not found
+      at params.callback [as _callback] (C:\Users\40754\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:66145:18)
       at self.callback (C:\Users\40754\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:140890:22)
       at Request.emit (node:events:513:28)
       at Request.<anonymous> (C:\Users\40754\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141862:10)
@@ -60,6 +60,7 @@ npm manifest:
       "react-dom": "^18.2.0",
       "react-icons": "^4.8.0",
       "react-native": "0.71.6",
+      "react-native-elements": "^3.4.3",
       "react-native-gesture-handler": "^2.9.0",
       "react-native-heroicons": "^3.2.0",
       "react-native-highlight-words": "^1.0.1",
@@ -2033,6 +2034,40 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/@types/parse-json/-/parse-json-4.0.0.tgz#2f8bb441434d163b35fb8ffdccd7138927ffb8c0"
     integrity sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==
   
+  "@types/prop-types@*":
+    version "15.7.5"
+    resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.5.tgz#5f19d2b85a98e9558036f6a3cacc8819420f05cf"
+    integrity sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==
+  
+  "@types/react-native-vector-icons@^6.4.6":
+    version "6.4.13"
+    resolved "https://registry.yarnpkg.com/@types/react-native-vector-icons/-/react-native-vector-icons-6.4.13.tgz#28b34d15094e040718beefb67cb3eff0c4994cb6"
+    integrity sha512-1PqFoKuXTSzMHwGMAr+REdYJBQAbe9xrww3ecZR0FsHcD1K+vGS/rxuAriL4rsI6+p69sZQjDzpEVAbDQcjSwA==
+    dependencies:
+      "@types/react" "*"
+      "@types/react-native" "^0.70"
+  
+  "@types/react-native@^0.70":
+    version "0.70.13"
+    resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.70.13.tgz#a38a1378e68dc25fe5911b09c49b8afffe191316"
+    integrity sha512-VnC/ny8Eynk3fvY4cnNKXpo/0zUhA2gO64RX51yzVofblOP6TR6jciga0kIjI4c+2eUyWNGrahmiolNm+QU6Cw==
+    dependencies:
+      "@types/react" "*"
+  
+  "@types/react@*":
+    version "18.0.35"
+    resolved "https://registry.yarnpkg.com/@types/react/-/react-18.0.35.tgz#192061cb1044fe01f2d3a94272cd35dd50502741"
+    integrity sha512-6Laome31HpetaIUGFWl1VQ3mdSImwxtFZ39rh059a1MNnKGqBpC88J6NJ8n/Is3Qx7CefDGLgf/KhN/sYCf7ag==
+    dependencies:
+      "@types/prop-types" "*"
+      "@types/scheduler" "*"
+      csstype "^3.0.2"
+  
+  "@types/scheduler@*":
+    version "0.16.3"
+    resolved "https://registry.yarnpkg.com/@types/scheduler/-/scheduler-0.16.3.tgz#cef09e3ec9af1d63d2a6cc5b383a737e24e6dcf5"
+    integrity sha512-5cJ8CB4yAx7BH1oMvdU0Jh9lrEXyPkar6F9G/ERswkCuvP4KQZfZkSjcMbAICCpQTN4OuZn8tz0HiKv9TGZgrQ==
+  
   "@types/stack-utils@^2.0.0":
     version "2.0.1"
     resolved "https://registry.npmjs.org/@types/stack-utils/-/stack-utils-2.0.1.tgz"
@@ -3084,7 +3119,7 @@ Lockfile:
       map-visit "^1.0.0"
       object-visit "^1.0.0"
   
-  color-convert@^1.9.0:
+  color-convert@^1.9.0, color-convert@^1.9.3:
     version "1.9.3"
     resolved "https://registry.npmjs.org/color-convert/-/color-convert-1.9.3.tgz"
     integrity sha512-QfAUtd+vFdAtFQcC8CCyYt1fYWxSqAiK2cSD6zDB8N3cpsEBAvRxp9zOGg6G/SHHJYAT88/az/IuDGALsNVbGg==
@@ -3108,7 +3143,7 @@ Lockfile:
     resolved "https://registry.npmjs.org/color-name/-/color-name-1.1.4.tgz"
     integrity sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==
   
-  color-string@^1.9.0:
+  color-string@^1.6.0, color-string@^1.9.0:
     version "1.9.1"
     resolved "https://registry.npmjs.org/color-string/-/color-string-1.9.1.tgz"
     integrity sha512-shrVawQFojnZv6xM40anx4CkoDP+fZsw/ZerEMsW/pyzsRbElpsL/DBVW7q3ExxwusdNXI3lXpuhEZkzs8p5Eg==
@@ -3120,6 +3155,14 @@ Lockfile:
     version "1.1.3"
     resolved "https://registry.npmjs.org/color-support/-/color-support-1.1.3.tgz"
     integrity sha512-qiBjkpbMLO/HL68y+lh4q0/O1MZFj2RX6X/KmMa3+gJD3z+WwI1ZzDHysvqHGS3mP6mznPckpXmw1nI9cJjyRg==
+  
+  color@^3.1.2:
+    version "3.2.1"
+    resolved "https://registry.yarnpkg.com/color/-/color-3.2.1.tgz#3544dc198caf4490c3ecc9a790b54fe9ff45e164"
+    integrity sha512-aBl7dZI9ENN6fUGC7mWpMTPNHmWUSNan9tuWN6ahh5ZLNk9baLJOnSMlrQkHcrfFgz2/RigjUVAjdx36VcemKA==
+    dependencies:
+      color-convert "^1.9.3"
+      color-string "^1.6.0"
   
   color@^4.0.1:
     version "4.2.3"
@@ -3488,6 +3531,11 @@ Lockfile:
     resolved "https://registry.npmjs.org/cssesc/-/cssesc-3.0.0.tgz"
     integrity sha512-/Tb/JcjK111nNScGob5MNtsntNM1aCNUDipB/TkwZFhyDrrE47SOx/18wF2bbjgc3ZzCSKW1T5nt5EbFoAz/Vg==
   
+  csstype@^3.0.2:
+    version "3.1.2"
+    resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.1.2.tgz#1d4bf9d572f11c14031f0436e1c10bc1f571f50b"
+    integrity sha512-I7K1Uu0MBPzaFKg4nI5Q7Vs2t+3gWWW648spaF+Rg7pI9ds18Ugn+lvg4SHczUdKlHI5LWBXyqfS8+DufyBsgQ==
+  
   dag-map@~1.0.0:
     version "1.0.2"
     resolved "https://registry.npmjs.org/dag-map/-/dag-map-1.0.2.tgz"
@@ -3562,6 +3610,11 @@ Lockfile:
     version "3.3.0"
     resolved "https://registry.npmjs.org/deepmerge/-/deepmerge-3.3.0.tgz"
     integrity sha512-GRQOafGHwMHpjPx9iCvTgpu9NojZ49q794EEL94JVEw6VaeA8XTUyBKvAkOOjBX9oJNiV6G3P+T+tihFjo2TqA==
+  
+  deepmerge@^4.2.2:
+    version "4.3.1"
+    resolved "https://registry.yarnpkg.com/deepmerge/-/deepmerge-4.3.1.tgz#44b5f2147cd3b00d4b56137685966f26fd25dd4a"
+    integrity sha512-3sUqbMEc77XqpdNO7FRyRog+eW3ph+GYCbj+rK+uYyRMuwsVy0rMiVtPn+QJlKFvWP/1PYpapqYn0Me2knFn+A==
   
   default-gateway@^4.2.0:
     version "4.2.0"
@@ -5995,7 +6048,7 @@ Lockfile:
     resolved "https://registry.npmjs.org/lodash/-/lodash-4.17.5.tgz"
     integrity sha512-svL3uiZf1RwhH+cWrfZn3A4+U58wbP0tGVTLQPbjplZxZ8ROD9VLuNgsRniTlLe7OlSqR79RUehXgpBW/s0IQw==
   
-  lodash@^4.0.0, lodash@^4.17.13, lodash@^4.17.21, lodash@^4.17.4:
+  lodash@^4.0.0, lodash@^4.17.13, lodash@^4.17.15, lodash@^4.17.21, lodash@^4.17.4:
     version "4.17.21"
     resolved "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz"
     integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
@@ -7059,6 +7112,11 @@ Lockfile:
       is-docker "^2.1.1"
       is-wsl "^2.2.0"
   
+  opencollective-postinstall@^2.0.3:
+    version "2.0.3"
+    resolved "https://registry.yarnpkg.com/opencollective-postinstall/-/opencollective-postinstall-2.0.3.tgz#7a0fff978f6dbfa4d006238fbac98ed4198c3259"
+    integrity sha512-8AV/sCtuzUeTo8gQK5qDZzARrulB3egtLzFgteqB2tcT4Mw7B8Kt7JcDHmltjz6FOAHsvTevk70gZEbhM4ZS9Q==
+  
   ora@3.4.0:
     version "3.4.0"
     resolved "https://registry.npmjs.org/ora/-/ora-3.4.0.tgz"
@@ -7844,6 +7902,20 @@ Lockfile:
       jscodeshift "^0.13.1"
       nullthrows "^1.1.1"
   
+  react-native-elements@^3.4.3:
+    version "3.4.3"
+    resolved "https://registry.yarnpkg.com/react-native-elements/-/react-native-elements-3.4.3.tgz#c33919002aef83a0c0f98d0ed56009714ad9b1b3"
+    integrity sha512-VtZc25EecPZyUBER85zFK9ZbY6kkUdcm1ZwJ9hdoGSCr1R/GFgxor4jngOcSYeMvQ+qimd5No44OVJW3rSJECA==
+    dependencies:
+      "@types/react-native-vector-icons" "^6.4.6"
+      color "^3.1.2"
+      deepmerge "^4.2.2"
+      hoist-non-react-statics "^3.3.2"
+      lodash.isequal "^4.5.0"
+      opencollective-postinstall "^2.0.3"
+      react-native-ratings "8.0.4"
+      react-native-size-matters "^0.3.1"
+  
   react-native-gesture-handler@^2.9.0:
     version "2.9.0"
     resolved "https://registry.npmjs.org/react-native-gesture-handler/-/react-native-gesture-handler-2.9.0.tgz"
@@ -7872,6 +7944,13 @@ Lockfile:
     dependencies:
       highlight-words-core "^1.0.3"
       prop-types "^15.5.7"
+  
+  react-native-ratings@8.0.4:
+    version "8.0.4"
+    resolved "https://registry.yarnpkg.com/react-native-ratings/-/react-native-ratings-8.0.4.tgz#efd5ebad8acc08bf98d34d39b18fb7a6813ef991"
+    integrity sha512-Xczu5lskIIRD6BEdz9A0jDRpEck/SFxRqiglkXi0u67yAtI1/pcJC76P4MukCbT8K4BPVl+42w83YqXBoBRl7A==
+    dependencies:
+      lodash "^4.17.15"
   
   react-native-reanimated@~2.14.4:
     version "2.14.4"
@@ -7905,6 +7984,11 @@ Lockfile:
     dependencies:
       react-freeze "^1.0.0"
       warn-once "^0.1.0"
+  
+  react-native-size-matters@^0.3.1:
+    version "0.3.1"
+    resolved "https://registry.yarnpkg.com/react-native-size-matters/-/react-native-size-matters-0.3.1.tgz#24d0cfc335a2c730f6d58bd7b43ea5a41be4b49f"
+    integrity sha512-mKOfBLIBFBcs9br1rlZDvxD5+mAl8Gfr5CounwJtxI6Z82rGrMO+Kgl9EIg3RMVf3G855a85YVqHJL2f5EDRlw==
   
   react-native-ssl-pinning@^1.5.7:
     version "1.5.7"
