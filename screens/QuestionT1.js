@@ -2,13 +2,13 @@ import { View, Text, ScrollView, TouchableOpacity, Image } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
-import { ArrowLeftIcon } from "react-native-heroicons/solid";
+import { ArrowLeftIcon, LightBulbIcon } from "react-native-heroicons/solid";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { themeColors } from "../theme/index";
 
 const detaliiCont = ["Zile ⚡", "Puncte 🚀", "Vieți 🤍"];
 
-export default function Question() {
+export default function QuestionT1() {
   const navigation = useNavigation();
   return (
     <LinearGradient
@@ -60,7 +60,27 @@ export default function Question() {
             Întrebarea numărul 1 🤔
           </Text>
         </View>
-
+        <View
+          className="mx-4 p-2 mb-2 flex-row"
+          style={{
+            backgroundColor: "rgba(255, 255, 255, 0.3)",
+            // backgroundColor: "rgba(180, 174, 232, 0.5)",
+            borderRadius: 10,
+            marginTop: 10,
+            display: "flex",
+            flexDirection: "row",
+          }}
+        >
+          <LightBulbIcon color={themeColors.galben} size="50" />
+          <View className="flex-1 flex justify-center pl-3 space-y-3">
+            <Text
+              style={{ color: themeColors.white,fontSize: 20}}
+              className="font-semibold"
+            >
+              Textul pentru întrebarea cu numărul 1 este acesta. Care este răspunsul corect?
+            </Text>
+          </View>
+        </View>
         <ScrollView
           style={{ height: "100%", marginTop: 20 }}
           showsVerticalScrollIndicator={false}
