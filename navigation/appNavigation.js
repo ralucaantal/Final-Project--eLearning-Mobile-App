@@ -15,6 +15,7 @@ import Ajuta from "../screens/Ajuta";
 import Top from "../screens/Top";
 import Statistici from "../screens/Statistici";
 import SetariProfil from "../screens/SetariProfil";
+import InscriereQuiz from "../screens/InscriereQuiz";
 
 const Stack = createNativeStackNavigator();
 
@@ -86,6 +87,11 @@ export default function AppNavigation() {
           name="SetariProfil"
           options={{ headerShown: false }}
           component={SetariProfil}
+        />
+        <Stack.Screen
+          name="InscriereQuiz"
+          options={{ headerShown: false }}
+          component={InscriereQuiz}
         />
       </Stack.Navigator>
     </NavigationContainer>

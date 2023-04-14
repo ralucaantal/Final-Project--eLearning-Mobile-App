@@ -52,6 +52,13 @@ const actiuni = [
   },
   {
     id: 4,
+    title: "Înscrie-te la un quiz! 🏋🏻‍♂️",
+    description:
+      "Tastează codul generat de unul dintre prietenii tăi și antrenați-vă împreună în cadrul unui quiz!",
+    image: require("../assets/images/inscrie.png"),
+  },
+  {
+    id: 5,
     title: "Ajută-ne să ne îmbunătățim aplicația! 🙌🏻",
     description:
       "Propune întrebări noi pentru quiz-uri sau pur și simplu oferă-ne un review!",
@@ -80,7 +87,7 @@ export default function HomeScreen() {
             </TouchableOpacity>
           </View>
           <View className="mt-3 space-y-3">
-          <Text
+            <Text
               style={{
                 color: themeColors.white,
                 backgroundColor: "black",
@@ -163,6 +170,8 @@ export default function HomeScreen() {
                     } else if (actiune.id === 3) {
                       navigation.navigate("Organizeaza");
                     } else if (actiune.id === 4) {
+                      navigation.navigate("InscriereQuiz");
+                    } else if (actiune.id === 5) {
                       navigation.navigate("Ajuta");
                     }
                   }}

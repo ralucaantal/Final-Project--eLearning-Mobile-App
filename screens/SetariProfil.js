@@ -67,7 +67,7 @@ export default function SetariProfil() {
           <View
             className="mx-4 p-2 mb-2 flex-row"
             style={{
-              backgroundColor: "rgba(245, 165, 197, 0.2)",
+              backgroundColor: "rgba(255, 255, 255, 0.3)",
               // backgroundColor: "rgba(180, 174, 232, 0.5)",
               borderRadius: 10,
               marginTop: 10,
