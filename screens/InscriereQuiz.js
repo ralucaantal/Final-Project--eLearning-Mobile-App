@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, TouchableOpacity } from "react-native";
+import { View, Text, ScrollView, TouchableOpacity,TextInput } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
@@ -23,6 +23,20 @@ export default function InscriereQuiz() {
           </TouchableOpacity>
         </View>
         <View className="mt-3 space-y-3">
+          <View className="mt-3 space-y-3">
+            <Text
+              style={{
+                color: themeColors.white,
+                backgroundColor: "black",
+                padding: 10,
+                borderRadius: 10,
+                alignSelf: "flex-start",
+              }}
+              className="ml-4 text-3xl font-bold"
+            >
+              CodeCampus
+            </Text>
+          </View>
           <Text
             style={{ color: themeColors.white }}
             className="ml-4 text-3xl font-bold"
@@ -30,6 +44,43 @@ export default function InscriereQuiz() {
             Înscrie-te la un quiz! 🧗🏻‍♀️
           </Text>
         </View>
+
+        <ScrollView
+          style={{ height: "100%", marginTop: 20 }}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 250 }}
+        >
+             <View
+              className="mx-4 p-2 mb-2 flex-row"
+              style={{
+                backgroundColor: "rgba(255, 255, 255, 0.2)",
+                borderRadius: 10,
+                display: "flex",
+                flexDirection: "row",
+              }}
+            >
+                <ScrollView className="form space-y-2" style={{ width: "100%" }}>
+                <Text className="text-white ml-4">Cod Quiz: </Text>
+                <TextInput
+                  className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
+                  placeholder="000000"
+                  style={{ width: "100%", opacity: 0.5 }}
+                />
+                <TouchableOpacity
+                  className="py-3 bg-yellow-400 rounded-xl"
+                  style={{ width: "100%", opacity: 0.8 }}
+                  onPress={() => {
+                    // console.log("S-au facut modificari pt utilizator");
+                    // navigation.navigate("Profile");
+                  }}
+                >
+                  <Text className="font-xl font-bold text-center text-gray-700">
+                    Intră în quiz
+                  </Text>
+                </TouchableOpacity>
+                </ScrollView>
+            </View>
+        </ScrollView>
       </SafeAreaView>
     </LinearGradient>
   );
