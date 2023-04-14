@@ -15,11 +15,11 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { themeColors } from "../theme/index";
 import FeatherIcon from "react-native-vector-icons/Feather";
 
-const User={
-    username: 'ralucaantal',
-    email: 'ralucaantal@gmail.com',
-    nrTelefon: '0754945735'
-}
+const User = {
+  username: "ralucaantal",
+  email: "ralucaantal@gmail.com",
+  nrTelefon: "0754945735",
+};
 
 export default function SetariProfil() {
   const navigation = useNavigation();
@@ -155,7 +155,7 @@ export default function SetariProfil() {
                 flexDirection: "row",
               }}
             >
-              <ScrollView className="form space-y-2" style={{ width: "100%" }} >
+              <ScrollView className="form space-y-2" style={{ width: "100%" }}>
                 <Text className="text-white ml-4">Username</Text>
                 <TextInput
                   className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
@@ -187,7 +187,14 @@ export default function SetariProfil() {
                   style={{ width: "100%", opacity: 0.5 }}
                 />
 
-                <TouchableOpacity className="py-3 bg-yellow-400 rounded-xl" style={{ width: "100%", opacity: 0.8 }}>
+                <TouchableOpacity
+                  className="py-3 bg-yellow-400 rounded-xl"
+                  style={{ width: "100%", opacity: 0.8 }}
+                  onPress={() => {
+                    console.log("S-au facut modificari pt utilizator");
+                    navigation.navigate("Profile");
+                  }}
+                >
                   <Text className="font-xl font-bold text-center text-gray-700">
                     Salvează modificări
                   </Text>
