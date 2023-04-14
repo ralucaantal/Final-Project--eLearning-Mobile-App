@@ -17,6 +17,7 @@ import Statistici from "../screens/Statistici";
 import SetariProfil from "../screens/SetariProfil";
 import InscriereQuiz from "../screens/InscriereQuiz";
 import QuestionT1 from "../screens/QuestionT1";
+import QuestionT2 from "../screens/QuestionT2";
 
 const Stack = createNativeStackNavigator();
 
@@ -95,9 +96,14 @@ export default function AppNavigation() {
           component={InscriereQuiz}
         />
         <Stack.Screen
-          name="Question"
+          name="QuestionT1"
           options={{ headerShown: false }}
           component={QuestionT1}
+        />
+        <Stack.Screen
+          name="QuestionT2"
+          options={{ headerShown: false }}
+          component={QuestionT2}
         />
       </Stack.Navigator>
     </NavigationContainer>

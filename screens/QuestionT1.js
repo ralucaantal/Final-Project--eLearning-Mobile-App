@@ -89,7 +89,11 @@ export default function QuestionT1() {
             flexDirection: "row",
           }}
         >
-          <LightBulbIcon color={themeColors.galben} size="50" style={{opacity: 0.6}}/>
+          <LightBulbIcon
+            color={themeColors.galben}
+            size="50"
+            style={{ opacity: 0.8 }}
+          />
           <View className="flex-1 flex justify-center pl-3 space-y-3">
             <Text
               style={{ color: themeColors.white, fontSize: 20 }}
@@ -170,8 +174,8 @@ export default function QuestionT1() {
                 className="py-3 bg-yellow-400 rounded-xl"
                 style={{ width: "30%", opacity: 0.8, alignSelf: "flex-end" }}
                 onPress={() => {
-                  // console.log("S-au facut modificari pt utilizator");
-                  // navigation.navigate("Profile");
+                  console.log("ne ducem la urmatoarea intrebare");
+                  navigation.navigate("QuestionT2");
                 }}
               >
                 <Text className="font-xl font-bold text-center text-gray-700">

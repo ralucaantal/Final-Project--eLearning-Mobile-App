@@ -184,7 +184,7 @@ export default function Antreneaza() {
                 style={{ width: "100%", opacity: 0.8 }}
                 onPress={() => {
                   console.log("Utilizatorul a ales cum vrea sa fie quiz-ul.");
-                  navigation.navigate("Question");
+                  navigation.navigate("QuestionT1");
                 }}
               >
                 <Text className="font-xl font-bold text-center text-gray-700">
