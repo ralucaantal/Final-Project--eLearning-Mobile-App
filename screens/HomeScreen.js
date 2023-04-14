@@ -47,7 +47,7 @@ const actiuni = [
     id: 3,
     title: "Organizează un quiz! 🎳",
     description:
-      "Alege materiile, tipul întrebărilor, și trimite-le colegilor codul generat pentru a vă antrena împreună!",
+      "Alege materiile, numărul de întrebări, și trimite-le colegilor codul generat pentru a vă antrena împreună!",
     image: require("../assets/images/organizeaza.png"),
   },
   {
