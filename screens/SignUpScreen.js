@@ -5,27 +5,32 @@ import { themeColors } from "../theme/index";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 import { ArrowLeftIcon } from "react-native-heroicons/solid";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function SignUpScreen() {
   const navigation = useNavigation();
-  const [fullName, setFullName] = useState("");
+  const [username,setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorDataRegister, setErrorDataRegister] = useState({ message: "" });
   const [registerData, setRegisterData] = useState({
-    fullName: "",
+    username: "",
     email: "",
     password: "",
   });
 
   const acasa = "http://192.168.1.130";
   const hotspot = "http://172.20.10.3";
+  const alex = "http://172.20.10.2";
+  const eu = "http://172.20.10.3";
+  const bacau="http://192.168.1.20";
+  const bacauZ="http://192.168.0.165";
 
-  const IPv4 = "http://192.168.1.130";
+  const IPv4 = eu;
 
-  const handleChangeFullName = (inputText) => {
+  const handleChangeUsername = (inputText) => {
     // console.log(inputText);
-    setFullName(inputText);
+    setUsername(inputText);
   };
 
   const handleChangeEmail = (inputText) => {
@@ -39,12 +44,12 @@ export default function SignUpScreen() {
   };
 
   const handleRegister = async () => {
-    if (email !== "" && password !== "" && fullName !== "") {
+    if (email !== "" && password !== "" && username !== "") {
       console.log(email);
       console.log(password);
       registerData.email = email;
       registerData.password = password;
-      registerData.fullName = fullName;
+      registerData.username = username;
 
       const requestOptions = {
         method: "POST",
@@ -72,8 +77,8 @@ export default function SignUpScreen() {
       setErrorDataRegister({ message: "Date invalide!" });
       registerData.email = "";
       registerData.password = "";
-      registerData.fullName = "";
-      setRegisterData({ fullName, email, password });
+      registerData.username = "";
+      setRegisterData({ username, email, password });
     }
   };
 
@@ -83,37 +88,42 @@ export default function SignUpScreen() {
       behavior={"padding"}
       style={{ flex: 1 }}
     >
-      <View
-        className="flex-1 bg-white"
-        style={{ backgroundColor: themeColors.bg }}
+      <LinearGradient
+        colors={["rgba(135, 125, 250, 0.9)", "rgba(180, 174, 232, 0.7)"]}
+        className="w-full flex-1"
       >
         <SafeAreaView className="flex">
           <View className="flex-row justify-start">
             <TouchableOpacity
+              className="flex-row justify-between items-center px-4"
               onPress={() => navigation.goBack()}
-              className="bg-yellow-400 p-2 rounded-tr-2xl rounded-bl-2xl ml-4"
             >
-              <ArrowLeftIcon size="20" color="black" />
+              <ArrowLeftIcon color={themeColors.galben} size="30" />
             </TouchableOpacity>
           </View>
           <View className="flex-row justify-center">
             <Image
               source={require("../assets/images/signup.png")}
-              style={{ width: 165, height: 110 }}
+              style={{ width: 165, height: 140 }}
             />
           </View>
         </SafeAreaView>
         <View
-          className="flex-1 bg-white px-8 pt-8"
-          style={{ borderTopLeftRadius: 50, borderTopRightRadius: 50 }}
+          className="flex-1 px-8 pt-8"
+          style={{
+            borderTopLeftRadius: 50,
+            borderTopRightRadius: 50,
+            backgroundColor: "rgba(255,255,255,0.4)",
+          }}
         >
           <View className="form space-y-2">
-            <Text className="text-gray-700 ml-4">Numele Tău</Text>
+            <Text className="text-gray-700 ml-4">Username</Text>
             <TextInput
               className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
-              value={fullName}
-              onChangeText={handleChangeFullName}
-              placeholder="harry potter"
+              value={username}
+              onChangeText={handleChangeUsername}
+              placeholder="@username"
+              style={{ opacity: 0.5 }}
             />
             <Text className="text-gray-700 ml-4">Adresa De Email</Text>
             <TextInput
@@ -121,6 +131,7 @@ export default function SignUpScreen() {
               value={email}
               onChangeText={handleChangeEmail}
               placeholder="emailulTău@email.com"
+              style={{ opacity: 0.5 }}
             />
             <Text className="text-gray-700 ml-4">Parolă</Text>
             <TextInput
@@ -129,6 +140,7 @@ export default function SignUpScreen() {
               value={password}
               onChangeText={handleChangePassword}
               placeholder="**********"
+              style={{ opacity: 0.5 }}
             />
             <TouchableOpacity
               className="py-3 bg-yellow-400 rounded-xl"
@@ -140,35 +152,14 @@ export default function SignUpScreen() {
             </TouchableOpacity>
           </View>
           <View>
-            <Text className="text-xl text-gray-700 font-bold text-center py-5">
-              Sau
-            </Text>
-            <View className="flex-row justify-center space-x-7">
-              <TouchableOpacity className="p-2 bg-gray-100 rounded-2xl">
-                <Image
-                  source={require("../assets/icons/google.png")}
-                  className="w-10 h-10"
-                />
-              </TouchableOpacity>
-              <TouchableOpacity className="p-2 bg-gray-100 rounded-2xl">
-                <Image
-                  source={require("../assets/icons/apple.png")}
-                  className="w-10 h-10"
-                />
-              </TouchableOpacity>
-              <TouchableOpacity className="p-2 bg-gray-100 rounded-2xl">
-                <Image
-                  source={require("../assets/icons/facebook.png")}
-                  className="w-10 h-10"
-                />
-              </TouchableOpacity>
-            </View>
             <View className="flex-row justify-center mt-7">
               <Text className=" text-gray-500 font-semibold">
                 Ai deja un cont?
               </Text>
               <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-                <Text className="font-semibold text-yellow-500">Loghează-te!</Text>
+                <Text className="font-semibold text-yellow-500">
+                  Loghează-te!
+                </Text>
               </TouchableOpacity>
             </View>
             <View className="flex-row justify-center mt-7">
@@ -178,7 +169,7 @@ export default function SignUpScreen() {
             </View>
           </View>
         </View>
-      </View>
+      </LinearGradient>
     </KeyboardAvoidingView>
   );
 }

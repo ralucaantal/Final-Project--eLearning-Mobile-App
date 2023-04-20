@@ -28,19 +28,19 @@ app.get("/", (req, res) => {
 
 app.post("/login", (req, res) => {
   console.log("Ai facut POST cu datele: ", req.body);
-  let username = req.body.email;
+  let email = req.body.email;
   let password = req.body.password;
   console.log(req.body.email, req.body.password);
   //verific daca exista utilizatorul in baza de date
   pgClient
-    .query("select id,email, password from users where email=$1;", [username])
+    .query("select id,email, password from users where email=$1;", [email])
     .then((res) => res.rows)
     .then((data) => {
       console.log("sunt in fetch de la baza de date");
       console.log(data.length);
       if (data.length == 0) {
         console.log("nu exista");
-        res.send({ message: "Username sau parola invalide" });
+        res.send({ message: "Email sau parola invalide" });
       } else {
         console.log("utilizatorul exista");
 
@@ -72,7 +72,7 @@ app.post("/login", (req, res) => {
 
 app.post("/register", (req, res) => {
   console.log("Ai facut POST cu datele: ", req.body);
-  let fullName = req.body.fullName;
+  let username = req.body.username;
   let email = req.body.email;
   let password = req.body.password;
   //verific daca exista utilizatorul in baza de date
@@ -88,7 +88,7 @@ app.post("/register", (req, res) => {
         pgClient
           .query(
             "insert into users (user_name,email, password) values($1,$2,$3);",
-            [fullName, email, password]
+            [username, email, password]
           )
           .then((result) => {
             res.send({ message: "s-a adaugat cu succes!" });

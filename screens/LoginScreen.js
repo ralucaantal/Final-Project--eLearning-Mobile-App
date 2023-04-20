@@ -11,6 +11,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { themeColors } from "../theme/index";
 import { useNavigation } from "@react-navigation/native";
 import { ArrowLeftIcon } from "react-native-heroicons/solid";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function LoginScreen() {
   const navigation = useNavigation();
@@ -23,10 +24,10 @@ export default function LoginScreen() {
   const hotspot = "http://172.20.10.3";
   const alex = "http://172.20.10.2";
   const eu = "http://172.20.10.3";
-  const bacau="http://192.168.1.20";
-  const bacauZ="http://192.168.0.165";
+  const bacau = "http://192.168.1.20";
+  const bacauZ = "http://192.168.0.165";
 
-  const IPv4 = bacau;
+  const IPv4 = eu;
 
   const handleChangeEmail = (inputText) => {
     // console.log(inputText);
@@ -90,100 +91,100 @@ export default function LoginScreen() {
       behavior={"padding"}
       style={{ flex: 1 }}
     >
-      <View
-        className="flex-1 bg-white"
-        style={{ backgroundColor: themeColors.bg }}
+      <LinearGradient
+        colors={["rgba(135, 125, 250, 0.9)", "rgba(180, 174, 232, 0.7)"]}
+        className="w-full flex-1"
       >
-        <SafeAreaView className="flex">
-          <View className="flex-row justify-start">
-            <TouchableOpacity
-              onPress={() => navigation.goBack()}
-              className="bg-yellow-400 p-2 rounded-tr-2xl rounded-bl-2xl ml-4"
-            >
-              <ArrowLeftIcon size="20" color="black" />
-            </TouchableOpacity>
-          </View>
-          <View className="flex-row justify-center">
-            <Image
-              source={require("../assets/images/login.png")}
-              style={{ width: 180, height: 180 }}
-            />
-          </View>
-        </SafeAreaView>
-        <View
-          className="flex-1 bg-white px-8 pt-8"
-          style={{ borderTopLeftRadius: 50, borderTopRightRadius: 50 }}
-        >
-          <View className="form space-y-2">
-            <Text className="text-gray-700 ml-4">Adresă De Email</Text>
-            <TextInput
-              className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
-              value={email}
-              onChangeText={handleChangeEmail}
-              placeholder="emailulTău@email.com"
-            />
-            <Text className="text-gray-700 ml-4">Parolă</Text>
-            <TextInput
-              className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
-              secureTextEntry
-              value={password}
-              onChangeText={handleChangePassword}
-              placeholder="**********"
-            />
-            <TouchableOpacity className="flex items-end mb-5">
-              <Text className="text-gray-700">Ți-ai uitat parola?</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              className="py-3 bg-yellow-400 rounded-xl"
-              onPress={handleLogin}
-            >
-              <Text className="font-xl font-bold text-center text-gray-700">
-                Loghează-te
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <View>
-            <Text className="text-xl text-gray-700 font-bold text-center py-5">
-              Sau
-            </Text>
-            <View className="flex-row justify-center space-x-7">
-              <TouchableOpacity className="p-2 bg-gray-100 rounded-2xl">
-                <Image
-                  source={require("../assets/icons/google.png")}
-                  className="w-10 h-10"
-                />
-              </TouchableOpacity>
-              <TouchableOpacity className="p-2 bg-gray-100 rounded-2xl">
-                <Image
-                  source={require("../assets/icons/apple.png")}
-                  className="w-10 h-10"
-                />
-              </TouchableOpacity>
-              <TouchableOpacity className="p-2 bg-gray-100 rounded-2xl">
-                <Image
-                  source={require("../assets/icons/facebook.png")}
-                  className="w-10 h-10"
-                />
+        <View className="flex-1">
+          <SafeAreaView className="flex">
+            <View className="flex-row justify-start">
+              <TouchableOpacity
+                className="flex-row justify-between items-center px-4"
+                onPress={() => navigation.goBack()}
+              >
+                <ArrowLeftIcon color={themeColors.galben} size="30" />
               </TouchableOpacity>
             </View>
-            <View className="flex-row justify-center mt-7">
-              <Text className=" text-gray-500 font-semibold">
-                Nu ai un cont?
-              </Text>
-              <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
-                <Text className="font-semibold text-yellow-500">
-                  Înscrie-te!
+            <View className="flex-row justify-center">
+              <Image
+                source={require("../assets/images/login.png")}
+                style={{ width: 180, height: 180 }}
+              />
+            </View>
+          </SafeAreaView>
+          <View
+            className="flex-1 px-8 pt-8"
+            style={{
+              borderTopLeftRadius: 50,
+              borderTopRightRadius: 50,
+              backgroundColor: "rgba(255,255,255,0.4)",
+            }}
+          >
+            <View className="form space-y-2">
+              <Text className="text-gray-700 ml-4">Adresă De Email</Text>
+              <TextInput
+                className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
+                value={email}
+                onChangeText={handleChangeEmail}
+                placeholder="emailulTău@email.com"
+                style={{ opacity: 0.5 }}
+              />
+              <Text className="text-gray-700 ml-4">Parolă</Text>
+              <TextInput
+                className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
+                secureTextEntry
+                value={password}
+                onChangeText={handleChangePassword}
+                placeholder="**********"
+                style={{ opacity: 0.5 }}
+              />
+              <TouchableOpacity className="flex items-end mb-5">
+                <Text className="text-gray-700">Ți-ai uitat parola?</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                className="py-3 bg-yellow-400 rounded-xl"
+                onPress={handleLogin}
+              >
+                <Text className="font-xl font-bold text-center text-gray-700">
+                  Loghează-te
                 </Text>
               </TouchableOpacity>
             </View>
-            <View className="flex-row justify-center mt-7">
-              <Text className=" text-gray-500 font-semibold">
-                {errorDataLogin.message}
+            <View>
+              <View className="flex-row justify-center mt-7">
+                <Text className=" text-gray-500 font-semibold">
+                  Nu ai un cont?
+                </Text>
+                <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
+                  <Text className="font-semibold text-yellow-500">
+                    Înscrie-te!
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              <View className="flex-row justify-center mt-7">
+                <Text className=" text-gray-500 font-semibold">
+                  {errorDataLogin.message}
+                </Text>
+              </View>
+            </View>
+            <View className="mt-3 space-y-10">
+              <Text
+                style={{
+                  color: themeColors.white,
+                  backgroundColor: "black",
+                  padding: 10,
+                  borderRadius: 10,
+                  alignSelf: "center",
+                  marginBottom:5
+                }}
+                className="ml-4 text-3xl font-bold"
+              >
+                CodeCampus
               </Text>
             </View>
           </View>
         </View>
-      </View>
+      </LinearGradient>
     </KeyboardAvoidingView>
   );
 }
