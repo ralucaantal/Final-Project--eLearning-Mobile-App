@@ -77,6 +77,7 @@ export default function HomeScreen() {
   const [activeDetail, setActiveDetail] = useState("Zile ⚡");
 
   const [decodedJwt, setDecodedJwt] = useState(null);
+  const[username,setUsername]=useState(null);
 
   useEffect(() => {
     const decodeJwt = async () => {
@@ -84,16 +85,18 @@ export default function HomeScreen() {
         const jwt = await AsyncStorage.getItem("jwt");
         const decoded = jwtDecode(jwt);
         setDecodedJwt(decoded);
+        console.log(decoded);
+        setUsername(decoded.data.username);
       } catch (error) {
         console.log(error);
       }
     };
 
     decodeJwt();
+
   }, []);
 
-  console.log(decodedJwt);
-  const username=decodedJwt.data.username;
+
 
   return (
     <LinearGradient
@@ -129,9 +132,9 @@ export default function HomeScreen() {
 
             <Text
               style={{ color: themeColors.white }}
-              className="ml-4 text-3xl font-bold"
+              className="ml-4 text-2xl font-bold"
             >
-              Bine ai venit! ✨
+              Bine ai venit, @{username}! ✨
             </Text>
             <View className="pl-4">
               <ScrollView horizontal showsHorizontalScrollIndicator={false}>
