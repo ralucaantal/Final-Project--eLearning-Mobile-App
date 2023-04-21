@@ -1,5 +1,7 @@
 const express = require("express");
 const cors = require("cors");
+const jwt = require("jsonwebtoken");
+const serverSecret = "parola";
 const app = express();
 
 const corsOptions = {
@@ -26,6 +28,26 @@ app.get("/", (req, res) => {
   );
 });
 
+app.post("/decodeJWT", (req, res) => {
+  console.log("req= ", req.body);
+  let token = req.body.jwt;
+  console.log("token= ", token);
+  jwt.verify(token, serverSecret, (err, decoded) => {
+    if (err) {
+      console.log("Este o eroare la decodarea jwt");
+      res.send({ message: "Este o eroare la decodarea jwt" });
+    } else {
+      console.log(decoded.data);
+      res.send({
+        id: decoded.data.id,
+        username: decoded.data.user_name,
+        password: decoded.data.password,
+        email: decoded.data.email
+      });
+    }
+  });
+});
+
 app.post("/login", (req, res) => {
   console.log("Ai facut POST cu datele: ", req.body);
   let email = req.body.email;
@@ -33,7 +55,7 @@ app.post("/login", (req, res) => {
   console.log(req.body.email, req.body.password);
   //verific daca exista utilizatorul in baza de date
   pgClient
-    .query("select id,email, password from users where email=$1;", [email])
+    .query("select id,email,user_name, password from users where email=$1;", [email])
     .then((res) => res.rows)
     .then((data) => {
       console.log("sunt in fetch de la baza de date");
@@ -46,22 +68,23 @@ app.post("/login", (req, res) => {
 
         //verific parolele
         if (password === data[0].password) {
-          // let token = jwt.sign(
-          //   {
-          //     data: {
-          //       id: data[0].id_user,
-          //       username: data[0].username,
-          //       password: data[0].password,
-          //       type: data[0].tip,
-          //     },
-          //   },
-          //   serverSecret,
-          //   { expiresIn: "24h" }
-          // );
-          // console.log("tokenul tau este: ", token);
+          let token = jwt.sign(
+            {
+              data: {
+                id: data[0].id,
+                username: data[0].user_name,
+                password: data[0].password,
+                email:data[0].email
+              },
+            },
+            serverSecret,
+            { expiresIn: "24h" }
+          );
+          console.log("tokenul tau este: ", token);
 
           res.send({
             message: "Login efectuat cu succes!",
+            jwt: token,
           });
         } else {
           res.send({ message: "Date invalide" });

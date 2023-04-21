@@ -12,6 +12,7 @@ import { themeColors } from "../theme/index";
 import { useNavigation } from "@react-navigation/native";
 import { ArrowLeftIcon } from "react-native-heroicons/solid";
 import { LinearGradient } from "expo-linear-gradient";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import IPv4 from "../index";
 
 export default function LoginScreen() {
@@ -49,24 +50,28 @@ export default function LoginScreen() {
       console.log(requestOptions.body);
       let input = IPv4 + ":5000/login";
       console.log("input: ", input);
-      fetch(input, requestOptions)
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-          console.log("nimic............");
-          if (data.message === "Login efectuat cu succes!") {
-            console.log("Login ok");
-            setErrorDataLogin({ message: "Te-ai logat cu succes........!" });
-            navigation.navigate("Home");
-          } else {
-            setErrorDataLogin({ message: "Date invalide" });
-          }
 
-          //setErrorDataLogin({ message: data.message });
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      try {
+        const response = await fetch(input, requestOptions);
+        const data = await response.json();
+        console.log(data);
+        console.log("nimic............");
+        console.log(data.jwt);
+        if (data.message === "Login efectuat cu succes!" && data.jwt) {
+          console.log("Login ok");
+
+          // Salvează JWT-ul în AsyncStorage
+
+          await AsyncStorage.setItem("jwt", data.jwt);
+
+          setErrorDataLogin({ message: "Te-ai logat cu succes........!" });
+          navigation.navigate("Home");
+        } else {
+          setErrorDataLogin({ message: "Date invalide" });
+        }
+      } catch (error) {
+        console.log(error);
+      }
 
       // console.log("date login resetate");
     } else {
@@ -154,12 +159,17 @@ export default function LoginScreen() {
                 </TouchableOpacity>
               </View>
               <View className="flex-row justify-center mt-7">
-              <Text
-                style={{ fontSize: 20, fontWeight: "bold", color:"white",textAlign:"center" }}
-              >
-                {errorDataLogin.message}
-              </Text>
-            </View>
+                <Text
+                  style={{
+                    fontSize: 20,
+                    fontWeight: "bold",
+                    color: "white",
+                    textAlign: "center",
+                  }}
+                >
+                  {errorDataLogin.message}
+                </Text>
+              </View>
             </View>
             <View className="mt-3 space-y-10">
               <Text
@@ -169,7 +179,7 @@ export default function LoginScreen() {
                   padding: 10,
                   borderRadius: 10,
                   alignSelf: "center",
-                  marginBottom:5
+                  marginBottom: 5,
                 }}
                 className="ml-4 text-3xl font-bold"
               >

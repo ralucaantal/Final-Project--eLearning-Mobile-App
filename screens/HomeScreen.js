@@ -1,11 +1,17 @@
 import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { themeColors } from "../theme/index";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
-import { Bars3CenterLeftIcon, BellIcon,UserCircleIcon } from "react-native-heroicons/solid";
+import {
+  Bars3CenterLeftIcon,
+  BellIcon,
+  UserCircleIcon,
+} from "react-native-heroicons/solid";
 import CourseCard from "../theme/CourseCard";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import jwtDecode from "jwt-decode";
 
 const detaliiCont = ["Zile ⚡", "Puncte 🚀", "Vieți 🤍"];
 
@@ -69,6 +75,26 @@ const actiuni = [
 export default function HomeScreen() {
   const navigation = useNavigation();
   const [activeDetail, setActiveDetail] = useState("Zile ⚡");
+
+  const [decodedJwt, setDecodedJwt] = useState(null);
+
+  useEffect(() => {
+    const decodeJwt = async () => {
+      try {
+        const jwt = await AsyncStorage.getItem("jwt");
+        const decoded = jwtDecode(jwt);
+        setDecodedJwt(decoded);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    decodeJwt();
+  }, []);
+
+  console.log(decodedJwt);
+  const username=decodedJwt.data.username;
+
   return (
     <LinearGradient
       colors={["rgba(135, 125, 250, 0.9)", "rgba(180, 174, 232, 0.7)"]}
