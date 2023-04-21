@@ -1,5 +1,5 @@
 import { View, Text, ScrollView, TouchableOpacity, Image } from "react-native";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import {
@@ -14,12 +14,40 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { themeColors } from "../theme/index";
 import FeatherIcon from "react-native-vector-icons/Feather";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import jwtDecode from "jwt-decode";
 
 const detaliiCont = ["Zile ⚡", "Puncte 🚀", "Vieți 🤍"];
 
 export default function Profile() {
   const navigation = useNavigation();
-  
+
+  const [decodedJwt, setDecodedJwt] = useState(null);
+  const [username, setUsername] = useState(null);
+  const [zile, setZile] = useState(null);
+  const [puncte, setPuncte] = useState(null);
+  const [vieti, setVieti] = useState(null);
+
+  useEffect(() => {
+    const decodeJwt = async () => {
+      try {
+        const jwt = await AsyncStorage.getItem("jwt");
+        const decoded = jwtDecode(jwt);
+        setDecodedJwt(decoded);
+        console.log(decoded);
+        setUsername(decoded.data.username);
+        setZile(decodedJwt.data.zile.toString());
+        setPuncte(decodedJwt.data.puncte.toString());
+        setVieti(decodedJwt.data.vieti.toString());
+        console.log(zile);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    decodeJwt();
+  }, []);
+
   return (
     <LinearGradient
       colors={["rgba(135, 125, 250, 0.9)", "rgba(180, 174, 232, 0.7)"]}
@@ -100,7 +128,7 @@ export default function Profile() {
             </View>
           </View>
           <View className="pl-4" style={{ alignItems: "center" }}>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {/* <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               {detaliiCont.map((cat) => {
                 return (
                   <TouchableOpacity
@@ -111,6 +139,17 @@ export default function Profile() {
                   </TouchableOpacity>
                 );
               })}
+            </ScrollView> */}
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              <TouchableOpacity className="bg-purple-100 p-3 px-4 rounded-full mr-2">
+                <Text>{zile} Zile ⚡</Text>
+              </TouchableOpacity>
+              <TouchableOpacity className="bg-purple-100 p-3 px-4 rounded-full mr-2">
+                <Text>{puncte} Puncte 🚀</Text>
+              </TouchableOpacity>
+              <TouchableOpacity className="bg-purple-100 p-3 px-4 rounded-full mr-2">
+                <Text>{vieti} Vieți 🤍</Text>
+              </TouchableOpacity>
             </ScrollView>
           </View>
         </ScrollView>
