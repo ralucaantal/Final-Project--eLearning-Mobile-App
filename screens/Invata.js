@@ -1,13 +1,13 @@
 import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { themeColors } from "../theme/index";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import { ArrowLeftIcon } from "react-native-heroicons/solid";
 import CourseCardV from "../theme/CourseCardV";
-
-const detaliiCont = ["Zile ⚡", "Puncte 🚀", "Vieți 🤍"];
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import jwtDecode from "jwt-decode";
 
 const cursuriDisponibile = [
   {
@@ -32,6 +32,33 @@ const cursuriDisponibile = [
 
 export default function Invata() {
   const navigation = useNavigation();
+
+  const [decodedJwt, setDecodedJwt] = useState(null);
+  const [username, setUsername] = useState(null);
+  const [zile, setZile] = useState(null);
+  const [puncte, setPuncte] = useState(null);
+  const [vieti, setVieti] = useState(null);
+
+  useEffect(() => {
+    const decodeJwt = async () => {
+      try {
+        const jwt = await AsyncStorage.getItem("jwt");
+        const decoded = jwtDecode(jwt);
+        setDecodedJwt(decoded);
+        console.log(decoded);
+        setUsername(decoded.data.username);
+        setZile(decodedJwt.data.zile.toString());
+        setPuncte(decodedJwt.data.puncte.toString());
+        setVieti(decodedJwt.data.vieti.toString());
+        console.log(zile);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    decodeJwt();
+  }, []);
+
   return (
     <LinearGradient
       colors={["rgba(135, 125, 250, 0.9)", "rgba(180, 174, 232, 0.7)"]}
@@ -47,7 +74,7 @@ export default function Invata() {
           </TouchableOpacity>
           <View className="mt-3 space-y-3">
             <View className="pl-4">
-              <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              {/* <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                 {detaliiCont.map((cat) => {
                   return (
                     <TouchableOpacity
@@ -58,6 +85,23 @@ export default function Invata() {
                     </TouchableOpacity>
                   );
                 })}
+              </ScrollView> */}
+              <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                    <TouchableOpacity
+                      className="bg-purple-100 p-3 px-4 rounded-full mr-2"
+                    >
+                      <Text>{zile} Zile ⚡</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      className="bg-purple-100 p-3 px-4 rounded-full mr-2"
+                    >
+                      <Text>{puncte} Puncte 🚀</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      className="bg-purple-100 p-3 px-4 rounded-full mr-2"
+                    >
+                      <Text>{vieti} Vieți 🤍</Text>
+                    </TouchableOpacity>
               </ScrollView>
             </View>
             <Text
@@ -91,4 +135,3 @@ export default function Invata() {
     </LinearGradient>
   );
 }
-
