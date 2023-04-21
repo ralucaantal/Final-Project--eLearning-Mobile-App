@@ -75,6 +75,10 @@ app.post("/register", (req, res) => {
   let username = req.body.username;
   let email = req.body.email;
   let password = req.body.password;
+  let puncte = 1000;
+  let zile = 0;
+  let vieti = 5;
+  let tipCont = "USER";
   //verific daca exista utilizatorul in baza de date
   pgClient
     .query("select email from users where email=$1;", [email])
@@ -86,16 +90,26 @@ app.post("/register", (req, res) => {
       if (data.length == 0) {
         console.log("nu exista");
         pgClient
-          .query(
-            "insert into users (user_name,email, password) values($1,$2,$3);",
-            [username, email, password]
-          )
-          .then((result) => {
-            res.send({ message: "s-a adaugat cu succes!" });
+          .query("select user_name from users where user_name=$1;", [username])
+          .then((res) => res.rows)
+          .then((data) => {
+            if (data.length == 0) {
+              console.log("nu exista");
+              pgClient
+                .query(
+                  "insert into users (user_name,email, password,puncte,zile,vieti,tip_cont) values($1,$2,$3,$4,$5,$6,$7);",
+                  [username, email, password, puncte, zile, vieti, tipCont]
+                )
+                .then((result) => {
+                  res.send({ message: "s-a adaugat cu succes!" });
+                });
+            } else {
+              res.send({ message: "Acest username deja exista!" });
+            }
           });
       } else {
         console.log("utilizatorul exista");
-        res.send({ message: "utilizatorul deja exista" });
+        res.send({ message: "Acesta adresa de email este inregistrata!" });
       }
     });
 });

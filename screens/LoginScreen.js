@@ -13,6 +13,7 @@ import { useNavigation } from "@react-navigation/native";
 import { ArrowLeftIcon } from "react-native-heroicons/solid";
 import { LinearGradient } from "expo-linear-gradient";
 import IPv4 from "../index";
+import { white } from "react-native-paper/lib/typescript/src/styles/themes/v2/colors";
 
 export default function LoginScreen() {
   const navigation = useNavigation();
@@ -154,10 +155,12 @@ export default function LoginScreen() {
                 </TouchableOpacity>
               </View>
               <View className="flex-row justify-center mt-7">
-                <Text className=" text-gray-500 font-semibold">
-                  {errorDataLogin.message}
-                </Text>
-              </View>
+              <Text
+                style={{ fontSize: 20, fontWeight: "bold", color:white,textAlign:"center" }}
+              >
+                {errorDataLogin.message}
+              </Text>
+            </View>
             </View>
             <View className="mt-3 space-y-10">
               <Text

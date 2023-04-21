@@ -155,7 +155,9 @@ export default function SignUpScreen() {
               </TouchableOpacity>
             </View>
             <View className="flex-row justify-center mt-7">
-              <Text className=" text-gray-500 font-semibold">
+              <Text
+                style={{ fontSize: 20, fontWeight: "bold", color:themeColors.gri,textAlign:"center" }}
+              >
                 {errorDataRegister.message}
               </Text>
             </View>
