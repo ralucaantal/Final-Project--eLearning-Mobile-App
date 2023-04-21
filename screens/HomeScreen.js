@@ -4,7 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { themeColors } from "../theme/index";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
-import { Bars3CenterLeftIcon, BellIcon } from "react-native-heroicons/solid";
+import { Bars3CenterLeftIcon, BellIcon,UserCircleIcon } from "react-native-heroicons/solid";
 import CourseCard from "../theme/CourseCard";
 
 const detaliiCont = ["Zile ⚡", "Puncte 🚀", "Vieți 🤍"];
@@ -78,7 +78,8 @@ export default function HomeScreen() {
         <View className="container">
           <View className="flex-row justify-between items-center px-4">
             <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
-              <Bars3CenterLeftIcon color={themeColors.galben} size="32" />
+              {/* <Bars3CenterLeftIcon color={themeColors.galben} size="32" /> */}
+              <UserCircleIcon color={themeColors.galben} size="32" />
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => navigation.navigate("Notifications")}

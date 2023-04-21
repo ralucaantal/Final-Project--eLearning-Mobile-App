@@ -12,6 +12,7 @@ import { themeColors } from "../theme/index";
 import { useNavigation } from "@react-navigation/native";
 import { ArrowLeftIcon } from "react-native-heroicons/solid";
 import { LinearGradient } from "expo-linear-gradient";
+import IPv4 from "../index";
 
 export default function LoginScreen() {
   const navigation = useNavigation();
@@ -19,15 +20,6 @@ export default function LoginScreen() {
   const [password, setPassword] = useState("");
   const [errorDataLogin, setErrorDataLogin] = useState({ message: "" });
   const [loginData, setLoginData] = useState({ email: "", password: "" });
-
-  const acasa = "http://192.168.1.130";
-  const hotspot = "http://172.20.10.3";
-  const alex = "http://172.20.10.2";
-  const eu = "http://172.20.10.3";
-  const bacau = "http://192.168.1.20";
-  const bacauZ = "http://192.168.0.165";
-
-  const IPv4 = eu;
 
   const handleChangeEmail = (inputText) => {
     // console.log(inputText);

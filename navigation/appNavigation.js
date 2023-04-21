@@ -19,6 +19,7 @@ import InscriereQuiz from "../screens/InscriereQuiz";
 import QuestionT1 from "../screens/QuestionT1";
 import QuestionT2 from "../screens/QuestionT2";
 import FinalQuiz from "../screens/FinalQuiz";
+import StatusIntrebari from "../screens/StatusIntrebari";
 
 const Stack = createNativeStackNavigator();
 
@@ -110,6 +111,11 @@ export default function AppNavigation() {
           name="FinalQuiz"
           options={{ headerShown: false }}
           component={FinalQuiz}
+        />
+        <Stack.Screen
+          name="StatusIntrebari"
+          options={{ headerShown: false }}
+          component={StatusIntrebari}
         />
       </Stack.Navigator>
     </NavigationContainer>

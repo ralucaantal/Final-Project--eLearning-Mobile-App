@@ -6,10 +6,11 @@ import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 import { ArrowLeftIcon } from "react-native-heroicons/solid";
 import { LinearGradient } from "expo-linear-gradient";
+import IPv4 from "../index";
 
 export default function SignUpScreen() {
   const navigation = useNavigation();
-  const [username,setUsername] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorDataRegister, setErrorDataRegister] = useState({ message: "" });
@@ -18,15 +19,6 @@ export default function SignUpScreen() {
     email: "",
     password: "",
   });
-
-  const acasa = "http://192.168.1.130";
-  const hotspot = "http://172.20.10.3";
-  const alex = "http://172.20.10.2";
-  const eu = "http://172.20.10.3";
-  const bacau="http://192.168.1.20";
-  const bacauZ="http://192.168.0.165";
-
-  const IPv4 = eu;
 
   const handleChangeUsername = (inputText) => {
     // console.log(inputText);
