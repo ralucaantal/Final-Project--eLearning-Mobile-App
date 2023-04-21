@@ -55,7 +55,7 @@ app.post("/login", (req, res) => {
   console.log(req.body.email, req.body.password);
   //verific daca exista utilizatorul in baza de date
   pgClient
-    .query("select id,email,user_name, password from users where email=$1;", [email])
+    .query("select id,email,user_name, password,zile,puncte,vieti from users where email=$1;", [email])
     .then((res) => res.rows)
     .then((data) => {
       console.log("sunt in fetch de la baza de date");
@@ -74,7 +74,10 @@ app.post("/login", (req, res) => {
                 id: data[0].id,
                 username: data[0].user_name,
                 password: data[0].password,
-                email:data[0].email
+                email:data[0].email,
+                zile: data[0].zile,
+                puncte: data[0].puncte,
+                vieti: data[0].vieti
               },
             },
             serverSecret,

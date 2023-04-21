@@ -78,6 +78,9 @@ export default function HomeScreen() {
 
   const [decodedJwt, setDecodedJwt] = useState(null);
   const[username,setUsername]=useState(null);
+  const [zile,setZile]=useState(null);
+  const[puncte,setPuncte]=useState(null);
+  const [vieti,setVieti]=useState(null);
 
   useEffect(() => {
     const decodeJwt = async () => {
@@ -87,6 +90,10 @@ export default function HomeScreen() {
         setDecodedJwt(decoded);
         console.log(decoded);
         setUsername(decoded.data.username);
+        setZile(decodedJwt.data.zile.toString());
+        setPuncte(decodedJwt.data.puncte.toString());
+        setVieti(decodedJwt.data.vieti.toString());
+        console.log(zile);
       } catch (error) {
         console.log(error);
       }
@@ -134,21 +141,24 @@ export default function HomeScreen() {
               style={{ color: themeColors.white }}
               className="ml-4 text-2xl font-bold"
             >
-              Bine ai venit, @{username}! ✨
-            </Text>
+              Bine ai venit, <Text style={{ fontStyle: 'italic' }}>@{username}</Text>! ✨</Text>
             <View className="pl-4">
               <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                {detaliiCont.map((cat) => {
-                  return (
                     <TouchableOpacity
-                      onPress={() => setActiveDetail(cat)}
-                      key={cat}
                       className="bg-purple-100 p-3 px-4 rounded-full mr-2"
                     >
-                      <Text>{cat}</Text>
+                      <Text>{zile} Zile ⚡</Text>
                     </TouchableOpacity>
-                  );
-                })}
+                    <TouchableOpacity
+                      className="bg-purple-100 p-3 px-4 rounded-full mr-2"
+                    >
+                      <Text>{puncte} Puncte 🚀</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      className="bg-purple-100 p-3 px-4 rounded-full mr-2"
+                    >
+                      <Text>{vieti} Vieți 🤍</Text>
+                    </TouchableOpacity>
               </ScrollView>
             </View>
           </View>

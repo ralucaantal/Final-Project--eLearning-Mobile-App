@@ -19,6 +19,7 @@ const detaliiCont = ["Zile ⚡", "Puncte 🚀", "Vieți 🤍"];
 
 export default function Profile() {
   const navigation = useNavigation();
+  
   return (
     <LinearGradient
       colors={["rgba(135, 125, 250, 0.9)", "rgba(180, 174, 232, 0.7)"]}
