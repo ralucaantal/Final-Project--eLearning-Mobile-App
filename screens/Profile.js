@@ -36,9 +36,9 @@ export default function Profile() {
         setDecodedJwt(decoded);
         console.log(decoded);
         setUsername(decoded.data.username);
-        setZile(decodedJwt.data.zile.toString());
-        setPuncte(decodedJwt.data.puncte.toString());
-        setVieti(decodedJwt.data.vieti.toString());
+        setZile(decoded.data.zile.toString());
+        setPuncte(decoded.data.puncte.toString());
+        setVieti(decoded.data.vieti.toString());
         console.log(zile);
       } catch (error) {
         console.log(error);
@@ -47,7 +47,19 @@ export default function Profile() {
 
     decodeJwt();
   }, []);
-  
+
+  async function removeJwtFromStorage() {
+    try {
+      await AsyncStorage.removeItem("jwt");
+      console.log("JWT a fost șters cu succes din Async Storage.");
+    } catch (error) {
+      console.log(
+        "Eroare la ștergerea JWT-ului din Async Storage: ",
+        error.message
+      );
+    }
+  }
+
   return (
     <LinearGradient
       colors={["rgba(135, 125, 250, 0.9)", "rgba(180, 174, 232, 0.7)"]}
@@ -123,7 +135,7 @@ export default function Profile() {
                 className="ml-4 text-lg font-bold"
                 style={{ color: themeColors.white, textAlign: "center" }}
               >
-                @ralucaantal
+                @<Text style={{ fontStyle: "italic" }}>{username}</Text>
               </Text>
             </View>
           </View>
@@ -244,7 +256,11 @@ export default function Profile() {
               backgroundColor: "rgba(255,255,255,0.3)",
               borderRadius: 10,
             }}
-            onPress={() => navigation.navigate("Welcome")}
+            onPress={() => {
+              navigation.navigate("Welcome");
+              removeJwtFromStorage();
+              console.log("m-am delogat");
+            }}
           >
             <XMarkIcon color={themeColors.galben} size="50" />
             <View className="flex-1 flex justify-center pl-3 space-y-3">

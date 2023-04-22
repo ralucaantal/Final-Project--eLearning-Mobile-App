@@ -90,9 +90,9 @@ export default function HomeScreen() {
         setDecodedJwt(decoded);
         console.log("decoded: ",decoded);
         setUsername(decoded.data.username);
-        setZile(decodedJwt.data.zile.toString());
-        setPuncte(decodedJwt.data.puncte.toString());
-        setVieti(decodedJwt.data.vieti.toString());
+        setZile(decoded.data.zile.toString());
+        setPuncte(decoded.data.puncte.toString());
+        setVieti(decoded.data.vieti.toString());
         console.log(zile);
       } catch (error) {
         console.log(error);
@@ -102,7 +102,7 @@ export default function HomeScreen() {
     decodeJwt();
 
   }, []);
-
+  
   return (
     <LinearGradient
       colors={["rgba(135, 125, 250, 0.9)", "rgba(180, 174, 232, 0.7)"]}

@@ -47,10 +47,9 @@ export default function Invata() {
         setDecodedJwt(decoded);
         console.log(decoded);
         setUsername(decoded.data.username);
-        setZile(decodedJwt.data.zile.toString());
-        setPuncte(decodedJwt.data.puncte.toString());
-        setVieti(decodedJwt.data.vieti.toString());
-        console.log(zile);
+        setZile(decoded.data.zile.toString());
+        setPuncte(decoded.data.puncte.toString());
+        setVieti(decoded.data.vieti.toString());
       } catch (error) {
         console.log(error);
       }
