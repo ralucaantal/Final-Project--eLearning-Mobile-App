@@ -47,7 +47,7 @@ export default function Profile() {
 
     decodeJwt();
   }, []);
-
+  
   return (
     <LinearGradient
       colors={["rgba(135, 125, 250, 0.9)", "rgba(180, 174, 232, 0.7)"]}

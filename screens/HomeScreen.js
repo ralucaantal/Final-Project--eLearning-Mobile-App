@@ -88,7 +88,7 @@ export default function HomeScreen() {
         const jwt = await AsyncStorage.getItem("jwt");
         const decoded = jwtDecode(jwt);
         setDecodedJwt(decoded);
-        console.log(decoded);
+        console.log("decoded: ",decoded);
         setUsername(decoded.data.username);
         setZile(decodedJwt.data.zile.toString());
         setPuncte(decodedJwt.data.puncte.toString());
@@ -102,8 +102,6 @@ export default function HomeScreen() {
     decodeJwt();
 
   }, []);
-
-
 
   return (
     <LinearGradient
