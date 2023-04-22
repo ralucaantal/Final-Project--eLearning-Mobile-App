@@ -39,6 +39,8 @@ const cursuriDisponibile = [
   },
 ];
 
+export let cursuriCerute, nrIntrebari;
+
 export default function Antreneaza() {
   const navigation = useNavigation();
   const [selectedCursuri, setSelectedCursuri] = useState([]);
@@ -107,22 +109,6 @@ export default function Antreneaza() {
           </Text>
         </View>
         <View className="pl-4">
-          {/* <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            style={{ marginTop: 20 }}
-          >
-            {detaliiCont.map((cat) => {
-              return (
-                <TouchableOpacity
-                  key={cat}
-                  className="bg-purple-100 p-3 px-4 rounded-full mr-2"
-                >
-                  <Text>{cat}</Text>
-                </TouchableOpacity>
-              );
-            })}
-          </ScrollView> */}
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             <TouchableOpacity className="bg-purple-100 p-3 px-4 rounded-full mr-2">
               <Text>{zile} Zile ⚡</Text>
@@ -223,6 +209,10 @@ export default function Antreneaza() {
                 style={{ width: "100%", opacity: 0.8 }}
                 onPress={() => {
                   console.log("Utilizatorul a ales cum vrea sa fie quiz-ul.");
+                  console.log("ceva", selectedCursuri);
+                  console.log(selectedValue);
+                  cursuriCerute = selectedCursuri;
+                  nrIntrebari = selectedValue;
                   navigation.navigate("QuestionT1");
                 }}
               >

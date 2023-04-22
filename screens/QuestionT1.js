@@ -7,6 +7,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { themeColors } from "../theme/index";
 import { RadioButton } from "react-native-paper";
 
+import { cursuriCerute, nrIntrebari } from "./Antreneaza";
+
 const detaliiCont = ["Zile ⚡", "Puncte 🚀", "Vieți 🤍"];
 
 const intrebarePropusa = [
@@ -27,6 +29,9 @@ export default function QuestionT1() {
   const handlePress = (value) => {
     setSelectedValue(value);
   };
+
+  console.log("cursuri cerute: ", cursuriCerute);
+  console.log("nr intrebari", nrIntrebari);
 
   return (
     <LinearGradient
