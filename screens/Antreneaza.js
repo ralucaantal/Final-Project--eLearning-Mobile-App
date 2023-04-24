@@ -109,18 +109,24 @@ export default function Antreneaza() {
           </Text>
         </View>
         <View className="pl-4">
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <TouchableOpacity className="bg-purple-100 p-3 px-4 rounded-full mr-2">
-              <Text>{zile} Zile ⚡</Text>
-            </TouchableOpacity>
-            <TouchableOpacity className="bg-purple-100 p-3 px-4 rounded-full mr-2">
-              <Text>{puncte} Puncte 🚀</Text>
-            </TouchableOpacity>
-            <TouchableOpacity className="bg-purple-100 p-3 px-4 rounded-full mr-2">
-              <Text>{vieti} Vieți 🤍</Text>
-            </TouchableOpacity>
-          </ScrollView>
-        </View>
+              <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                    <TouchableOpacity
+                      className="bg-purple-100 p-3 px-4 rounded-full mr-2"
+                    >
+                      <Text>{zile} Zile ⚡</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      className="bg-purple-100 p-3 px-4 rounded-full mr-2"
+                    >
+                      <Text>{puncte} Puncte 🚀</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      className="bg-purple-100 p-3 px-4 rounded-full mr-2"
+                    >
+                      <Text>{vieti} Vieți 🤍</Text>
+                    </TouchableOpacity>
+              </ScrollView>
+            </View>
         <ScrollView
           style={{ height: "100%", marginTop: 20 }}
           showsVerticalScrollIndicator={false}

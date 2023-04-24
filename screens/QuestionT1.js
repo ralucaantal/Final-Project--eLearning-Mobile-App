@@ -1,11 +1,13 @@
 import { View, Text, ScrollView, TouchableOpacity, Image } from "react-native";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import { ArrowLeftIcon, LightBulbIcon } from "react-native-heroicons/solid";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { themeColors } from "../theme/index";
 import { RadioButton } from "react-native-paper";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import jwtDecode from "jwt-decode";
 
 import { cursuriCerute, nrIntrebari } from "./Antreneaza";
 
@@ -19,6 +21,7 @@ const intrebarePropusa = [
     varianta1: "Varianta 1 de răspuns",
     varianta2: "Varianta 2 de răspuns",
     varianta3: "Varianta 3 de răspuns",
+    varianta4: "Varianta 4 de răspuns",
   },
 ];
 
@@ -32,6 +35,32 @@ export default function QuestionT1() {
 
   console.log("cursuri cerute: ", cursuriCerute);
   console.log("nr intrebari", nrIntrebari);
+
+  const [decodedJwt, setDecodedJwt] = useState(null);
+  const [username, setUsername] = useState(null);
+  const [zile, setZile] = useState(null);
+  const [puncte, setPuncte] = useState(null);
+  const [vieti, setVieti] = useState(null);
+
+  useEffect(() => {
+    const decodeJwt = async () => {
+      try {
+        const jwt = await AsyncStorage.getItem("jwt");
+        const decoded = jwtDecode(jwt);
+        setDecodedJwt(decoded);
+        console.log("decoded: ", decoded);
+        setUsername(decoded.data.username);
+        setZile(decoded.data.zile.toString());
+        setPuncte(decoded.data.puncte.toString());
+        setVieti(decoded.data.vieti.toString());
+        console.log(zile);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    decodeJwt();
+  }, []);
 
   return (
     <LinearGradient
@@ -62,20 +91,20 @@ export default function QuestionT1() {
               CodeCampus
             </Text>
           </View>
-          <View className="pl-4" style={{ alignItems: "flex-start" }}>
+          <View className="pl-4">
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              {detaliiCont.map((cat) => {
-                return (
-                  <TouchableOpacity
-                    key={cat}
-                    className="bg-purple-100 p-3 px-4 rounded-full mr-2"
-                  >
-                    <Text>{cat}</Text>
-                  </TouchableOpacity>
-                );
-              })}
+              <TouchableOpacity className="bg-purple-100 p-3 px-4 rounded-full mr-2">
+                <Text>{zile} Zile ⚡</Text>
+              </TouchableOpacity>
+              <TouchableOpacity className="bg-purple-100 p-3 px-4 rounded-full mr-2">
+                <Text>{puncte} Puncte 🚀</Text>
+              </TouchableOpacity>
+              <TouchableOpacity className="bg-purple-100 p-3 px-4 rounded-full mr-2">
+                <Text>{vieti} Vieți 🤍</Text>
+              </TouchableOpacity>
             </ScrollView>
           </View>
+          <View className="pl-4" style={{ alignItems: "flex-start" }}></View>
           <Text
             style={{ color: themeColors.white }}
             className="ml-4 text-3xl font-bold"
@@ -172,6 +201,22 @@ export default function QuestionT1() {
                   />
                   <Text style={{ color: "white", marginLeft: 10 }}>
                     {intrebarePropusa[0].varianta3}
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => handlePress("varianta4")}
+                  style={{ flexDirection: "row", alignItems: "center" }}
+                >
+                  <RadioButton
+                    value="varianta3"
+                    status={
+                      selectedValue === "varianta4" ? "checked" : "unchecked"
+                    }
+                    onPress={() => handlePress("varianta4")}
+                    color={themeColors.galben}
+                  />
+                  <Text style={{ color: "white", marginLeft: 10 }}>
+                    {intrebarePropusa[0].varianta4}
                   </Text>
                 </TouchableOpacity>
               </View>

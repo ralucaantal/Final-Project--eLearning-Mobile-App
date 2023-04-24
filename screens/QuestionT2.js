@@ -7,7 +7,7 @@ import {
   KeyboardAvoidingView,
   TextInput,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState,useEffect} from "react";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import {
@@ -17,6 +17,8 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { themeColors } from "../theme/index";
 import { RadioButton } from "react-native-paper";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import jwtDecode from "jwt-decode";
 
 const detaliiCont = ["Zile ⚡", "Puncte 🚀", "Vieți 🤍"];
 
@@ -30,6 +32,32 @@ const intrebarePropusa = [
 
 export default function QuestionT2() {
   const navigation = useNavigation();
+
+  const [decodedJwt, setDecodedJwt] = useState(null);
+  const [username, setUsername] = useState(null);
+  const [zile, setZile] = useState(null);
+  const [puncte, setPuncte] = useState(null);
+  const [vieti, setVieti] = useState(null);
+
+  useEffect(() => {
+    const decodeJwt = async () => {
+      try {
+        const jwt = await AsyncStorage.getItem("jwt");
+        const decoded = jwtDecode(jwt);
+        setDecodedJwt(decoded);
+        console.log("decoded: ", decoded);
+        setUsername(decoded.data.username);
+        setZile(decoded.data.zile.toString());
+        setPuncte(decoded.data.puncte.toString());
+        setVieti(decoded.data.vieti.toString());
+        console.log(zile);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    decodeJwt();
+  }, []);
 
   return (
     <KeyboardAvoidingView
@@ -65,18 +93,17 @@ export default function QuestionT2() {
                 CodeCampus
               </Text>
             </View>
-            <View className="pl-4" style={{ alignItems: "flex-start" }}>
+            <View className="pl-4">
               <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                {detaliiCont.map((cat) => {
-                  return (
-                    <TouchableOpacity
-                      key={cat}
-                      className="bg-purple-100 p-3 px-4 rounded-full mr-2"
-                    >
-                      <Text>{cat}</Text>
-                    </TouchableOpacity>
-                  );
-                })}
+                <TouchableOpacity className="bg-purple-100 p-3 px-4 rounded-full mr-2">
+                  <Text>{zile} Zile ⚡</Text>
+                </TouchableOpacity>
+                <TouchableOpacity className="bg-purple-100 p-3 px-4 rounded-full mr-2">
+                  <Text>{puncte} Puncte 🚀</Text>
+                </TouchableOpacity>
+                <TouchableOpacity className="bg-purple-100 p-3 px-4 rounded-full mr-2">
+                  <Text>{vieti} Vieți 🤍</Text>
+                </TouchableOpacity>
               </ScrollView>
             </View>
             <Text
