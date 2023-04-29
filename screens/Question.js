@@ -38,23 +38,12 @@ const intrebarePropusa = [
   },
 ];
 
-export default function QuestionT1({ route }) {
+export default function Question({ route }) {
   const navigation = useNavigation();
   const [selectedValue, setSelectedValue] = useState(null);
 
   const [nrIntrebari, setNrIntrebari] = useState(0);
   const [materiiCerute, setMateriiCerute] = useState(null);
-
-  // const {nrIntrebari}=route.nrIntrebari;
-
-  // console.log("route.params: ",route.params.cursuriCerute)
-  // const{materii}=route=curs
-
-  // setNrIntrebari(route.params.nrIntrebari);
-  // setMateriiCerute(route.params.cursuriCerute);
-
-  // console.log("nr intrebari: ", nrIntrebari)
-  // console.log("materii cerute: ",materiiCerute);
 
   const handlePress = (value) => {
     setSelectedValue(value);
@@ -399,7 +388,7 @@ export default function QuestionT1({ route }) {
                               }}
                               onPress={() => {
                                 console.log("ne ducem la urmatoarea intrebare");
-                                navigation.navigate("QuestionT2");
+                                navigation.navigate("FinalQuiz");
                               }}
                             >
                               <Text className="font-xl font-bold text-center text-gray-700">
