@@ -22,22 +22,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import jwtDecode from "jwt-decode";
 import IPv4 from "../index";
 
-// import { cursuriCerute, nrIntrebari } from "./Antreneaza";
-
-const detaliiCont = ["Zile ⚡", "Puncte 🚀", "Vieți 🤍"];
-
-const intrebarePropusa = [
-  {
-    id: 1,
-    textIntrebare:
-      "Textul pentru întrebarea cu numărul 1 este acesta. Care este răspunsul corect?",
-    varianta1: "Varianta 1 de răspuns",
-    varianta2: "Varianta 2 de răspuns",
-    varianta3: "Varianta 3 de răspuns",
-    varianta4: "Varianta 4 de răspuns",
-  },
-];
-
 export default function Question({ route }) {
   const navigation = useNavigation();
   const [selectedValue, setSelectedValue] = useState(null);
@@ -45,12 +29,11 @@ export default function Question({ route }) {
   const [nrIntrebari, setNrIntrebari] = useState(0);
   const [materiiCerute, setMateriiCerute] = useState(null);
 
+  const [indexIntrebareCurenta,setIndexIntrebareCurenta]=useState(0);
+
   const handlePress = (value) => {
     setSelectedValue(value);
   };
-
-  // console.log("cursuri cerute: ", navigation.cursuri);
-  // console.log("nr intrebari", nrIntrebari);
 
   const [decodedJwt, setDecodedJwt] = useState(null);
   const [username, setUsername] = useState(null);
@@ -164,7 +147,7 @@ export default function Question({ route }) {
           </View>
           {intrebariBD && (
             <ScrollView style={{ marginBottom: 200 }}>
-              {intrebariBD.map((intrebare) => (
+              {intrebariBD.map((intrebare,index) => (
                 <View key={intrebare.id}>
                   <View>
                     <View style={{marginTop:15}}>
