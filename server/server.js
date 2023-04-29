@@ -42,7 +42,7 @@ app.post("/decodeJWT", (req, res) => {
         id: decoded.data.id,
         username: decoded.data.user_name,
         password: decoded.data.password,
-        email: decoded.data.email
+        email: decoded.data.email,
       });
     }
   });
@@ -55,7 +55,10 @@ app.post("/login", (req, res) => {
   console.log(req.body.email, req.body.password);
   //verific daca exista utilizatorul in baza de date
   pgClient
-    .query("select id,email,user_name, password,zile,puncte,vieti from users where email=$1;", [email])
+    .query(
+      "select id,email,user_name, password,zile,puncte,vieti from users where email=$1;",
+      [email]
+    )
     .then((res) => res.rows)
     .then((data) => {
       console.log("sunt in fetch de la baza de date");
@@ -74,10 +77,10 @@ app.post("/login", (req, res) => {
                 id: data[0].id,
                 username: data[0].user_name,
                 password: data[0].password,
-                email:data[0].email,
+                email: data[0].email,
                 zile: data[0].zile,
                 puncte: data[0].puncte,
-                vieti: data[0].vieti
+                vieti: data[0].vieti,
               },
             },
             serverSecret,
@@ -137,6 +140,53 @@ app.post("/register", (req, res) => {
         console.log("utilizatorul exista");
         res.send({ message: "Acesta adresa de email este inregistrata!" });
       }
+    });
+});
+
+app.post("/trainingQuiz", (req, res) => {
+  console.log("req= ", req.body);
+
+  // console.log(req.body.nrIntrebari);
+  // console.log(req.body.materiiCerute[0]);
+
+  console.log(
+    req.body.materiiCerute.includes("Bazele Programării Calculatoarelor")
+  );
+
+  let materii = "";
+
+  if (req.body.materiiCerute.includes("Bazele Programării Calculatoarelor")) {
+    materii += "'BPC'";
+  }
+  if (req.body.materiiCerute.includes("Programare Orietată Obiect (POO)")) {
+    if (materii != "") {
+      materii += ", ";
+    }
+    materii += "'POO'";
+  }
+  if (req.body.materiiCerute.includes("Baze De Date")) {
+    if (materii != "") {
+      materii += ", ";
+    }
+    materii += "'BD'";
+  }
+
+  console.log(materii);
+  qry =
+    "select * from intrebari where materie in (" +
+    materii +
+    ") LIMIT " +
+    req.body.nrIntrebari +
+    ";";
+
+  console.log(qry);
+  pgClient
+    .query(qry)
+    .then((res) => res.rows)
+    .then((data) => {
+      console.log("sunt in fetch de la baza de date");
+      console.log(data);
+      res.send(data);
     });
 });
 

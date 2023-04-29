@@ -1,5 +1,5 @@
 import { View, Text, ScrollView, TouchableOpacity, Image } from "react-native";
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import { ArrowLeftIcon, LightBulbIcon } from "react-native-heroicons/solid";
@@ -8,8 +8,9 @@ import { themeColors } from "../theme/index";
 import { RadioButton } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import jwtDecode from "jwt-decode";
+import IPv4 from "../index";
 
-import { cursuriCerute, nrIntrebari } from "./Antreneaza";
+// import { cursuriCerute, nrIntrebari } from "./Antreneaza";
 
 const detaliiCont = ["Zile ⚡", "Puncte 🚀", "Vieți 🤍"];
 
@@ -25,22 +26,43 @@ const intrebarePropusa = [
   },
 ];
 
-export default function QuestionT1() {
+export default function QuestionT1({ route }) {
   const navigation = useNavigation();
   const [selectedValue, setSelectedValue] = useState(null);
+
+  const [nrIntrebari, setNrIntrebari] = useState(0);
+  const [materiiCerute, setMateriiCerute] = useState(null);
+
+  // const {nrIntrebari}=route.nrIntrebari;
+
+  // console.log("route.params: ",route.params.cursuriCerute)
+  // const{materii}=route=curs
+
+  // setNrIntrebari(route.params.nrIntrebari);
+  // setMateriiCerute(route.params.cursuriCerute);
+
+  // console.log("nr intrebari: ", nrIntrebari)
+  // console.log("materii cerute: ",materiiCerute);
 
   const handlePress = (value) => {
     setSelectedValue(value);
   };
 
-  console.log("cursuri cerute: ", cursuriCerute);
-  console.log("nr intrebari", nrIntrebari);
+  // console.log("cursuri cerute: ", navigation.cursuri);
+  // console.log("nr intrebari", nrIntrebari);
 
   const [decodedJwt, setDecodedJwt] = useState(null);
   const [username, setUsername] = useState(null);
   const [zile, setZile] = useState(null);
   const [puncte, setPuncte] = useState(null);
   const [vieti, setVieti] = useState(null);
+
+  const [intrebari, setIntrebari] = useState(null);
+
+  const [quizData, setQuizData] = useState({
+    nrIntrebari: route.params.nrIntrebari,
+    materiiCerute: route.params.cursuriCerute,
+  });
 
   useEffect(() => {
     const decodeJwt = async () => {
@@ -53,7 +75,32 @@ export default function QuestionT1() {
         setZile(decoded.data.zile.toString());
         setPuncte(decoded.data.puncte.toString());
         setVieti(decoded.data.vieti.toString());
-        console.log(zile);
+
+        setNrIntrebari(route.params.nrIntrebari);
+        setMateriiCerute(route.params.cursuriCerute);
+        // console.log("cursuri cerute: ", route.params.cursuriCerute);
+        // console.log("nr intrebari", route.params.nrIntrebari);
+
+        console.log(quizData);
+
+        const requestOptions = {
+          method: "POST",
+          body: JSON.stringify(quizData),
+          headers: { "Content-Type": "application/json" },
+        };
+
+        console.log(requestOptions);
+        let input = IPv4 + ":5000/trainingQuiz";
+
+        console.log(requestOptions);
+
+        fetch(input, requestOptions)
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("data: ", data);
+
+            setIntrebari(data);
+          });
       } catch (error) {
         console.log(error);
       }

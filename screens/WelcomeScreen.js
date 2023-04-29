@@ -6,7 +6,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 
-export default function HomeScreen() {
+export default function WelcomeScreen() {
   const navigation = useNavigation();
   return (
     <LinearGradient

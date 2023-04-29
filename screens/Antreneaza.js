@@ -41,8 +41,8 @@ const cursuriDisponibile = [
 
 export let cursuriCerute, nrIntrebari;
 
-export default function Antreneaza() {
-  const navigation = useNavigation();
+export default function Antreneaza({navigation}) {
+  // const navigation = useNavigation();
   const [selectedCursuri, setSelectedCursuri] = useState([]);
   const [selectedValue, setSelectedValue] = useState("10");
 
@@ -219,7 +219,7 @@ export default function Antreneaza() {
                   console.log(selectedValue);
                   cursuriCerute = selectedCursuri;
                   nrIntrebari = selectedValue;
-                  navigation.navigate("QuestionT1");
+                  navigation.navigate("QuestionT1",{cursuriCerute: cursuriCerute, nrIntrebari:nrIntrebari});
                 }}
               >
                 <Text className="font-xl font-bold text-center text-gray-700">

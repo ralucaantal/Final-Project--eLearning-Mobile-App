@@ -7,7 +7,7 @@ import {
   TextInput,
   KeyboardAvoidingView,
 } from "react-native";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import { ArrowLeftIcon } from "react-native-heroicons/solid";
@@ -15,14 +15,40 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { themeColors } from "../theme/index";
 import FeatherIcon from "react-native-vector-icons/Feather";
 
-const User = {
-  username: "ralucaantal",
-  email: "ralucaantal@gmail.com",
-  nrTelefon: "0754945735",
-};
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import jwtDecode from "jwt-decode";
 
 export default function SetariProfil() {
   const navigation = useNavigation();
+
+  const [decodedJwt, setDecodedJwt] = useState(null);
+  const [username, setUsername] = useState(null);
+  const [zile, setZile] = useState(null);
+  const [email, setEmail] = useState(null);
+  const [puncte, setPuncte] = useState(null);
+  const [vieti, setVieti] = useState(null);
+
+  useEffect(() => {
+    const decodeJwt = async () => {
+      try {
+        const jwt = await AsyncStorage.getItem("jwt");
+        const decoded = jwtDecode(jwt);
+        setDecodedJwt(decoded);
+        console.log("decoded: ", decoded);
+        setUsername(decoded.data.username);
+        setZile(decoded.data.zile.toString());
+        setPuncte(decoded.data.puncte.toString());
+        setVieti(decoded.data.vieti.toString());
+        setEmail(decoded.data.email);
+        console.log(zile);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    decodeJwt();
+  }, []);
+
   return (
     <KeyboardAvoidingView
       enabled={true}
@@ -117,12 +143,9 @@ export default function SetariProfil() {
               <View className="mt-3 space-y-4" style={{ alignItems: "center" }}>
                 <Text
                   className="ml-4 text-lg font-bold"
-                  style={{
-                    color: themeColors.white,
-                    textAlign: "center",
-                  }}
+                  style={{ color: themeColors.white, textAlign: "center" }}
                 >
-                  @ralucaantal
+                  @<Text style={{ fontStyle: "italic" }}>{username}</Text>
                 </Text>
               </View>
             </View>
@@ -145,7 +168,7 @@ export default function SetariProfil() {
                 <Text className="text-white ml-4">Username</Text>
                 <TextInput
                   className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
-                  placeholder={`@${User.username}`}
+                  placeholder={`@${username}`}
                   style={{ width: "100%", opacity: 0.5 }}
                 />
                 <TouchableOpacity
@@ -163,7 +186,7 @@ export default function SetariProfil() {
                 <Text className="text-white ml-4">Adresă De Email</Text>
                 <TextInput
                   className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
-                  placeholder={User.email}
+                  placeholder={email}
                   style={{ width: "100%", opacity: 0.5 }}
                 />
                 <TouchableOpacity
@@ -196,7 +219,7 @@ export default function SetariProfil() {
                   placeholder="* * * * * * * * * *"
                   style={{ width: "100%", opacity: 0.5 }}
                 />
-                                <TouchableOpacity
+                <TouchableOpacity
                   className="py-3 bg-yellow-400 rounded-xl"
                   style={{ width: "100%", opacity: 0.8 }}
                   onPress={() => {
