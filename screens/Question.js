@@ -274,93 +274,131 @@ export default function Question({ route }) {
 
                                 <View style={{ marginTop: 10 }}>
                                   <TouchableOpacity
-                                    onPress={() => handlePress("varianta1")}
+                                    onPress={() =>
+                                      handlePress(intrebare.varianta1)
+                                    }
                                     style={{
                                       flexDirection: "row",
                                       alignItems: "center",
+                                      marginBottom: 20,
                                     }}
                                   >
                                     <RadioButton
-                                      value="varianta1"
+                                      value={intrebare.varianta1}
                                       status={
-                                        selectedValue === "varianta1"
+                                        selectedValue === intrebare.varianta1
                                           ? "checked"
                                           : "unchecked"
                                       }
-                                      onPress={() => handlePress("varianta1")}
+                                      onPress={() =>
+                                        handlePress(intrebare.varianta1)
+                                      }
                                       color={themeColors.galben}
                                     />
                                     <Text
-                                      style={{ color: "white", marginLeft: 10 }}
+                                      style={{
+                                        color: "white",
+                                        marginLeft: 10,
+                                        flexWrap: "wrap",
+                                        maxWidth: "80%",
+                                      }}
                                     >
                                       {intrebare.varianta1}
                                     </Text>
                                   </TouchableOpacity>
                                   <TouchableOpacity
-                                    onPress={() => handlePress("varianta2")}
+                                    onPress={() =>
+                                      handlePress(intrebare.varianta2)
+                                    }
                                     style={{
                                       flexDirection: "row",
                                       alignItems: "center",
+                                      marginBottom: 20,
                                     }}
                                   >
                                     <RadioButton
-                                      value="varianta2"
+                                      value={intrebare.varianta2}
                                       status={
-                                        selectedValue === "varianta2"
+                                        selectedValue === intrebare.varianta2
                                           ? "checked"
                                           : "unchecked"
                                       }
-                                      onPress={() => handlePress("varianta2")}
+                                      onPress={() =>
+                                        handlePress(intrebare.varianta2)
+                                      }
                                       color={themeColors.galben}
                                     />
                                     <Text
-                                      style={{ color: "white", marginLeft: 10 }}
+                                      style={{
+                                        color: "white",
+                                        marginLeft: 10,
+                                        flexWrap: "wrap",
+                                        maxWidth: "80%",
+                                      }}
                                     >
                                       {intrebare.varianta2}
                                     </Text>
                                   </TouchableOpacity>
                                   <TouchableOpacity
-                                    onPress={() => handlePress("varianta3")}
+                                    onPress={() => handlePress(intrebare.varianta3)}
                                     style={{
                                       flexDirection: "row",
                                       alignItems: "center",
+                                      marginBottom: 20,
                                     }}
                                   >
                                     <RadioButton
-                                      value="varianta3"
+                                      value={intrebare.varianta3}
                                       status={
-                                        selectedValue === "varianta3"
+                                        selectedValue === intrebare.varianta3
                                           ? "checked"
                                           : "unchecked"
                                       }
-                                      onPress={() => handlePress("varianta3")}
+                                      onPress={() =>
+                                        handlePress(intrebare.varianta3)
+                                      }
                                       color={themeColors.galben}
                                     />
                                     <Text
-                                      style={{ color: "white", marginLeft: 10 }}
+                                      style={{
+                                        color: "white",
+                                        marginLeft: 10,
+                                        flexWrap: "wrap",
+                                        maxWidth: "80%",
+                                      }}
                                     >
                                       {intrebare.varianta3}
                                     </Text>
                                   </TouchableOpacity>
                                   <TouchableOpacity
-                                    onPress={() => handlePress("varianta4")}
+                                    onPress={() =>
+                                      handlePress(intrebare.varianta4)
+                                    }
                                     style={{
                                       flexDirection: "row",
                                       alignItems: "center",
+                                      marginBottom: 20,
                                     }}
                                   >
                                     <RadioButton
-                                      value="varianta3"
+                                      value={intrebare.varianta4}
                                       status={
-                                        selectedValue === "varianta4"
+                                        selectedValue === intrebare.varianta4
                                           ? "checked"
                                           : "unchecked"
                                       }
-                                      onPress={() => handlePress("varianta4")}
+                                      onPress={() =>
+                                        handlePress(intrebare.varianta4)
+                                      }
                                       color={themeColors.galben}
                                     />
                                     <Text
-                                      style={{ color: "white", marginLeft: 10 }}
+                                      style={{
+                                        color: "white",
+                                        marginLeft: 10,
+                                        flexWrap: "wrap",
+                                        maxWidth: "80%",
+                                      }}
                                     >
                                       {intrebare.varianta4}
                                     </Text>
@@ -389,9 +427,12 @@ export default function Question({ route }) {
                                     );
                                     if (
                                       indexIntrebareCurenta ===
-                                      quizData.nrIntrebari - 1 || intrebariBD[indexIntrebareCurenta]==null
+                                        quizData.nrIntrebari - 1 ||
+                                      intrebariBD[indexIntrebareCurenta] == null
                                     )
-                                      navigation.navigate("FinalQuiz",{punctajCastigat: punctajCastigat});
+                                      navigation.navigate("FinalQuiz", {
+                                        punctajCastigat: punctajCastigat,
+                                      });
                                   }}
                                 >
                                   <Text className="font-xl font-bold text-center text-gray-700">
