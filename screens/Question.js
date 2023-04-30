@@ -214,7 +214,7 @@ export default function Question({ route }) {
                                 className="form space-y-2"
                                 style={{ width: "100%" }}
                               >
-                                <Text className="text-white ml-4">
+                                <Text className="text-white ml-4 text-xl font-bold">
                                   Scrie rezolvarea:{" "}
                                 </Text>
 
@@ -268,7 +268,7 @@ export default function Question({ route }) {
                                 className="form space-y-2"
                                 style={{ width: "100%" }}
                               >
-                                <Text className="text-white ml-4">
+                                <Text className="text-white ml-4 text-xl font-bold">
                                   Alege răspunsul corect:{" "}
                                 </Text>
 
@@ -340,7 +340,9 @@ export default function Question({ route }) {
                                     </Text>
                                   </TouchableOpacity>
                                   <TouchableOpacity
-                                    onPress={() => handlePress(intrebare.varianta3)}
+                                    onPress={() =>
+                                      handlePress(intrebare.varianta3)
+                                    }
                                     style={{
                                       flexDirection: "row",
                                       alignItems: "center",
@@ -426,13 +428,14 @@ export default function Question({ route }) {
                                       "ne ducem la urmatoarea intrebare"
                                     );
                                     if (
-                                      indexIntrebareCurenta ===
-                                        quizData.nrIntrebari - 1 ||
-                                      intrebariBD[indexIntrebareCurenta] == null
-                                    )
+                                      indexIntrebareCurenta + 1 ==
+                                      quizData.nrIntrebari
+                                    ) {
+                                      console.log(intrebariBD.length);
                                       navigation.navigate("FinalQuiz", {
                                         punctajCastigat: punctajCastigat,
                                       });
+                                    }
                                   }}
                                 >
                                   <Text className="font-xl font-bold text-center text-gray-700">

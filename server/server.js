@@ -185,9 +185,17 @@ app.post("/trainingQuiz", (req, res) => {
     .then((res) => res.rows)
     .then((data) => {
       console.log("sunt in fetch de la baza de date");
-      console.log(data);
+      // console.log(data);
       res.send(data);
     });
+});
+
+app.post("/adaugarePunctajQuizIndividual", (req, res) => {
+  console.log("ai facut post cu datele: ", req.body);
+
+  let punctajDeAdaugat=req.body.punctajCastigat;
+
+  console.log("punctaj de adaugat: ",puncteCastigate)
 });
 
 app.listen(5000, () => {
