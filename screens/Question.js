@@ -29,7 +29,9 @@ export default function Question({ route }) {
   const [nrIntrebari, setNrIntrebari] = useState(0);
   const [materiiCerute, setMateriiCerute] = useState(null);
 
-  const [indexIntrebareCurenta,setIndexIntrebareCurenta]=useState(0);
+  const [indexIntrebareCurenta, setIndexIntrebareCurenta] = useState(0);
+
+  const [punctajCastigat, setPunctajCatigat] = useState(0);
 
   const handlePress = (value) => {
     setSelectedValue(value);
@@ -48,7 +50,7 @@ export default function Question({ route }) {
     materiiCerute: route.params.cursuriCerute,
   });
 
-  let counter = 0;
+  // let counter = 0;
 
   useEffect(() => {
     const decodeJwt = async () => {
@@ -131,7 +133,7 @@ export default function Question({ route }) {
                 CodeCampus
               </Text>
             </View>
-            <View className="pl-4" style={{marginBottom:10}}>
+            <View className="pl-4" style={{ marginBottom: 10 }}>
               <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                 <TouchableOpacity className="bg-purple-100 p-3 px-4 rounded-full mr-2">
                   <Text>{zile} Zile ⚡</Text>
@@ -147,244 +149,263 @@ export default function Question({ route }) {
           </View>
           {intrebariBD && (
             <ScrollView style={{ marginBottom: 200 }}>
-              {intrebariBD.map((intrebare,index) => (
-                <View key={intrebare.id}>
-                  <View>
-                    <View style={{marginTop:15}}>
-                      <Text
-                        style={{ color: themeColors.white  }}
-                        className="ml-4 text-3xl font-bold"
-                      >
-                        Întrebarea numărul {++counter} 🤔
-                      </Text>
-                    </View>
-                    <View
-                      className="mx-4 p-2 mb-2 flex-row"
-                      style={{
-                        backgroundColor: "rgba(255, 255, 255, 0.3)",
-                        // backgroundColor: "rgba(180, 174, 232, 0.5)",
-                        borderRadius: 10,
-                        marginTop: 10,
-                        display: "flex",
-                        flexDirection: "row",
-                      }}
-                    >
-                      {intrebare.tip_intrebare === "GRILA" && (
-                        <LightBulbIcon
-                          color={themeColors.galben}
-                          size="50"
-                          style={{ opacity: 0.7 }}
-                        />
-                      )}
-                      {intrebare.tip_intrebare === "TEXT" && (
-                        <ChatBubbleLeftIcon
-                          color={themeColors.galben}
-                          size="50"
-                          style={{ opacity: 0.7 }}
-                        />
-                      )}
-                      <View className="flex-1 flex justify-center pl-3 space-y-3">
-                        <Text
-                          style={{ color: themeColors.white, fontSize: 20 }}
-                          className="font-semibold"
+              {intrebariBD.map(
+                (intrebare, index) =>
+                  index === indexIntrebareCurenta && (
+                    <View key={intrebare.id}>
+                      <View>
+                        <View style={{ marginTop: 15 }}>
+                          <Text
+                            style={{ color: themeColors.white }}
+                            className="ml-4 text-3xl font-bold"
+                          >
+                            Întrebarea numărul {indexIntrebareCurenta + 1} 🤔
+                          </Text>
+                        </View>
+                        <View
+                          className="mx-4 p-2 mb-2 flex-row"
+                          style={{
+                            backgroundColor: "rgba(255, 255, 255, 0.3)",
+                            // backgroundColor: "rgba(180, 174, 232, 0.5)",
+                            borderRadius: 10,
+                            marginTop: 10,
+                            display: "flex",
+                            flexDirection: "row",
+                          }}
                         >
-                          {intrebare.text_intrebare}
-                        </Text>
+                          {intrebare.tip_intrebare === "GRILA" && (
+                            <LightBulbIcon
+                              color={themeColors.galben}
+                              size="50"
+                              style={{ opacity: 0.7 }}
+                            />
+                          )}
+                          {intrebare.tip_intrebare === "TEXT" && (
+                            <ChatBubbleLeftIcon
+                              color={themeColors.galben}
+                              size="50"
+                              style={{ opacity: 0.7 }}
+                            />
+                          )}
+                          <View className="flex-1 flex justify-center pl-3 space-y-3">
+                            <Text
+                              style={{ color: themeColors.white, fontSize: 20 }}
+                              className="font-semibold"
+                            >
+                              {intrebare.text_intrebare}
+                            </Text>
+                          </View>
+                        </View>
+                        {intrebare.tip_intrebare == "TEXT" && (
+                          <ScrollView
+                            style={{ marginTop: 20 }}
+                            showsVerticalScrollIndicator={false}
+                          >
+                            <View
+                              className="mx-4 p-2 mb-2 flex-row"
+                              style={{
+                                backgroundColor: "rgba(255, 255, 255, 0.2)",
+                                borderRadius: 10,
+                                display: "flex",
+                                flexDirection: "row",
+                              }}
+                            >
+                              <ScrollView
+                                className="form space-y-2"
+                                style={{ width: "100%" }}
+                              >
+                                <Text className="text-white ml-4">
+                                  Scrie rezolvarea:{" "}
+                                </Text>
+
+                                <TextInput
+                                  className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
+                                  placeholder="Rezolvarea ta aici"
+                                  style={{
+                                    width: "100%",
+                                    opacity: 0.5,
+                                    height: 100,
+                                  }}
+                                />
+
+                                <TouchableOpacity
+                                  className="py-3 bg-yellow-400 rounded-xl"
+                                  style={{
+                                    width: "30%",
+                                    opacity: 0.8,
+                                    alignSelf: "flex-end",
+                                  }}
+                                  onPress={() => {
+                                    console.log(
+                                      "Redirectionez spre final quiz"
+                                    );
+                                    navigation.navigate("FinalQuiz");
+                                  }}
+                                >
+                                  <Text className="font-xl font-bold text-center text-gray-700">
+                                    Next
+                                  </Text>
+                                </TouchableOpacity>
+                              </ScrollView>
+                            </View>
+                          </ScrollView>
+                        )}
+                        {intrebare.tip_intrebare == "GRILA" && (
+                          <ScrollView
+                            style={{ marginTop: 20 }}
+                            showsVerticalScrollIndicator={false}
+                          >
+                            <View
+                              className="mx-4 p-2 mb-2 flex-row"
+                              style={{
+                                backgroundColor: "rgba(255, 255, 255, 0.2)",
+                                borderRadius: 10,
+                                display: "flex",
+                                flexDirection: "row",
+                              }}
+                            >
+                              <ScrollView
+                                className="form space-y-2"
+                                style={{ width: "100%" }}
+                              >
+                                <Text className="text-white ml-4">
+                                  Alege răspunsul corect:{" "}
+                                </Text>
+
+                                <View style={{ marginTop: 10 }}>
+                                  <TouchableOpacity
+                                    onPress={() => handlePress("varianta1")}
+                                    style={{
+                                      flexDirection: "row",
+                                      alignItems: "center",
+                                    }}
+                                  >
+                                    <RadioButton
+                                      value="varianta1"
+                                      status={
+                                        selectedValue === "varianta1"
+                                          ? "checked"
+                                          : "unchecked"
+                                      }
+                                      onPress={() => handlePress("varianta1")}
+                                      color={themeColors.galben}
+                                    />
+                                    <Text
+                                      style={{ color: "white", marginLeft: 10 }}
+                                    >
+                                      {intrebare.varianta1}
+                                    </Text>
+                                  </TouchableOpacity>
+                                  <TouchableOpacity
+                                    onPress={() => handlePress("varianta2")}
+                                    style={{
+                                      flexDirection: "row",
+                                      alignItems: "center",
+                                    }}
+                                  >
+                                    <RadioButton
+                                      value="varianta2"
+                                      status={
+                                        selectedValue === "varianta2"
+                                          ? "checked"
+                                          : "unchecked"
+                                      }
+                                      onPress={() => handlePress("varianta2")}
+                                      color={themeColors.galben}
+                                    />
+                                    <Text
+                                      style={{ color: "white", marginLeft: 10 }}
+                                    >
+                                      {intrebare.varianta2}
+                                    </Text>
+                                  </TouchableOpacity>
+                                  <TouchableOpacity
+                                    onPress={() => handlePress("varianta3")}
+                                    style={{
+                                      flexDirection: "row",
+                                      alignItems: "center",
+                                    }}
+                                  >
+                                    <RadioButton
+                                      value="varianta3"
+                                      status={
+                                        selectedValue === "varianta3"
+                                          ? "checked"
+                                          : "unchecked"
+                                      }
+                                      onPress={() => handlePress("varianta3")}
+                                      color={themeColors.galben}
+                                    />
+                                    <Text
+                                      style={{ color: "white", marginLeft: 10 }}
+                                    >
+                                      {intrebare.varianta3}
+                                    </Text>
+                                  </TouchableOpacity>
+                                  <TouchableOpacity
+                                    onPress={() => handlePress("varianta4")}
+                                    style={{
+                                      flexDirection: "row",
+                                      alignItems: "center",
+                                    }}
+                                  >
+                                    <RadioButton
+                                      value="varianta3"
+                                      status={
+                                        selectedValue === "varianta4"
+                                          ? "checked"
+                                          : "unchecked"
+                                      }
+                                      onPress={() => handlePress("varianta4")}
+                                      color={themeColors.galben}
+                                    />
+                                    <Text
+                                      style={{ color: "white", marginLeft: 10 }}
+                                    >
+                                      {intrebare.varianta4}
+                                    </Text>
+                                  </TouchableOpacity>
+                                </View>
+                                <TouchableOpacity
+                                  className="py-3 bg-yellow-400 rounded-xl"
+                                  style={{
+                                    width: "30%",
+                                    opacity: 0.8,
+                                    alignSelf: "flex-end",
+                                  }}
+                                  onPress={() => {
+                                    if (
+                                      selectedValue === intrebare.raspuns_corect
+                                    ) {
+                                      setPunctajCatigat(punctajCastigat + 50);
+                                    }
+
+                                    setIndexIntrebareCurenta(
+                                      indexIntrebareCurenta + 1
+                                    );
+                                    // counter++;
+                                    console.log(
+                                      "ne ducem la urmatoarea intrebare"
+                                    );
+                                    if (
+                                      indexIntrebareCurenta ===
+                                      quizData.nrIntrebari - 1 || intrebariBD[indexIntrebareCurenta]==null
+                                    )
+                                      navigation.navigate("FinalQuiz",{punctajCastigat: punctajCastigat});
+                                  }}
+                                >
+                                  <Text className="font-xl font-bold text-center text-gray-700">
+                                    Next
+                                  </Text>
+                                </TouchableOpacity>
+                              </ScrollView>
+                            </View>
+                          </ScrollView>
+                        )}
                       </View>
                     </View>
-                    {intrebare.tip_intrebare == "TEXT" && (
-                      <ScrollView
-                        style={{  marginTop: 20 }}
-                        showsVerticalScrollIndicator={false}
-
-                      >
-                        <View
-                          className="mx-4 p-2 mb-2 flex-row"
-                          style={{
-                            backgroundColor: "rgba(255, 255, 255, 0.2)",
-                            borderRadius: 10,
-                            display: "flex",
-                            flexDirection: "row",
-                          }}
-                        >
-                          <ScrollView
-                            className="form space-y-2"
-                            style={{ width: "100%" }}
-                          >
-                            <Text className="text-white ml-4">
-                              Scrie rezolvarea:{" "}
-                            </Text>
-
-                            <TextInput
-                              className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
-                              placeholder="Rezolvarea ta aici"
-                              style={{
-                                width: "100%",
-                                opacity: 0.5,
-                                height: 100,
-                              }}
-                            />
-
-                            <TouchableOpacity
-                              className="py-3 bg-yellow-400 rounded-xl"
-                              style={{
-                                width: "30%",
-                                opacity: 0.8,
-                                alignSelf: "flex-end",
-                              }}
-                              onPress={() => {
-                                console.log("Redirectionez spre final quiz");
-                                navigation.navigate("FinalQuiz");
-                              }}
-                            >
-                              <Text className="font-xl font-bold text-center text-gray-700">
-                                Next
-                              </Text>
-                            </TouchableOpacity>
-                          </ScrollView>
-                        </View>
-                      </ScrollView>
-                    )}
-                    {intrebare.tip_intrebare == "GRILA" && (
-                      <ScrollView
-                        style={{ marginTop: 20 }}
-                        showsVerticalScrollIndicator={false}
-                      
-                      >
-                        <View
-                          className="mx-4 p-2 mb-2 flex-row"
-                          style={{
-                            backgroundColor: "rgba(255, 255, 255, 0.2)",
-                            borderRadius: 10,
-                            display: "flex",
-                            flexDirection: "row",
-                          }}
-                        >
-                          <ScrollView
-                            className="form space-y-2"
-                            style={{ width: "100%" }}
-                          >
-                            <Text className="text-white ml-4">
-                              Alege răspunsul corect:{" "}
-                            </Text>
-
-                            <View style={{ marginTop: 10 }}>
-                              <TouchableOpacity
-                                onPress={() => handlePress("varianta1")}
-                                style={{
-                                  flexDirection: "row",
-                                  alignItems: "center",
-                                }}
-                              >
-                                <RadioButton
-                                  value="varianta1"
-                                  status={
-                                    selectedValue === "varianta1"
-                                      ? "checked"
-                                      : "unchecked"
-                                  }
-                                  onPress={() => handlePress("varianta1")}
-                                  color={themeColors.galben}
-                                />
-                                <Text
-                                  style={{ color: "white", marginLeft: 10 }}
-                                >
-                                  {intrebare.varianta1}
-                                </Text>
-                              </TouchableOpacity>
-                              <TouchableOpacity
-                                onPress={() => handlePress("varianta2")}
-                                style={{
-                                  flexDirection: "row",
-                                  alignItems: "center",
-                                }}
-                              >
-                                <RadioButton
-                                  value="varianta2"
-                                  status={
-                                    selectedValue === "varianta2"
-                                      ? "checked"
-                                      : "unchecked"
-                                  }
-                                  onPress={() => handlePress("varianta2")}
-                                  color={themeColors.galben}
-                                />
-                                <Text
-                                  style={{ color: "white", marginLeft: 10 }}
-                                >
-                                  {intrebare.varianta2}
-                                </Text>
-                              </TouchableOpacity>
-                              <TouchableOpacity
-                                onPress={() => handlePress("varianta3")}
-                                style={{
-                                  flexDirection: "row",
-                                  alignItems: "center",
-                                }}
-                              >
-                                <RadioButton
-                                  value="varianta3"
-                                  status={
-                                    selectedValue === "varianta3"
-                                      ? "checked"
-                                      : "unchecked"
-                                  }
-                                  onPress={() => handlePress("varianta3")}
-                                  color={themeColors.galben}
-                                />
-                                <Text
-                                  style={{ color: "white", marginLeft: 10 }}
-                                >
-                                  {intrebare.varianta3}
-                                </Text>
-                              </TouchableOpacity>
-                              <TouchableOpacity
-                                onPress={() => handlePress("varianta4")}
-                                style={{
-                                  flexDirection: "row",
-                                  alignItems: "center",
-                                }}
-                              >
-                                <RadioButton
-                                  value="varianta3"
-                                  status={
-                                    selectedValue === "varianta4"
-                                      ? "checked"
-                                      : "unchecked"
-                                  }
-                                  onPress={() => handlePress("varianta4")}
-                                  color={themeColors.galben}
-                                />
-                                <Text
-                                  style={{ color: "white", marginLeft: 10 }}
-                                >
-                                  {intrebare.varianta4}
-                                </Text>
-                              </TouchableOpacity>
-                            </View>
-                            <TouchableOpacity
-                              className="py-3 bg-yellow-400 rounded-xl"
-                              style={{
-                                width: "30%",
-                                opacity: 0.8,
-                                alignSelf: "flex-end",
-                              }}
-                              onPress={() => {
-                                console.log("ne ducem la urmatoarea intrebare");
-                                navigation.navigate("FinalQuiz");
-                              }}
-                            >
-                              <Text className="font-xl font-bold text-center text-gray-700">
-                                Next
-                              </Text>
-                            </TouchableOpacity>
-                          </ScrollView>
-                        </View>
-                      </ScrollView>
-                    )}
-                  </View>
-                </View>
-              ))}
+                  )
+              )}
             </ScrollView>
           )}
         </SafeAreaView>
