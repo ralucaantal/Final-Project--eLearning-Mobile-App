@@ -69,7 +69,7 @@ export default function Question({ route }) {
         // console.log("cursuri cerute: ", route.params.cursuriCerute);
         // console.log("nr intrebari", route.params.nrIntrebari);
 
-        console.log(quizData);
+        // console.log(quizData);
 
         const requestOptions = {
           method: "POST",
@@ -80,7 +80,7 @@ export default function Question({ route }) {
         console.log(requestOptions);
         let input = IPv4 + ":5000/trainingQuiz";
 
-        console.log(requestOptions);
+        // console.log(requestOptions);
 
         fetch(input, requestOptions)
           .then((response) => response.json())
@@ -97,7 +97,7 @@ export default function Question({ route }) {
     decodeJwt();
   }, []);
 
-  console.log(intrebariBD);
+  // console.log(intrebariBD);
 
   return (
     <KeyboardAvoidingView
@@ -434,6 +434,7 @@ export default function Question({ route }) {
                                       console.log(intrebariBD.length);
                                       navigation.navigate("FinalQuiz", {
                                         punctajCastigat: punctajCastigat,
+                                        idUtilizator: decodedJwt.data.id,
                                       });
                                     }
                                   }}

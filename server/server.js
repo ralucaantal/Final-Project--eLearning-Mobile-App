@@ -193,9 +193,23 @@ app.post("/trainingQuiz", (req, res) => {
 app.post("/adaugarePunctajQuizIndividual", (req, res) => {
   console.log("ai facut post cu datele: ", req.body);
 
-  let punctajDeAdaugat=req.body.punctajCastigat;
+  qry =
+    "UPDATE users SET puncte = puncte + " +
+    req.body.puncteCastigate +
+    " WHERE id = " +
+    req.body.idUser +
+    ";";
 
-  console.log("punctaj de adaugat: ",puncteCastigate)
+  console.log(qry);
+
+  pgClient
+    .query(qry)
+    .then((res) => res.rows)
+    .then((data) => {
+      console.log("sunt in fetch de la baza de date");
+      // console.log(data);
+      res.send(data);
+    });
 });
 
 app.listen(5000, () => {

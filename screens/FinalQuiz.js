@@ -25,14 +25,25 @@ export default function FinalQuiz({ route }) {
     setPuncteCastigate(route.params.punctajCastigat);
   };
 
-  const[finalQuiz,setFinalQuiz]=useState({
-    puncteCastigate: null,
-    idUser: null
-  });
+  // const[finalQuiz,setFinalQuiz]=useState({
+  //   puncteCastigate: null,
+  //   idUser: null
+  // });
 
   useEffect(() => {
     const punctaj = async () => {
-      console.log("puncte castigate", route.params.punctajCastigat);
+      // console.log("puncte castigate", route.params.punctajCastigat);
+      // console.log("id utilizator: ",route.params.idUtilizator)
+
+      // setFinalQuiz({puncteCastigate:route.params.punctajCastigat,
+      //   idUser: route.params.idUtilizator });
+
+      const finalQuiz={
+        puncteCastigate:route.params.punctajCastigat,
+        idUser: route.params.idUtilizator
+      }
+
+      console.log("finalQuiz: ", finalQuiz);
 
       const requestOptions = {
         method: "POST",
@@ -40,40 +51,16 @@ export default function FinalQuiz({ route }) {
         headers: { "Content-Type": "application/json" },
       };
 
+      
       console.log(requestOptions);
       let input = IPv4 + ":5000/adaugarePunctajQuizIndividual";
 
-      console.log(finalQuiz);
-
-      fetch(input, requestOptions)
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data.message);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+       fetch(input, requestOptions)
+          .then((response) => response.json())
+          .then((data) => {
+             console.log("data: ", data);
+          });
     };
-
-    const decodeJwt = async () => {
-      try {
-        const jwt = await AsyncStorage.getItem("jwt");
-        const decoded = jwtDecode(jwt);
-        setDecodedJwt(decoded);
-        console.log("decoded: ",decoded);
-
-        setIdUser(decoded.data.id.toString());
-
-        setFinalQuiz({
-          puncteCastigate: route.params.punctajCastigat,
-          idUser: decoded.data.id.toString()
-        })
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    decodeJwt();
     punctaj();
   },[]);
 
