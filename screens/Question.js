@@ -50,6 +50,7 @@ export default function Question({ route }) {
     materiiCerute: route.params.cursuriCerute,
   });
 
+  const [raspunsText, setRaspunsText] = useState("");
   // let counter = 0;
 
   useEffect(() => {
@@ -98,6 +99,36 @@ export default function Question({ route }) {
   }, []);
 
   // console.log(intrebariBD);
+  const handleChangeText = (inputText) => {
+    setRaspunsText(inputText);
+  };
+
+  const verificareRaspunsText = (raspuns,raspunsCorect) => {
+    setRaspunsText("");
+    console.log(raspuns);
+
+    const postData = {
+      raspunsText: raspuns,
+      raspunsCorect: raspunsCorect
+    };
+
+    const requestOptions = {
+      method: "POST",
+      body: JSON.stringify(postData),
+      headers: { "Content-Type": "application/json" },
+    };
+
+    console.log(requestOptions);
+    let input = IPv4 + ":5000/verificareRaspunsText";
+
+    // console.log(requestOptions);
+
+    fetch(input, requestOptions)
+      .then((response) => response.json())
+      .then((data) => {
+        // console.log("data: ", data);
+      });
+  };
 
   return (
     <KeyboardAvoidingView
@@ -226,6 +257,8 @@ export default function Question({ route }) {
                                     opacity: 0.5,
                                     height: 100,
                                   }}
+                                  onChangeText={handleChangeText}
+                                  value={raspunsText}
                                 />
 
                                 <TouchableOpacity
@@ -236,10 +269,22 @@ export default function Question({ route }) {
                                     alignSelf: "flex-end",
                                   }}
                                   onPress={() => {
-                                    console.log(
-                                      "Redirectionez spre final quiz"
+                                    verificareRaspunsText(raspunsText,intrebare.raspuns_corect);
+
+                                    setIndexIntrebareCurenta(
+                                      indexIntrebareCurenta + 1
                                     );
-                                    navigation.navigate("FinalQuiz");
+                                    // counter++;
+
+                                    if (
+                                      indexIntrebareCurenta + 1 ==
+                                      quizData.nrIntrebari
+                                    ) {
+                                      navigation.navigate("FinalQuiz", {
+                                        punctajCastigat: punctajCastigat,
+                                        idUtilizator: decodedJwt.data.id,
+                                      });
+                                    }
                                   }}
                                 >
                                   <Text className="font-xl font-bold text-center text-gray-700">
