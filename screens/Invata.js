@@ -81,7 +81,7 @@ export default function Invata() {
     };
 
     decodeJwt();
-  }, []);
+  }, [puncte,zile,vieti]);
 
   return (
     <LinearGradient

@@ -59,8 +59,6 @@ export default function Profile() {
           .then((data) => {
             console.log("data: ", data);
 
-            console.log(data[0].zile);
-
             setZile(data[0].zile);
             setPuncte(data[0].puncte);
             setVieti(data[0].vieti);
@@ -73,7 +71,7 @@ export default function Profile() {
     };
 
     decodeJwt();
-  }, []);
+  }, [puncte,zile,vieti]);
 
   async function removeJwtFromStorage() {
     try {

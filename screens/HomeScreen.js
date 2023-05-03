@@ -93,10 +93,9 @@ export default function HomeScreen() {
 
         setUsername(decoded.data.username);
 
-        const idUser = 
-        {
-          idUser: decoded.data.id
-        }
+        const idUser = {
+          idUser: decoded.data.id,
+        };
 
         console.log("idUser: ", idUser);
 
@@ -120,14 +119,12 @@ export default function HomeScreen() {
             setPuncte(data[0].puncte);
             setVieti(data[0].vieti);
           });
-
       } catch (error) {
         console.log(error);
       }
     };
-
     decodeJwt();
-  }, []);
+  }, [puncte, zile, vieti]);
 
   return (
     <LinearGradient

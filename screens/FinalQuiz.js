@@ -16,10 +16,6 @@ export default function FinalQuiz({ route }) {
 
   const [puncteCastigate, setPuncteCastigate] = useState(null);
 
-  const [decodedJwt, setDecodedJwt] = useState(null);
-
-  const[idUser,setIdUser]=useState(null);
-
   const verificarePuncteCastigate = () => {
     setPuncteCastigate(0);
     setPuncteCastigate(route.params.punctajCastigat);
