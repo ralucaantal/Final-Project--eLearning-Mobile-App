@@ -212,6 +212,24 @@ app.post("/adaugarePunctajQuizIndividual", (req, res) => {
     });
 });
 
+app.post("/puncteZileVieti", (req, res) => {
+  console.log("ai facut post cu datele: ", req.body);
+
+  qry =
+    "select zile, puncte, vieti from users where id=" + req.body.idUser + ";";
+
+  console.log(qry);
+
+  pgClient
+    .query(qry)
+    .then((res) => res.rows)
+    .then((data) => {
+      console.log("sunt in fetch de la baza de date");
+      // console.log(data);
+      res.send(data);
+    });
+});
+
 app.listen(5000, () => {
   console.log("Server started on port 5000");
 });

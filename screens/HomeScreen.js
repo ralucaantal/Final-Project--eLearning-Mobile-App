@@ -1,5 +1,5 @@
 import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { themeColors } from "../theme/index";
 import { useNavigation } from "@react-navigation/native";
@@ -12,6 +12,7 @@ import {
 import CourseCard from "../theme/CourseCard";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import jwtDecode from "jwt-decode";
+import IPv4 from "../index";
 
 const detaliiCont = ["Zile ⚡", "Puncte 🚀", "Vieți 🤍"];
 
@@ -77,10 +78,10 @@ export default function HomeScreen() {
   const [activeDetail, setActiveDetail] = useState("Zile ⚡");
 
   const [decodedJwt, setDecodedJwt] = useState(null);
-  const[username,setUsername]=useState(null);
-  const [zile,setZile]=useState(null);
-  const[puncte,setPuncte]=useState(null);
-  const [vieti,setVieti]=useState(null);
+  const [username, setUsername] = useState(null);
+  const [zile, setZile] = useState(null);
+  const [puncte, setPuncte] = useState(null);
+  const [vieti, setVieti] = useState(null);
 
   useEffect(() => {
     const decodeJwt = async () => {
@@ -88,21 +89,46 @@ export default function HomeScreen() {
         const jwt = await AsyncStorage.getItem("jwt");
         const decoded = jwtDecode(jwt);
         setDecodedJwt(decoded);
-        console.log("decoded: ",decoded);
+        console.log("decoded: ", decoded);
+
         setUsername(decoded.data.username);
-        setZile(decoded.data.zile.toString());
-        setPuncte(decoded.data.puncte.toString());
-        setVieti(decoded.data.vieti.toString());
-        console.log(zile);
+
+        const idUser = 
+        {
+          idUser: decoded.data.id
+        }
+
+        console.log("idUser: ", idUser);
+
+        const requestOptions = {
+          method: "POST",
+          body: JSON.stringify(idUser),
+          headers: { "Content-Type": "application/json" },
+        };
+
+        console.log(requestOptions);
+        let input = IPv4 + ":5000/puncteZileVieti";
+
+        fetch(input, requestOptions)
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("data: ", data);
+
+            console.log(data[0].zile);
+
+            setZile(data[0].zile);
+            setPuncte(data[0].puncte);
+            setVieti(data[0].vieti);
+          });
+
       } catch (error) {
         console.log(error);
       }
     };
 
     decodeJwt();
-
   }, []);
-  
+
   return (
     <LinearGradient
       colors={["rgba(135, 125, 250, 0.9)", "rgba(180, 174, 232, 0.7)"]}
@@ -139,24 +165,20 @@ export default function HomeScreen() {
               style={{ color: themeColors.white }}
               className="ml-4 text-2xl font-bold"
             >
-              Bine ai venit, <Text style={{ fontStyle: 'italic' }}>@{username}</Text>! ✨</Text>
+              Bine ai venit,{" "}
+              <Text style={{ fontStyle: "italic" }}>@{username}</Text>! ✨
+            </Text>
             <View className="pl-4">
               <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                    <TouchableOpacity
-                      className="bg-purple-100 p-3 px-4 rounded-full mr-2"
-                    >
-                      <Text>{zile} Zile ⚡</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      className="bg-purple-100 p-3 px-4 rounded-full mr-2"
-                    >
-                      <Text>{puncte} Puncte 🚀</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      className="bg-purple-100 p-3 px-4 rounded-full mr-2"
-                    >
-                      <Text>{vieti} Vieți 🤍</Text>
-                    </TouchableOpacity>
+                <TouchableOpacity className="bg-purple-100 p-3 px-4 rounded-full mr-2">
+                  <Text>{zile} Zile ⚡</Text>
+                </TouchableOpacity>
+                <TouchableOpacity className="bg-purple-100 p-3 px-4 rounded-full mr-2">
+                  <Text>{puncte} Puncte 🚀</Text>
+                </TouchableOpacity>
+                <TouchableOpacity className="bg-purple-100 p-3 px-4 rounded-full mr-2">
+                  <Text>{vieti} Vieți 🤍</Text>
+                </TouchableOpacity>
               </ScrollView>
             </View>
           </View>

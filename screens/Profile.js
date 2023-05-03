@@ -17,6 +17,8 @@ import FeatherIcon from "react-native-vector-icons/Feather";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import jwtDecode from "jwt-decode";
 
+import IPv4 from "../index";
+
 const detaliiCont = ["Zile ⚡", "Puncte 🚀", "Vieți 🤍"];
 
 export default function Profile() {
@@ -36,9 +38,34 @@ export default function Profile() {
         setDecodedJwt(decoded);
         console.log(decoded);
         setUsername(decoded.data.username);
-        setZile(decoded.data.zile.toString());
-        setPuncte(decoded.data.puncte.toString());
-        setVieti(decoded.data.vieti.toString());
+
+        const idUser = {
+          idUser: decoded.data.id,
+        };
+
+        console.log("idUser: ", idUser);
+
+        const requestOptions = {
+          method: "POST",
+          body: JSON.stringify(idUser),
+          headers: { "Content-Type": "application/json" },
+        };
+
+        console.log(requestOptions);
+        let input = IPv4 + ":5000/puncteZileVieti";
+
+        fetch(input, requestOptions)
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("data: ", data);
+
+            console.log(data[0].zile);
+
+            setZile(data[0].zile);
+            setPuncte(data[0].puncte);
+            setVieti(data[0].vieti);
+          });
+
         console.log(zile);
       } catch (error) {
         console.log(error);

@@ -25,18 +25,8 @@ export default function FinalQuiz({ route }) {
     setPuncteCastigate(route.params.punctajCastigat);
   };
 
-  // const[finalQuiz,setFinalQuiz]=useState({
-  //   puncteCastigate: null,
-  //   idUser: null
-  // });
-
   useEffect(() => {
     const punctaj = async () => {
-      // console.log("puncte castigate", route.params.punctajCastigat);
-      // console.log("id utilizator: ",route.params.idUtilizator)
-
-      // setFinalQuiz({puncteCastigate:route.params.punctajCastigat,
-      //   idUser: route.params.idUtilizator });
 
       const finalQuiz={
         puncteCastigate:route.params.punctajCastigat,
