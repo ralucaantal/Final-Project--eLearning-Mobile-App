@@ -23,11 +23,10 @@ export default function FinalQuiz({ route }) {
 
   useEffect(() => {
     const punctaj = async () => {
-
-      const finalQuiz={
-        puncteCastigate:route.params.punctajCastigat,
-        idUser: route.params.idUtilizator
-      }
+      const finalQuiz = {
+        puncteCastigate: route.params.punctajCastigat,
+        idUser: route.params.idUtilizator,
+      };
 
       console.log("finalQuiz: ", finalQuiz);
 
@@ -37,18 +36,16 @@ export default function FinalQuiz({ route }) {
         headers: { "Content-Type": "application/json" },
       };
 
-      
       console.log(requestOptions);
       let input = IPv4 + ":5000/adaugarePunctajQuizIndividual";
 
-       fetch(input, requestOptions)
-          .then((response) => response.json())
-          .then((data) => {
-             console.log("data: ", data);
-          });
+      const response = await fetch(input, requestOptions);
+      const data = await response.json();
+
+      await AsyncStorage.setItem("jwt", data.jwt);
     };
     punctaj();
-  },[]);
+  }, []);
 
   return (
     <LinearGradient

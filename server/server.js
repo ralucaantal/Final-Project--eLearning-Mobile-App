@@ -208,7 +208,40 @@ app.post("/adaugarePunctajQuizIndividual", (req, res) => {
     .then((data) => {
       console.log("sunt in fetch de la baza de date");
       // console.log(data);
-      res.send(data);
+
+      pgClient
+      .query(
+        "select id,email,user_name, password,zile,puncte,vieti from users where id=$1;",
+        [req.body.idUser]
+      )
+      .then((res) => res.rows)
+      .then((data) => {
+
+        let token = jwt.sign(
+          {
+            data: {
+              id: data[0].id,
+              username: data[0].user_name,
+              password: data[0].password,
+              email: data[0].email,
+              zile: data[0].zile,
+              puncte: data[0].puncte,
+              vieti: data[0].vieti,
+            },
+          },
+          serverSecret,
+          { expiresIn: "24h" }
+        );
+        console.log("tokenul tau este: ", token);
+
+        res.send({
+          jwt: token,
+        });
+
+      });
+
+
+     // res.send(data);
     });
 });
 

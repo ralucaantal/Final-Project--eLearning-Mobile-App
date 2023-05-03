@@ -1,8 +1,15 @@
-import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+  AppState,
+} from "react-native";
 import React, { useState, useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { themeColors } from "../theme/index";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import {
   Bars3CenterLeftIcon,
@@ -76,55 +83,46 @@ const actiuni = [
 export default function HomeScreen() {
   const navigation = useNavigation();
   const [activeDetail, setActiveDetail] = useState("Zile ⚡");
-
+  const [token, setToken] = useState(null);
   const [decodedJwt, setDecodedJwt] = useState(null);
   const [username, setUsername] = useState(null);
   const [zile, setZile] = useState(null);
   const [puncte, setPuncte] = useState(null);
   const [vieti, setVieti] = useState(null);
 
-  useEffect(() => {
+  useFocusEffect(() => {
     const decodeJwt = async () => {
       try {
         const jwt = await AsyncStorage.getItem("jwt");
         const decoded = jwtDecode(jwt);
         setDecodedJwt(decoded);
+        console.log("---------------------------------------------------");
         console.log("decoded: ", decoded);
-
+        console.log("---------------------------------------------------");
         setUsername(decoded.data.username);
 
-        const idUser = {
-          idUser: decoded.data.id,
-        };
-
-        console.log("idUser: ", idUser);
-
-        const requestOptions = {
-          method: "POST",
-          body: JSON.stringify(idUser),
-          headers: { "Content-Type": "application/json" },
-        };
-
-        console.log(requestOptions);
-        let input = IPv4 + ":5000/puncteZileVieti";
-
-        fetch(input, requestOptions)
-          .then((response) => response.json())
-          .then((data) => {
-            console.log("data: ", data);
-
-            console.log(data[0].zile);
-
-            setZile(data[0].zile);
-            setPuncte(data[0].puncte);
-            setVieti(data[0].vieti);
-          });
+        setZile(decoded.data.zile);
+        setPuncte(decoded.data.puncte);
+        setVieti(decoded.data.vieti);
       } catch (error) {
         console.log(error);
       }
     };
-    decodeJwt();
-  }, [puncte, zile, vieti]);
+
+    async function fetchData() {
+      console.log("---------------------------------------------------");
+      console.log("am intrat in useFocusEffect");
+      if (token != (await AsyncStorage.getItem("jwt"))) {
+        //decodeJwt();
+        console.log("tokenuri diferite");
+        decodeJwt();
+        setToken(await AsyncStorage.getItem("jwt"));
+      }
+      //console.log(await AsyncStorage.getItem("jwt"));
+      console.log("---------------------------------------------------");
+    }
+    fetchData();
+  });
 
   return (
     <LinearGradient
