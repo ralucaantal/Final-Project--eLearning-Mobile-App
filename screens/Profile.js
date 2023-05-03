@@ -16,6 +16,7 @@ import { themeColors } from "../theme/index";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import jwtDecode from "jwt-decode";
+import * as ImagePicker from 'expo-image-picker';
 
 import IPv4 from "../index";
 
@@ -71,7 +72,7 @@ export default function Profile() {
     };
 
     decodeJwt();
-  }, [puncte,zile,vieti]);
+  }, [puncte, zile, vieti]);
 
   async function removeJwtFromStorage() {
     try {
