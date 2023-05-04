@@ -103,13 +103,13 @@ export default function Question({ route }) {
     setRaspunsText(inputText);
   };
 
-  const verificareRaspunsText = (raspuns,raspunsCorect) => {
+  const verificareRaspunsText = (raspuns, raspunsCorect) => {
     setRaspunsText("");
     console.log(raspuns);
 
     const postData = {
       raspunsText: raspuns,
-      raspunsCorect: raspunsCorect
+      raspunsCorect: raspunsCorect,
     };
 
     const requestOptions = {
@@ -126,7 +126,9 @@ export default function Question({ route }) {
     fetch(input, requestOptions)
       .then((response) => response.json())
       .then((data) => {
-        // console.log("data: ", data);
+        console.log("data: ", data);
+        if (data.message === "Raspuns corect!")
+          setPunctajCatigat(punctajCastigat + 100);
       });
   };
 
@@ -269,7 +271,10 @@ export default function Question({ route }) {
                                     alignSelf: "flex-end",
                                   }}
                                   onPress={() => {
-                                    verificareRaspunsText(raspunsText,intrebare.raspuns_corect);
+                                    verificareRaspunsText(
+                                      raspunsText,
+                                      intrebare.raspuns_corect
+                                    );
 
                                     setIndexIntrebareCurenta(
                                       indexIntrebareCurenta + 1

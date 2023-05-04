@@ -263,14 +263,73 @@ app.post("/puncteZileVieti", (req, res) => {
 app.post("/verificareRaspunsText", (req, res) => {
   console.log("ai facut post cu datele: ", req.body);
 
-  qry1 = req.body.raspunsText;
-  qry2 = req.body.raspunsCorect;
+  qry1 = req.body.raspunsCorect;
+  qry2 = req.body.raspunsText;
+
+  jsonResult1 = "";
+  jsonResult2 = "";
+
+  canCompare = 0;
 
   pgClient
     .query(qry1)
     .then((res) => res.rows)
     .then((data) => {
-      console.log("sunt in fetch de la baza de date");
+      console.log("Am primit raspunsul de la prima interogare");
+      jsonResult1 = data;
+    });
+
+  pgClient
+    .query(qry2)
+    .then((res) => res.rows)
+    .then((data) => {
+      console.log("Am primit raspunsul de la a doua interogare");
+      jsonResult2 = data;
+      canCompare = 1;
+      console.log("can compare: ", canCompare);
+      canCompare = 1;
+      if (canCompare === 1) {
+        if (jsonResult1.length != jsonResult2.length) {
+          res.send({
+            message: "Raspuns gresit! Numarul de linii nu corespunde",
+          });
+        } else {
+          semafor1 = 1;
+
+          for (index1 = 0; index1 < jsonResult2.length; index1++) {
+            //console.log("obiectul este: ", jsonResult1[index1]);
+            semafor2 = 0;
+            if (semafor1 == 1) {
+              for (index2 = 0; index2 < jsonResult1.length; index2++) {
+                if (
+                  !(
+                    JSON.stringify(jsonResult1[index1]) ===
+                    JSON.stringify(jsonResult2[index2])
+                  )
+                ) {
+                  semafor2 = 1;
+                }
+              }
+
+              if (semafor2 == 0) {
+                semafor1 = 0;
+              } else {
+                semafor2 = 0;
+              }
+            }
+          }
+
+          if (semafor1 == 1) {
+            res.send({ message: "Raspuns corect!" });
+          } else {
+            res.send({ message: "Raspuns gresit dupa cautari!" });
+          }
+        }
+      }
+    })
+    .catch((err) => {
+      canCompare = -1;
+      res.send({ message: "Raspuns gresit" });
     });
 });
 
