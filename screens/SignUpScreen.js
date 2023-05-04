@@ -8,7 +8,7 @@ import { ArrowLeftIcon } from "react-native-heroicons/solid";
 import { LinearGradient } from "expo-linear-gradient";
 import IPv4 from "../index";
 
-export default function SignUpScreen() {
+export default async function SignUpScreen() {
   const navigation = useNavigation();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -156,7 +156,12 @@ export default function SignUpScreen() {
             </View>
             <View className="flex-row justify-center mt-7">
               <Text
-                style={{ fontSize: 20, fontWeight: "bold", color:themeColors.gri,textAlign:"center" }}
+                style={{
+                  fontSize: 20,
+                  fontWeight: "bold",
+                  color: themeColors.gri,
+                  textAlign: "center",
+                }}
               >
                 {errorDataRegister.message}
               </Text>

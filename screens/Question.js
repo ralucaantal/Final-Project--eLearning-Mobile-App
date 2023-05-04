@@ -107,8 +107,9 @@ export default function Question({ route }) {
     setRaspunsText("");
     console.log(raspuns);
 
+
     const postData = {
-      raspunsText: raspuns,
+      raspunsText: raspuns.replace(/`/g, "'"),
       raspunsCorect: raspunsCorect,
     };
 

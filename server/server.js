@@ -108,6 +108,7 @@ app.post("/register", (req, res) => {
   let zile = 0;
   let vieti = 5;
   let tipCont = "USER";
+
   //verific daca exista utilizatorul in baza de date
   pgClient
     .query("select email from users where email=$1;", [email])
@@ -126,7 +127,7 @@ app.post("/register", (req, res) => {
               console.log("nu exista");
               pgClient
                 .query(
-                  "insert into users (user_name,email, password,puncte,zile,vieti,tip_cont) values($1,$2,$3,$4,$5,$6,$7);",
+                  "insert into users (user_name,email, password,puncte,zile,vieti,tip_cont,avatar) values($1,$2,$3,$4,$5,$6,$7);",
                   [username, email, password, puncte, zile, vieti, tipCont]
                 )
                 .then((result) => {
