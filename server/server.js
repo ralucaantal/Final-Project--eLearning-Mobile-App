@@ -56,7 +56,7 @@ app.post("/login", (req, res) => {
   //verific daca exista utilizatorul in baza de date
   pgClient
     .query(
-      "select id,email,user_name, password,zile,puncte,vieti from users where email=$1;",
+      "select id,email,user_name, password,zile,puncte,vieti,avatar from users where email=$1;",
       [email]
     )
     .then((res) => res.rows)
@@ -81,6 +81,7 @@ app.post("/login", (req, res) => {
                 zile: data[0].zile,
                 puncte: data[0].puncte,
                 vieti: data[0].vieti,
+                avatar: data[0].avatar
               },
             },
             serverSecret,
@@ -127,7 +128,7 @@ app.post("/register", (req, res) => {
               console.log("nu exista");
               pgClient
                 .query(
-                  "insert into users (user_name,email, password,puncte,zile,vieti,tip_cont,avatar) values($1,$2,$3,$4,$5,$6,$7);",
+                  "insert into users (user_name,email, password,puncte,zile,vieti,tip_cont) values($1,$2,$3,$4,$5,$6,$7);",
                   [username, email, password, puncte, zile, vieti, tipCont]
                 )
                 .then((result) => {

@@ -8,7 +8,7 @@ import { ArrowLeftIcon } from "react-native-heroicons/solid";
 import { LinearGradient } from "expo-linear-gradient";
 import IPv4 from "../index";
 
-export default async function SignUpScreen() {
+export default function SignUpScreen() {
   const navigation = useNavigation();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");

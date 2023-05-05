@@ -16,11 +16,9 @@ import { themeColors } from "../theme/index";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import jwtDecode from "jwt-decode";
-import * as ImagePicker from 'expo-image-picker';
+import base64 from "react-native-base64";
 
 import IPv4 from "../index";
-
-const detaliiCont = ["Zile ⚡", "Puncte 🚀", "Vieți 🤍"];
 
 export default function Profile() {
   const navigation = useNavigation();
@@ -30,6 +28,8 @@ export default function Profile() {
   const [zile, setZile] = useState(null);
   const [puncte, setPuncte] = useState(null);
   const [vieti, setVieti] = useState(null);
+  const [avatar, setAvatar] = useState(null);
+  const [encodedImageData, setEncodedImageData] = useState("");
 
   useEffect(() => {
     const decodeJwt = async () => {
@@ -39,6 +39,14 @@ export default function Profile() {
         setDecodedJwt(decoded);
         console.log(decoded);
         setUsername(decoded.data.username);
+        console.log(decoded.data.img);
+        setAvatar(decoded.data.avatar.data);
+
+        const imageData = new Uint8Array(
+          [...avatar].map((c) => c.charCodeAt(0))
+        );
+        const encodedImageData = base64.fromUint8Array(imageData);
+        setEncodedImageData(encodedImageData);
 
         const idUser = {
           idUser: decoded.data.id,
@@ -64,8 +72,6 @@ export default function Profile() {
             setPuncte(data[0].puncte);
             setVieti(data[0].vieti);
           });
-
-        console.log(zile);
       } catch (error) {
         console.log(error);
       }
@@ -119,7 +125,7 @@ export default function Profile() {
           >
             <Image
               alt=""
-              source={require("../assets/images/avatar.jpg")}
+              source={{ uri: `data:image/jpeg;base64,${encodedImageData}` }}
               style={{
                 width: 72,
                 height: 72,
