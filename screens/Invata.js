@@ -5,29 +5,23 @@ import { themeColors } from "../theme/index";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import { ArrowLeftIcon } from "react-native-heroicons/solid";
-import CourseCardV from "../theme/CourseCardV";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import jwtDecode from "jwt-decode";
 import IPv4 from "../index";
+import tw from "tailwind-react-native-classnames";
 
 const cursuriDisponibile = [
   {
     id: 1,
-    title: "Bazele Programării Calculatoarelor",
     image: require("../assets/images/bazeleProgramarii.png"),
-    stars: 5,
   },
   {
     id: 2,
-    title: "Programare Orietată Obiect (POO)",
     image: require("../assets/images/POO.png"),
-    stars: 5,
   },
   {
     id: 3,
-    title: "Baze De Date",
     image: require("../assets/images/bd.png"),
-    stars: 5,
   },
 ];
 
@@ -154,17 +148,42 @@ export default function Invata() {
           >
             Cursuri disponibile 👩🏻‍💻
           </Text>
-          {cursuri && (<View className="pl-4">
-            <ScrollView
-              vertical
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={{ paddingBottom: 350 }}
-            >
-              {cursuri.map((item, index) => {
-                return <CourseCardV key={index} course={item} />;
-              })}
-            </ScrollView>
-          </View>)}
+          {cursuri && (
+            <View className="pl-4">
+              <ScrollView
+                vertical
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{ paddingBottom: 350 }}
+              >
+                {cursuri.map((item, index) => {
+                  return (
+                    <TouchableOpacity
+                      style={[tw`mr-4 relative`, { marginBottom: 15 }]}
+                      key={item.id}
+                    >
+                      <Image
+                        source={cursuriDisponibile[index].image}
+                        //source={require(item.imagine)}
+                        style={tw`w-full h-60 rounded-3xl`}
+                        resizeMode="cover"
+                      />
+                      <LinearGradient
+                        colors={["transparent", "rgba(0,0,0,0.6)"]}
+                        style={tw`absolute p-4 h-full w-full flex justify-between rounded-3xl`}
+                      >
+                        <View style={tw`flex-row justify-end`}></View>
+                        <View className="space-y-1">
+                          <Text style={tw`text-xl font-bold text-gray-300`}>
+                            {item.titlu}
+                          </Text>
+                        </View>
+                      </LinearGradient>
+                    </TouchableOpacity>
+                  );
+                })}
+              </ScrollView>
+            </View>
+          )}
         </View>
       </SafeAreaView>
     </LinearGradient>
