@@ -163,7 +163,7 @@ export default function Invata() {
                     >
                       <Image
                         source={cursuriDisponibile[index].image}
-                        //source={require(item.imagine)}
+                        // source={item.imagine}
                         style={tw`w-full h-60 rounded-3xl`}
                         resizeMode="cover"
                       />
