@@ -56,7 +56,7 @@ app.post("/login", (req, res) => {
   //verific daca exista utilizatorul in baza de date
   pgClient
     .query(
-      "select id,email,user_name, password,zile,puncte,vieti,avatar from users where email=$1;",
+      "select id,email,user_name, password,zile,puncte,vieti from users where email=$1;",
       [email]
     )
     .then((res) => res.rows)
@@ -81,7 +81,6 @@ app.post("/login", (req, res) => {
                 zile: data[0].zile,
                 puncte: data[0].puncte,
                 vieti: data[0].vieti,
-                avatar: data[0].avatar
               },
             },
             serverSecret,
@@ -332,6 +331,15 @@ app.post("/verificareRaspunsText", (req, res) => {
     .catch((err) => {
       canCompare = -1;
       res.send({ message: "Raspuns gresit" });
+    });
+});
+
+app.get("/cursuriDisponibile", (req, res) => {
+  pgClient
+    .query("SELECT * FROM cursuri_disponibile;")
+    .then((res) => res.rows)
+    .then((data) => {
+      res.send(data);
     });
 });
 

@@ -39,6 +39,7 @@ export default function Invata() {
   const [zile, setZile] = useState(null);
   const [puncte, setPuncte] = useState(null);
   const [vieti, setVieti] = useState(null);
+  const [cursuri, setCursuri] = useState(null);
 
   useEffect(() => {
     const decodeJwt = async () => {
@@ -80,8 +81,24 @@ export default function Invata() {
       }
     };
 
+    const cursuriDisponibile = () => {
+      try {
+        let input = IPv4 + ":5000/cursuriDisponibile";
+
+        fetch(input)
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("data: ", data);
+            setCursuri(data);
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
     decodeJwt();
-  }, [puncte,zile,vieti]);
+    cursuriDisponibile();
+  }, [puncte, zile, vieti]);
 
   return (
     <LinearGradient
@@ -137,17 +154,17 @@ export default function Invata() {
           >
             Cursuri disponibile 👩🏻‍💻
           </Text>
-          <View className="pl-4">
+          {cursuri && (<View className="pl-4">
             <ScrollView
               vertical
               showsVerticalScrollIndicator={false}
               contentContainerStyle={{ paddingBottom: 350 }}
             >
-              {cursuriDisponibile.map((item, index) => {
+              {cursuri.map((item, index) => {
                 return <CourseCardV key={index} course={item} />;
               })}
             </ScrollView>
-          </View>
+          </View>)}
         </View>
       </SafeAreaView>
     </LinearGradient>

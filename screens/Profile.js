@@ -16,7 +16,6 @@ import { themeColors } from "../theme/index";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import jwtDecode from "jwt-decode";
-import base64 from "react-native-base64";
 
 import IPv4 from "../index";
 
@@ -28,8 +27,6 @@ export default function Profile() {
   const [zile, setZile] = useState(null);
   const [puncte, setPuncte] = useState(null);
   const [vieti, setVieti] = useState(null);
-  const [avatar, setAvatar] = useState(null);
-  const [encodedImageData, setEncodedImageData] = useState("");
 
   useEffect(() => {
     const decodeJwt = async () => {
@@ -37,16 +34,7 @@ export default function Profile() {
         const jwt = await AsyncStorage.getItem("jwt");
         const decoded = jwtDecode(jwt);
         setDecodedJwt(decoded);
-        console.log(decoded);
         setUsername(decoded.data.username);
-        console.log(decoded.data.img);
-        setAvatar(decoded.data.avatar.data);
-
-        const imageData = new Uint8Array(
-          [...avatar].map((c) => c.charCodeAt(0))
-        );
-        const encodedImageData = base64.fromUint8Array(imageData);
-        setEncodedImageData(encodedImageData);
 
         const idUser = {
           idUser: decoded.data.id,
@@ -124,8 +112,7 @@ export default function Profile() {
             }}
           >
             <Image
-              alt=""
-              source={{ uri: `data:image/jpeg;base64,${encodedImageData}` }}
+              source={require("../assets/images/avatar.jpg")}
               style={{
                 width: 72,
                 height: 72,
@@ -137,6 +124,7 @@ export default function Profile() {
                 backgroundColor: "transparent",
               }}
             />
+
             <TouchableOpacity
               onPress={() => {
                 // handle onPress

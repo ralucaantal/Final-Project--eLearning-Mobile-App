@@ -4,12 +4,12 @@ import { LinearGradient } from "expo-linear-gradient";
 import tw from "tailwind-react-native-classnames";
 
 export default function CourseCardV({ course }) {
-  const [isFavourite, setFavourite] = useState(false);
+  const imageSource = { uri: course.imagine };
 
   return (
     <TouchableOpacity style={[tw`mr-4 relative`, { marginBottom: 15 }]}>
       <Image
-        source={course.image}
+        source={imageSource}
         style={tw`w-full h-60 rounded-3xl`}
         resizeMode="cover"
       />
@@ -20,7 +20,7 @@ export default function CourseCardV({ course }) {
         <View style={tw`flex-row justify-end`}></View>
         <View className="space-y-1">
           <Text style={tw`text-xl font-bold text-gray-300`}>
-            {course.title}
+            {course.titlu}
           </Text>
         </View>
       </LinearGradient>
