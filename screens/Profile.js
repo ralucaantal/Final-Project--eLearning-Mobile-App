@@ -16,6 +16,7 @@ import { themeColors } from "../theme/index";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import jwtDecode from "jwt-decode";
+import Avatare from "../screens/ChooseAvatar";
 
 import IPv4 from "../index";
 
@@ -27,6 +28,9 @@ export default function Profile() {
   const [zile, setZile] = useState(null);
   const [puncte, setPuncte] = useState(null);
   const [vieti, setVieti] = useState(null);
+  const [avatar, setAvatar] = useState(1);
+
+  const [sursaImagine, setSursaImagine] = useState(null);
 
   useEffect(() => {
     const decodeJwt = async () => {
@@ -35,6 +39,26 @@ export default function Profile() {
         const decoded = jwtDecode(jwt);
         setDecodedJwt(decoded);
         setUsername(decoded.data.username);
+        setAvatar(decoded.data.avatar);
+
+        if (avatar == 1)
+          setSursaImagine(require("../assets/avatare/avatar1.jpg"));
+        else if (avatar == 2)
+          setSursaImagine(require("../assets/avatare/avatar2.jpg"));
+        else if (avatar == 3)
+          setSursaImagine(require("../assets/avatare/avatar3.jpg"));
+        else if (avatar == 4)
+          setSursaImagine(require("../assets/avatare/avatar4.jpg"));
+        else if (avatar == 5)
+          setSursaImagine(require("../assets/avatare/avatar5.jpg"));
+        else if (avatar == 6)
+          setSursaImagine(require("../assets/avatare/avatar6.jpg"));
+        else if (avatar == 7)
+          setSursaImagine(require("../assets/avatare/avatar7.jpg"));
+        else if (avatar == 8)
+          setSursaImagine(require("../assets/avatare/avatar8.jpg"));
+        else if (avatar == 9)
+          setSursaImagine(require("../assets/avatare/avatar9.jpg"));
 
         const idUser = {
           idUser: decoded.data.id,
@@ -111,19 +135,21 @@ export default function Profile() {
               justifyContent: "center",
             }}
           >
-            <Image
-              source={require("../assets/images/avatar.jpg")}
-              style={{
-                width: 72,
-                height: 72,
-                borderRadius: 9999,
-                borderWidth: 1,
-                borderColor: "transparent",
-                marginTop: -36,
-                alignSelf: "center",
-                backgroundColor: "transparent",
-              }}
-            />
+            {sursaImagine && (
+              <Image
+                source={sursaImagine}
+                style={{
+                  width: 72,
+                  height: 72,
+                  borderRadius: 9999,
+                  borderWidth: 1,
+                  borderColor: "transparent",
+                  marginTop: -36,
+                  alignSelf: "center",
+                  backgroundColor: "transparent",
+                }}
+              />
+            )}
 
             <TouchableOpacity
               onPress={() => {
