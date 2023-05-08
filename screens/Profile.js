@@ -128,6 +128,7 @@ export default function Profile() {
             <TouchableOpacity
               onPress={() => {
                 // handle onPress
+                navigation.navigate("ChooseAvatar");
               }}
             >
               <View
