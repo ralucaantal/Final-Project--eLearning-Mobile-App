@@ -13,6 +13,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { ArrowLeftIcon } from "react-native-heroicons/solid";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { themeColors } from "../theme/index";
+import { Picker } from "@react-native-picker/picker";
 
 export default function IntrebareGrila() {
   const navigation = useNavigation();
@@ -25,6 +26,8 @@ export default function IntrebareGrila() {
   const [varianta4, setVarianta4] = useState(null);
 
   const [raspunsCorect, setRaspunsCorect] = useState(null);
+
+  const [materie, setMaterie] = useState(null);
 
   const handleChangeTextIntrebare = (inputText) => {
     setTextIntrebare(inputText);
@@ -48,6 +51,10 @@ export default function IntrebareGrila() {
 
   const handleChangeRaspunsCorect = (inputText) => {
     setRaspunsCorect(inputText);
+  };
+
+  const handleChangeMaterie = (option) => {
+    setMaterie(option);
   };
 
   return (
@@ -203,6 +210,29 @@ export default function IntrebareGrila() {
                     onChangeText={handleChangeRaspunsCorect}
                     value={raspunsCorect}
                   />
+                  <Picker
+                    selectedValue={materie}
+                    onValueChange={handleChangeMaterie}
+                    style={{
+                      color: "white",
+                      fontSize: 20,
+                      shadowColor: themeColors.white, // Set the shadow color to white
+                      shadowOffset: { width: 0, height: 2 },
+                      shadowOpacity: 0.6,
+                      shadowRadius: 4,
+                    }}
+                    itemStyle={{ color: "white", fontSize: 20 }}
+                  >
+                    <Picker.Item
+                      label="Bazele Programării Calculatoarelor"
+                      value="BPC"
+                    />
+                    <Picker.Item label="Baze de Date" value="BD" />
+                    <Picker.Item
+                      label="Programare Orientată Obiect"
+                      value="POO"
+                    />
+                  </Picker>
                 </View>
               </ScrollView>
             </View>
@@ -214,7 +244,7 @@ export default function IntrebareGrila() {
               opacity: 0.8,
               alignSelf: "flex-end",
               marginRight: 25,
-              marginBottom:5
+              marginBottom: 5,
             }}
           >
             <Text className="font-xl font-bold text-center text-gray-700">
