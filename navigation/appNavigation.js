@@ -21,6 +21,7 @@ import StatusIntrebari from "../screens/StatusIntrebari";
 import Question from "../screens/Question";
 import ChooseAvatar from "../screens/ChooseAvatar";
 import IntrebareGrila from "../screens/IntrebareGrila";
+import SuccesAdaugareIntrebare from "../screens/SuccesAdaugareIntrebare";
 
 const Stack = createNativeStackNavigator();
 
@@ -122,6 +123,11 @@ export default function AppNavigation() {
           name="IntrebareGrila"
           options={{ headerShown: false }}
           component={IntrebareGrila}
+        />
+        <Stack.Screen
+          name="SuccesAdaugareIntrebare"
+          options={{ headerShown: false }}
+          component={SuccesAdaugareIntrebare}
         />
       </Stack.Navigator>
     </NavigationContainer>

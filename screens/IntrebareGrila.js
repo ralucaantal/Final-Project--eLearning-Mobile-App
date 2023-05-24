@@ -22,27 +22,6 @@ import IPv4 from "../index";
 export default function IntrebareGrila() {
   const navigation = useNavigation();
 
-  useEffect(() => {
-    const decodeJwt = async () => {
-      try {
-        const jwt = await AsyncStorage.getItem("jwt");
-        const decoded = jwtDecode(jwt);
-        setDecodedJwt(decoded);
-        console.log(decoded);
-
-        const idUser = {
-          idUser: decoded.data.id,
-        };
-
-
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    decodeJwt();
-  }, [puncte, zile, vieti]);
-
 
   const [textIntrebare, setTextIntrebare] = useState(null);
 
@@ -83,7 +62,9 @@ export default function IntrebareGrila() {
     setMaterie(option);
   };
 
-  const adaugareIntrebare = () => {};
+  const adaugareIntrebare = () => {
+    navigation.navigate("SuccesAdaugareIntrebare");
+  };
 
   return (
     <KeyboardAvoidingView
