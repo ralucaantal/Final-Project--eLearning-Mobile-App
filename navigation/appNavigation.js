@@ -20,6 +20,7 @@ import FinalQuiz from "../screens/FinalQuiz";
 import StatusIntrebari from "../screens/StatusIntrebari";
 import Question from "../screens/Question";
 import ChooseAvatar from "../screens/ChooseAvatar";
+import IntrebareGrila from "../screens/IntrebareGrila";
 
 const Stack = createNativeStackNavigator();
 
@@ -116,6 +117,11 @@ export default function AppNavigation() {
           name="ChooseAvatar"
           options={{ headerShown: false }}
           component={ChooseAvatar}
+        />
+        <Stack.Screen
+          name="IntrebareGrila"
+          options={{ headerShown: false }}
+          component={IntrebareGrila}
         />
       </Stack.Navigator>
     </NavigationContainer>

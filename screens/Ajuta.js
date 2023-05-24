@@ -85,6 +85,7 @@ export default function Ajuta() {
                 }}
                 onPress={() => {
                   console.log("se vrea propunerea unei intrebari de tip grila");
+                  navigation.navigate("IntrebareGrila");
                 }}
               >
                 <Text className="font-xl font-bold text-center text-gray-700">
