@@ -4,7 +4,8 @@ import {
   ScrollView,
   TouchableOpacity,
   KeyboardAvoidingView,
-  TextInput
+  TextInput,
+  Image,
 } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -49,20 +50,107 @@ export default function Ajuta() {
               borderRadius: 10,
               display: "flex",
               flexDirection: "row",
-              marginTop:10
+              marginTop: 60,
             }}
           >
             <ScrollView
               className="form space-y-2"
-              style={{ width: "100%",height:"100%" }}
+              style={{ width: "100%", height: "100%" }}
             >
-              <Text className="text-white ml-4">Propune o întrebare cu răspuns deschis:</Text>
+              {/* <Text className="text-white ml-4">
+                Propune o întrebare cu răspuns deschis pentru disciplina BAZE DE
+                DATE:
+              </Text>
               <TextInput
-                  className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
-                  placeholder="Textul întrebării tale"
-                  style={{ width: "100%", opacity: 0.5 }}
-                />
+                className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
+                placeholder="Textul întrebării tale"
+                style={{ width: "100%", opacity: 0.5 }}
+              />
+              <Text className="text-white ml-4">
+                Cum se rezolvă această întrebare?
+              </Text>
+              <TextInput
+                className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
+                placeholder="Textul întrebării tale"
+                style={{ width: "100%", opacity: 0.5 }}
+              /> */}
+              <TouchableOpacity
+                className="py-3 bg-yellow-400 rounded-xl"
+                style={{
+                  width: "100%",
+                  opacity: 0.8,
+                  alignSelf: "flex-end",
+                  marginTop: 5,
+                  marginBottom: 5,
+                }}
+                onPress={() => {
+                  console.log("se vrea propunerea unei intrebari de tip grila");
+                }}
+              >
+                <Text className="font-xl font-bold text-center text-gray-700">
+                  Propune o întrebare de tip grilă
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                className="py-3 bg-yellow-400 rounded-xl"
+                style={{
+                  width: "100%",
+                  opacity: 0.8,
+                  alignSelf: "flex-end",
+                  marginTop: 5,
+                  marginBottom: 5,
+                }}
+                onPress={() => {
+                  console.log(
+                    "se vrea propunerea unei intrebari cu raspuns deschis"
+                  );
+                }}
+              >
+                <Text className="font-xl font-bold text-center text-gray-700">
+                  Propune o întrebare cu raspuns deschis
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                className="py-3 bg-yellow-400 rounded-xl"
+                style={{
+                  width: "100%",
+                  opacity: 0.8,
+                  alignSelf: "flex-end",
+                  marginTop: 5,
+                  marginBottom: 5,
+                }}
+                onPress={() => {
+                  console.log(
+                    "se vrea propunerea unei intrebari cu raspuns deschis"
+                  );
+                }}
+              >
+                <Text className="font-xl font-bold text-center text-gray-700">
+                  Lasă un feedback acestei aplicații
+                </Text>
+              </TouchableOpacity>
             </ScrollView>
+          </View>
+          <View className="flex-row justify-center">
+            <Image
+              source={require("../assets/images/feedback.png")}
+              style={{ width: 180, height: 180 }}
+            />
+          </View>
+          <View className="mt-3 space-y-10">
+            <Text
+              style={{
+                color: themeColors.white,
+                backgroundColor: "black",
+                padding: 10,
+                borderRadius: 10,
+                alignSelf: "center",
+                marginBottom: 5,
+              }}
+              className="ml-4 text-3xl font-bold"
+            >
+              CodeCampus
+            </Text>
           </View>
         </SafeAreaView>
       </LinearGradient>

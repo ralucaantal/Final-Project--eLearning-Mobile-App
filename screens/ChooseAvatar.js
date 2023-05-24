@@ -1,11 +1,13 @@
 import { View, Text, ScrollView, TouchableOpacity, Image } from "react-native";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
-import { ArrowLeftIcon } from "react-native-heroicons/solid";
+import { ArrowLeftIcon, CheckIcon } from "react-native-heroicons/solid";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { themeColors } from "../theme/index";
 import { height } from "deprecated-react-native-prop-types/DeprecatedImagePropType";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import jwtDecode from "jwt-decode";
 
 export const avatare = [
   {
@@ -48,6 +50,35 @@ export const avatare = [
 
 export default function ChooseAvatar() {
   const navigation = useNavigation();
+
+  const [decodedJwt, setDecodedJwt] = useState(null);
+  const [avatar, setAvatar] = useState(null);
+  const selectAvatar = (id) => {
+    setAvatar(id);
+  };
+
+  const[selectedAvatar, setSelectedAvatar]=useState(null);
+
+  useEffect(() => {
+    const decodeJwt = async () => {
+      try {
+        const jwt = await AsyncStorage.getItem("jwt");
+        const decoded = jwtDecode(jwt);
+        setDecodedJwt(decoded);
+        setAvatar(decoded.data.avatar);
+        setSelectedAvatar(decoded.data.avatar);
+
+        const idUser = {
+          idUser: decoded.data.id,
+        };
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    decodeJwt();
+  }, []);
+
   return (
     <LinearGradient
       colors={["rgba(135, 125, 250, 0.9)", "rgba(180, 174, 232, 0.7)"]}
@@ -109,8 +140,13 @@ export default function ChooseAvatar() {
             }}
           >
             {avatare.map((avatar, index) => {
+              const isSelected = avatar.id === avatar;
               return (
-                <TouchableOpacity key={avatar.id} style={{ width: "33.33%" }}>
+                <TouchableOpacity
+                  key={avatar.id}
+                  style={{ width: "33.33%" }}
+                  onPress={() => selectAvatar(avatar.id)}
+                >
                   <Image
                     source={avatar.sursa}
                     style={{
@@ -123,6 +159,18 @@ export default function ChooseAvatar() {
                     }}
                     className="rounded-2xl"
                   />
+                  {isSelected && (
+                    <CheckIcon
+                      color={themeColors.galben}
+                      size="24"
+                      style={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: [{ translateX: -12 }, { translateY: -12 }],
+                      }}
+                    />
+                  )}
                 </TouchableOpacity>
               );
             })}
