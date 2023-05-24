@@ -14,9 +14,35 @@ import { ArrowLeftIcon } from "react-native-heroicons/solid";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { themeColors } from "../theme/index";
 import { Picker } from "@react-native-picker/picker";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import jwtDecode from "jwt-decode";
+import IPv4 from "../index";
+
 
 export default function IntrebareGrila() {
   const navigation = useNavigation();
+
+  useEffect(() => {
+    const decodeJwt = async () => {
+      try {
+        const jwt = await AsyncStorage.getItem("jwt");
+        const decoded = jwtDecode(jwt);
+        setDecodedJwt(decoded);
+        console.log(decoded);
+
+        const idUser = {
+          idUser: decoded.data.id,
+        };
+
+
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    decodeJwt();
+  }, [puncte, zile, vieti]);
+
 
   const [textIntrebare, setTextIntrebare] = useState(null);
 
@@ -56,6 +82,8 @@ export default function IntrebareGrila() {
   const handleChangeMaterie = (option) => {
     setMaterie(option);
   };
+
+  const adaugareIntrebare = () => {};
 
   return (
     <KeyboardAvoidingView
@@ -244,8 +272,9 @@ export default function IntrebareGrila() {
               opacity: 0.8,
               alignSelf: "flex-end",
               marginRight: 25,
-              marginBottom: 5,
+              marginBottom: -70,
             }}
+            onPress={adaugareIntrebare}
           >
             <Text className="font-xl font-bold text-center text-gray-700">
               OK!
