@@ -109,7 +109,7 @@ app.post("/register", (req, res) => {
   let zile = 0;
   let vieti = 5;
   let tipCont = "USER";
-  const avatar=2;
+  const avatar = 2;
 
   //verific daca exista utilizatorul in baza de date
   pgClient
@@ -130,7 +130,16 @@ app.post("/register", (req, res) => {
               pgClient
                 .query(
                   "insert into users (user_name,email, password,puncte,zile,vieti,tip_cont,avatar) values($1,$2,$3,$4,$5,$6,$7,$8);",
-                  [username, email, password, puncte, zile, vieti, tipCont,avatar]
+                  [
+                    username,
+                    email,
+                    password,
+                    puncte,
+                    zile,
+                    vieti,
+                    tipCont,
+                    avatar,
+                  ]
                 )
                 .then((result) => {
                   res.send({ message: "s-a adaugat cu succes!" });
@@ -342,6 +351,41 @@ app.get("/cursuriDisponibile", (req, res) => {
     .then((res) => res.rows)
     .then((data) => {
       res.send(data);
+    });
+});
+
+app.post("/adaugareGrila", (req, res) => {
+  console.log("Ai facut POST cu datele: ", req.body);
+  let textIntrebare = req.body.textIntrebare;
+  let varianta1 = req.body.varianta1;
+  let varianta2 = req.body.varianta2;
+  let varianta3 = req.body.varianta3;
+  let varianta4 = req.body.varianta4;
+  let raspunsCorect = req.body.raspunsCorect;
+  let materie = req.body.materie;
+  let idUtilizator = req.body.idUtilizator;
+  let status = "In asteptare";
+  let tipIntrebare = 
+  "GRILA";
+
+  pgClient
+    .query(
+      "insert into intrebari_propuse (text_intrebare, raspuns_corect,varianta1,varianta2,varianta3,varianta4,materie,tip_intrebare,idUtilizator,status) values($1,$2,$3,$4,$5,$6,$7,$8,$9,$10);",
+      [
+        textIntrebare,
+        raspunsCorect,
+        varianta1,
+        varianta2,
+        varianta3,
+        varianta4,
+        materie,
+        tipIntrebare,
+        idUtilizator,
+        status,
+      ]
+    )
+    .then((result) => {
+      res.send({ message: "Intrebarea s-a adaugat cu succes!" });
     });
 });
 

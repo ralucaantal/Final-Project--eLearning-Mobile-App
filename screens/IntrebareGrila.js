@@ -17,11 +17,28 @@ import { Picker } from "@react-native-picker/picker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import jwtDecode from "jwt-decode";
 import IPv4 from "../index";
-
+import { Alert } from "react-native";
 
 export default function IntrebareGrila() {
-  const navigation = useNavigation();
+  useEffect(() => {
+    if (afisareAlert) {
+      Alert.alert(
+        "Eroare",
+        eroare,
+        [
+          {
+            text: "OK",
+            onPress: () => {
+              setAfisareAlert(false);
+            },
+          },
+        ],
+        { cancelable: false }
+      );
+    }
+  }, [afisareAlert, eroare]);
 
+  const navigation = useNavigation();
 
   const [textIntrebare, setTextIntrebare] = useState(null);
 
@@ -32,7 +49,37 @@ export default function IntrebareGrila() {
 
   const [raspunsCorect, setRaspunsCorect] = useState(null);
 
-  const [materie, setMaterie] = useState(null);
+  const [materie, setMaterie] = useState("BPC");
+
+  const [token, setToken] = useState(null);
+  const [decodedJwt, setDecodedJwt] = useState(null);
+
+  const [intrebare, setIntrebare] = useState({
+    textIntrebare: "",
+    varianta1: "",
+    varianta2: "",
+    varianta3: "",
+    varianta4: "",
+    raspunsCorect: "",
+    materie: "",
+    idUtilizator: "",
+  });
+
+  useEffect(() => {
+    const decodeJwt = async () => {
+      try {
+        const jwt = await AsyncStorage.getItem("jwt");
+        const decoded = jwtDecode(jwt);
+        setDecodedJwt(decoded);
+        console.log(decoded);
+        intrebare.idUtilizator = decoded.id;
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    decodeJwt();
+  }, []);
 
   const handleChangeTextIntrebare = (inputText) => {
     setTextIntrebare(inputText);
@@ -62,8 +109,67 @@ export default function IntrebareGrila() {
     setMaterie(option);
   };
 
-  const adaugareIntrebare = () => {
-    navigation.navigate("SuccesAdaugareIntrebare");
+  const [eroare, setEroare] = useState(null);
+  const [afisareAlert, setAfisareAlert] = useState(false);
+
+  const adaugareIntrebare = async () => {
+    if (
+      textIntrebare != "" &&
+      raspunsCorect != "" &&
+      varianta1 != "" &&
+      varianta2 != "" &&
+      varianta3 != "" &&
+      varianta4 != ""
+    ) {
+      intrebare.textIntrebare = textIntrebare;
+      intrebare.varianta1 = varianta1;
+      intrebare.varianta2 = varianta2;
+      intrebare.varianta3 = varianta3;
+      intrebare.varianta4 = varianta4;
+      intrebare.raspunsCorect = raspunsCorect;
+      intrebare.materie = materie;
+      intrebare.idUtilizator = decodedJwt.id;
+
+      const requestOptions = {
+        method: "POST",
+        body: JSON.stringify(intrebare),
+        headers: { "Content-Type": "application/json" },
+      };
+
+      console.log(requestOptions.body);
+      let input = IPv4 + ":5000/adaugareGrila";
+      console.log("input: ", input);
+
+      try {
+        const response = await fetch(input, requestOptions);
+        const data = await response.json();
+        console.log(data);
+
+        if (data.message === "Intrebarea s-a adaugat cu succes!") {
+          console.log("Am adaugat intrebarea");
+          navigation.navigate("SuccesAdaugareIntrebare");
+        } else {
+        }
+      } catch (error) {
+        console.log(error);
+      }
+
+      setEroare(null);
+      setAfisareAlert(false);
+      setTextIntrebare(null);
+      setVarianta1(null);
+      setVarianta2(null);
+      setVarianta3(null);
+      setVarianta4(null);
+      setRaspunsCorect(null);
+      setMaterie(null);
+
+      navigation.navigate("SuccesAdaugareIntrebare");
+    } else {
+      setEroare("Toate câmpurile sunt obligatorii!");
+      setAfisareAlert(true);
+      console.log("Date invalide");
+    }
   };
 
   return (

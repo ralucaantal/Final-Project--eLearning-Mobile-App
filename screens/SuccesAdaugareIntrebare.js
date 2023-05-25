@@ -103,7 +103,7 @@ export default function SuccesAdaugareIntrebare() {
               style={{ display: "flex", marginLeft: "auto" }}
             >
               <TouchableOpacity className="bg-purple-100 p-3 px-4 rounded-full mr-2">
-                <Text>50 Puncte 🚀</Text>
+                <Text>100 Puncte 🚀</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -132,7 +132,7 @@ export default function SuccesAdaugareIntrebare() {
                 marginBottom: 5,
               }}
               onPress={() => {
-                console.log("ne ducem la urmatoarea intrebare");
+                
               }}
             >
               <Text className="font-xl font-bold text-center text-gray-700">
