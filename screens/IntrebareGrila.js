@@ -20,24 +20,6 @@ import IPv4 from "../index";
 import { Alert } from "react-native";
 
 export default function IntrebareGrila() {
-  useEffect(() => {
-    if (afisareAlert) {
-      Alert.alert(
-        "Eroare",
-        eroare,
-        [
-          {
-            text: "OK",
-            onPress: () => {
-              setAfisareAlert(false);
-            },
-          },
-        ],
-        { cancelable: false }
-      );
-    }
-  }, [afisareAlert, eroare]);
-
   const navigation = useNavigation();
 
   const [textIntrebare, setTextIntrebare] = useState(null);
@@ -72,7 +54,10 @@ export default function IntrebareGrila() {
         const decoded = jwtDecode(jwt);
         setDecodedJwt(decoded);
         console.log(decoded);
-        intrebare.idUtilizator = decoded.id;
+        setIntrebare((prevState) => ({
+          ...prevState,
+          idUtilizator: decoded.id,
+        }));
       } catch (error) {
         console.log(error);
       }
@@ -109,9 +94,6 @@ export default function IntrebareGrila() {
     setMaterie(option);
   };
 
-  const [eroare, setEroare] = useState(null);
-  const [afisareAlert, setAfisareAlert] = useState(false);
-
   const adaugareIntrebare = async () => {
     if (
       textIntrebare != "" &&
@@ -119,7 +101,8 @@ export default function IntrebareGrila() {
       varianta1 != "" &&
       varianta2 != "" &&
       varianta3 != "" &&
-      varianta4 != ""
+      varianta4 != "" &&
+      intrebare.idUtilizator != ""
     ) {
       intrebare.textIntrebare = textIntrebare;
       intrebare.varianta1 = varianta1;
@@ -154,8 +137,6 @@ export default function IntrebareGrila() {
         console.log(error);
       }
 
-      setEroare(null);
-      setAfisareAlert(false);
       setTextIntrebare(null);
       setVarianta1(null);
       setVarianta2(null);

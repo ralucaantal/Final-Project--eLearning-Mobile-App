@@ -370,7 +370,7 @@ app.post("/adaugareGrila", (req, res) => {
 
   pgClient
     .query(
-      "insert into intrebari_propuse (text_intrebare, raspuns_corect,varianta1,varianta2,varianta3,varianta4,materie,tip_intrebare,idUtilizator,status) values($1,$2,$3,$4,$5,$6,$7,$8,$9,$10);",
+      "insert into intrebari_propuse (text_intrebare, raspuns_corect,varianta1,varianta2,varianta3,varianta4,materie,tip_intrebare,id_utilizator,status) values($1,$2,$3,$4,$5,$6,$7,$8,$9,$10);",
       [
         textIntrebare,
         raspunsCorect,
