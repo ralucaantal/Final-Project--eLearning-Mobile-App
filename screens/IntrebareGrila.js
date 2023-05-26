@@ -24,12 +24,13 @@ export default function IntrebareGrila() {
 
   const [textIntrebare, setTextIntrebare] = useState(null);
 
-  const [varianta1, setVarianta1] = useState(null);
-  const [varianta2, setVarianta2] = useState(null);
-  const [varianta3, setVarianta3] = useState(null);
-  const [varianta4, setVarianta4] = useState(null);
+  const [varianta1, setVarianta1] = useState("");
+  const [varianta2, setVarianta2] = useState("");
+  const [varianta3, setVarianta3] = useState("");
+  const [varianta4, setVarianta4] = useState("");
+  const [idUtilizator, setIdUtilizator] = useState("");
 
-  const [raspunsCorect, setRaspunsCorect] = useState(null);
+  const [raspunsCorect, setRaspunsCorect] = useState("");
 
   const [materie, setMaterie] = useState("BPC");
 
@@ -52,12 +53,9 @@ export default function IntrebareGrila() {
       try {
         const jwt = await AsyncStorage.getItem("jwt");
         const decoded = jwtDecode(jwt);
+        console.log(jwtDecode(jwt))
         setDecodedJwt(decoded);
-        console.log(decoded);
-        setIntrebare((prevState) => ({
-          ...prevState,
-          idUtilizator: decoded.id,
-        }));
+        setIdUtilizator(decoded.id);
       } catch (error) {
         console.log(error);
       }
@@ -101,8 +99,8 @@ export default function IntrebareGrila() {
       varianta1 != "" &&
       varianta2 != "" &&
       varianta3 != "" &&
-      varianta4 != "" &&
-      intrebare.idUtilizator != ""
+      varianta4 != "" //&&
+      //intrebare.idUtilizator != ""
     ) {
       intrebare.textIntrebare = textIntrebare;
       intrebare.varianta1 = varianta1;
@@ -111,7 +109,14 @@ export default function IntrebareGrila() {
       intrebare.varianta4 = varianta4;
       intrebare.raspunsCorect = raspunsCorect;
       intrebare.materie = materie;
-      intrebare.idUtilizator = decodedJwt.id;
+      intrebare.idUtilizator = decodedJwt.data.id
+
+      setIntrebare((prevState) => ({
+        ...prevState,
+        //idUtilizator: decodedJwt.id,
+      }));
+
+      console.log(decodedJwt.id);
 
       const requestOptions = {
         method: "POST",
@@ -121,7 +126,6 @@ export default function IntrebareGrila() {
 
       console.log(requestOptions.body);
       let input = IPv4 + ":5000/adaugareGrila";
-      console.log("input: ", input);
 
       try {
         const response = await fetch(input, requestOptions);
@@ -145,11 +149,10 @@ export default function IntrebareGrila() {
       setRaspunsCorect(null);
       setMaterie(null);
 
-      navigation.navigate("SuccesAdaugareIntrebare");
+
     } else {
-      setEroare("Toate câmpurile sunt obligatorii!");
-      setAfisareAlert(true);
       console.log("Date invalide");
+      console.log(decodedJwt.data.id);
     }
   };
 
