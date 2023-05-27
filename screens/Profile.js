@@ -20,8 +20,11 @@ import Avatare from "../screens/ChooseAvatar";
 
 import IPv4 from "../index";
 
+import { useIsFocused } from "@react-navigation/native";
+
 export default function Profile() {
   const navigation = useNavigation();
+  const isFocused = useIsFocused();
 
   const [decodedJwt, setDecodedJwt] = useState(null);
   const [username, setUsername] = useState(null);
@@ -90,7 +93,7 @@ export default function Profile() {
     };
 
     decodeJwt();
-  }, [puncte, zile, vieti]);
+  }, [puncte, zile, vieti,isFocused]);
 
   async function removeJwtFromStorage() {
     try {
