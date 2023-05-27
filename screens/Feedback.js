@@ -6,6 +6,7 @@ import { ArrowLeftIcon } from "react-native-heroicons/solid";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { themeColors } from "../theme/index";
 
+
 export default function Feedback() {
   const navigation = useNavigation();
   return (
@@ -45,11 +46,6 @@ export default function Feedback() {
           </Text>
         </View>
 
-        <ScrollView
-          style={{ height: "100%", marginTop: 20 }}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: 100 }}
-        ></ScrollView>
       </SafeAreaView>
     </LinearGradient>
   );
