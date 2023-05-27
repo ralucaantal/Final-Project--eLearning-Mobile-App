@@ -19,6 +19,7 @@
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/native-stack": "^6.9.12",
     "@reduxjs/toolkit": "^1.9.5",
+    "@vue-hero-icons/outline": "^1.7.2",
     "base64-js": "^1.5.1",
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.2",
