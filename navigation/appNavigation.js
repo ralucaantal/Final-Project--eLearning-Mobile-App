@@ -24,6 +24,7 @@ import IntrebareGrila from "../screens/IntrebareGrila";
 import SuccesPropunereIntrebare from "../screens/SuccesPropunereIntrebare";
 import IntrebareText from "../screens/IntrebareText";
 import Feedback from "../screens/Feedback";
+import MultumireFeedback from "../screens/MultumireFeedback";
 
 const Stack = createNativeStackNavigator();
 
@@ -140,6 +141,11 @@ export default function AppNavigation() {
           name="Feedback"
           options={{ headerShown: false }}
           component={Feedback}
+        />
+        <Stack.Screen
+          name="MultumireFeedback"
+          options={{ headerShown: false }}
+          component={MultumireFeedback}
         />
       </Stack.Navigator>
     </NavigationContainer>
