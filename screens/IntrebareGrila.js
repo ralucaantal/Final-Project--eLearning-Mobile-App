@@ -136,8 +136,7 @@ export default function IntrebareGrila() {
           console.log("Am adaugat intrebarea");
           punctaj();
           navigation.navigate("SuccesPropunereIntrebare");
-        } else {
-        }
+        } 
       } catch (error) {
         console.log(error);
       }

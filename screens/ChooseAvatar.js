@@ -8,43 +8,53 @@ import { themeColors } from "../theme/index";
 import { height } from "deprecated-react-native-prop-types/DeprecatedImagePropType";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import jwtDecode from "jwt-decode";
+import IPv4 from "../index";
 
 export const avatare = [
   {
     id: 1,
     sursa: require("../assets/avatare/avatar1.jpg"),
+    isSelected: false,
   },
   {
     id: 2,
     sursa: require("../assets/avatare/avatar2.jpg"),
+    isSelected: false,
   },
   {
     id: 3,
     sursa: require("../assets/avatare/avatar3.jpg"),
+    isSelected: false,
   },
   {
     id: 4,
     sursa: require("../assets/avatare/avatar4.jpg"),
+    isSelected: false,
   },
   {
     id: 5,
     sursa: require("../assets/avatare/avatar5.jpg"),
+    isSelected: false,
   },
   {
     id: 6,
     sursa: require("../assets/avatare/avatar6.jpg"),
+    isSelected: false,
   },
   {
     id: 7,
     sursa: require("../assets/avatare/avatar7.jpg"),
+    isSelected: false,
   },
   {
     id: 8,
     sursa: require("../assets/avatare/avatar8.jpg"),
+    isSelected: false,
   },
   {
     id: 9,
     sursa: require("../assets/avatare/avatar9.jpg"),
+    isSelected: false,
   },
 ];
 
@@ -52,12 +62,12 @@ export default function ChooseAvatar() {
   const navigation = useNavigation();
 
   const [decodedJwt, setDecodedJwt] = useState(null);
-  const [avatar, setAvatar] = useState(null);
+  const [avatarId, setAvatarId] = useState(null);
   const selectAvatar = (id) => {
     setAvatar(id);
   };
 
-  const[selectedAvatar, setSelectedAvatar]=useState(null);
+  const [selectedAvatar, setSelectedAvatar] = useState(null);
 
   useEffect(() => {
     const decodeJwt = async () => {
@@ -65,12 +75,8 @@ export default function ChooseAvatar() {
         const jwt = await AsyncStorage.getItem("jwt");
         const decoded = jwtDecode(jwt);
         setDecodedJwt(decoded);
-        setAvatar(decoded.data.avatar);
+        setAvatarId(decoded.data.avatar);
         setSelectedAvatar(decoded.data.avatar);
-
-        const idUser = {
-          idUser: decoded.data.id,
-        };
       } catch (error) {
         console.log(error);
       }
@@ -78,6 +84,29 @@ export default function ChooseAvatar() {
 
     decodeJwt();
   }, []);
+
+  const schimbaAvatar = async () => {
+    const schimbareAvatar = {
+      idUser: decodedJwt.data.id,
+      avatar: avatarId,
+    };
+
+    const requestOptions = {
+      method: "POST",
+      body: JSON.stringify(schimbareAvatar),
+      headers: { "Content-Type": "application/json" },
+    };
+
+    console.log(requestOptions.body);
+    let input = IPv4 + ":5000/schimbareAvatar";
+
+    const response = await fetch(input, requestOptions);
+    const data = await response.json();
+
+    await AsyncStorage.setItem("jwt", data.jwt);
+
+    navigation.navigate("Profile");
+  };
 
   return (
     <LinearGradient
@@ -139,7 +168,7 @@ export default function ChooseAvatar() {
               marginTop: 10,
             }}
           >
-            {avatare.map((avatar, index) => {
+            {/* {avatare.map((avatar, index) => {
               const isSelected = avatar.id === avatar;
               return (
                 <TouchableOpacity
@@ -173,7 +202,85 @@ export default function ChooseAvatar() {
                   )}
                 </TouchableOpacity>
               );
-            })}
+            })} */}
+            {avatarId === null &&
+              avatare.map((avatar) => {
+                const isSelected = avatar.id === avatarId; // Compare with selectedAvatar state
+                console.log(avatarId);
+                return (
+                  <TouchableOpacity
+                    key={avatar.id}
+                    style={{ width: "33.33%" }}
+                    onPress={() => setAvatarId(avatar.id)}
+                  >
+                    <Image
+                      source={avatar.sursa}
+                      style={{
+                        width: 88,
+                        height: 88,
+                        marginLeft: 10,
+                        marginRight: 10,
+                        marginTop: 10,
+                        marginBottom: 10,
+                      }}
+                      className="rounded-2xl"
+                    />
+                    {avatar.id === avatarId && (
+                      <CheckIcon
+                        color={themeColors.galben}
+                        size={24} // Pass the size as a number, not a string
+                        style={{
+                          position: "absolute",
+                          top: "50%",
+                          left: "50%",
+                          transform: [{ translateX: -12 }, { translateY: -12 }],
+                        }}
+                      />
+                    )}
+                  </TouchableOpacity>
+                );
+              })}
+            {avatarId &&
+              avatare.map((avatar) => {
+                const isSelected = avatar.id === avatarId; // Compare with selectedAvatar state
+                console.log(avatarId);
+                return (
+                  <TouchableOpacity
+                    key={avatar.id}
+                    style={{ width: "33.33%" }}
+                    onPress={() => setAvatarId(avatar.id)}
+                  >
+                    <Image
+                      source={avatar.sursa}
+                      style={{
+                        width: 88,
+                        height: 88,
+                        marginLeft: 10,
+                        marginRight: 10,
+                        marginTop: 10,
+                        marginBottom: 10,
+                        opacity: avatarId === avatar.id ? 0.4 : 1,
+                      }}
+                      className="rounded-2xl"
+                    />
+                    {avatar.id === avatarId && (
+                      <View
+                        style={{
+                          position: "absolute",
+                          top: 0,
+                          left: 0,
+                          right: 0,
+                          bottom: 0,
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <CheckIcon color={themeColors.galben} size={50} />
+                      </View>
+                    )}
+                  </TouchableOpacity>
+                );
+              })}
           </TouchableOpacity>
           {/* </TouchableOpacity> */}
           <TouchableOpacity
@@ -184,6 +291,7 @@ export default function ChooseAvatar() {
               alignSelf: "flex-end",
               marginEnd: 15,
             }}
+            onPress={schimbaAvatar}
           >
             <Text className="font-xl font-bold text-center text-gray-700">
               OK!
