@@ -105,6 +105,7 @@ export default function Ajuta() {
                   console.log(
                     "se vrea propunerea unei intrebari cu raspuns deschis"
                   );
+                  navigation.navigate("IntrebareText");
                 }}
               >
                 <Text className="font-xl font-bold text-center text-gray-700">

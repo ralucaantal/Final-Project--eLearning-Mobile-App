@@ -389,6 +389,85 @@ app.post("/adaugareGrila", (req, res) => {
     });
 });
 
+app.post("/adaugareIntrebareText", (req, res) => {
+  console.log("Ai facut POST cu datele: ", req.body);
+  let textIntrebare = req.body.textIntrebare;
+  let raspunsCorect = req.body.raspunsCorect;
+  let materie = "BD";
+  let idUtilizator = req.body.idUtilizator;
+  let status = "In asteptare";
+  let tipIntrebare = 
+  "TEXT";
+
+  pgClient
+    .query(
+      "insert into intrebari_propuse (text_intrebare, raspuns_corect,materie,tip_intrebare,id_utilizator,status) values($1,$2,$3,$4,$5,$6);",
+      [
+        textIntrebare,
+        raspunsCorect,
+        materie,
+        tipIntrebare,
+        idUtilizator,
+        status,
+      ]
+    )
+    .then((result) => {
+      res.send({ message: "Intrebarea s-a adaugat cu succes!" });
+    });
+});
+
+app.post("/adaugarePunctajPropunereIntrebare", (req, res) => {
+  console.log("ai facut post cu datele: ", req.body);
+
+  qry =
+    "UPDATE users SET puncte = puncte + " +
+    req.body.puncteCastigate +
+    " WHERE id = " +
+    req.body.idUser +
+    ";";
+
+  console.log(qry);
+
+  pgClient
+    .query(qry)
+    .then((res) => res.rows)
+    .then((data) => {
+      console.log("sunt in fetch de la baza de date");
+      // console.log(data);
+
+      pgClient
+        .query(
+          "select id,email,user_name, password,zile,puncte,vieti from users where id=$1;",
+          [req.body.idUser]
+        )
+        .then((res) => res.rows)
+        .then((data) => {
+          let token = jwt.sign(
+            {
+              data: {
+                id: data[0].id,
+                username: data[0].user_name,
+                password: data[0].password,
+                email: data[0].email,
+                zile: data[0].zile,
+                puncte: data[0].puncte,
+                vieti: data[0].vieti,
+              },
+            },
+            serverSecret,
+            { expiresIn: "24h" }
+          );
+          console.log("tokenul tau este: ", token);
+
+          res.send({
+            jwt: token,
+          });
+        });
+
+      // res.send(data);
+    });
+});
+
 app.listen(5000, () => {
   console.log("Server started on port 5000");
 });

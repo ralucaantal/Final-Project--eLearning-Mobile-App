@@ -11,18 +11,11 @@ import jwtDecode from "jwt-decode";
 
 //const puncteCastigate = 50;
 
-export default function SuccesAdaugareIntrebare() {
+export default function SuccesPropunereIntrebare() {
   const navigation = useNavigation();
-
-  const [puncteCastigate, setPuncteCastigate] = useState(null);
 
   const [token, setToken] = useState(null);
   const [decodedJwt, setDecodedJwt] = useState(null);
-
-  const verificarePuncteCastigate = () => {
-    setPuncteCastigate(0);
-    setPuncteCastigate(route.params.punctajCastigat);
-  };
 
   useEffect(() => {
     const decodeJwt = async () => {
@@ -30,10 +23,6 @@ export default function SuccesAdaugareIntrebare() {
         const jwt = await AsyncStorage.getItem("jwt");
         const decoded = jwtDecode(jwt);
         setDecodedJwt(decoded);
-
-        const idUser = {
-          idUser: decoded.data.id,
-        };
       } catch (error) {
         console.log(error);
       }
@@ -131,9 +120,7 @@ export default function SuccesAdaugareIntrebare() {
                 marginTop: 5,
                 marginBottom: 5,
               }}
-              onPress={() => {
-                
-              }}
+              onPress={() => {}}
             >
               <Text className="font-xl font-bold text-center text-gray-700">
                 Vezi statusul întrebărilor propuse până acum

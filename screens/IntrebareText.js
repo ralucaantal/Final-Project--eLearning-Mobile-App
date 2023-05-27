@@ -19,7 +19,7 @@ import jwtDecode from "jwt-decode";
 import IPv4 from "../index";
 import { Alert } from "react-native";
 
-export default function IntrebareGrila() {
+export default function IntrebareText() {
   const navigation = useNavigation();
 
   const [textIntrebare, setTextIntrebare] = useState(null);
@@ -39,10 +39,6 @@ export default function IntrebareGrila() {
 
   const [intrebare, setIntrebare] = useState({
     textIntrebare: "",
-    varianta1: "",
-    varianta2: "",
-    varianta3: "",
-    varianta4: "",
     raspunsCorect: "",
     materie: "",
     idUtilizator: "",
@@ -68,53 +64,15 @@ export default function IntrebareGrila() {
     setTextIntrebare(inputText);
   };
 
-  const handleChangeTextVarianta1 = (inputText) => {
-    setVarianta1(inputText);
-  };
-
-  const handleChangeTextVarianta2 = (inputText) => {
-    setVarianta2(inputText);
-  };
-
-  const handleChangeTextVarianta3 = (inputText) => {
-    setVarianta3(inputText);
-  };
-
-  const handleChangeTextVarianta4 = (inputText) => {
-    setVarianta4(inputText);
-  };
-
   const handleChangeRaspunsCorect = (inputText) => {
     setRaspunsCorect(inputText);
   };
 
-  const handleChangeMaterie = (option) => {
-    setMaterie(option);
-  };
-
   const adaugareIntrebare = async () => {
-    if (
-      textIntrebare != "" &&
-      raspunsCorect != "" &&
-      varianta1 != "" &&
-      varianta2 != "" &&
-      varianta3 != "" &&
-      varianta4 != "" //&&
-      //intrebare.idUtilizator != ""
-    ) {
+    if (textIntrebare != "" && raspunsCorect != "") {
       intrebare.textIntrebare = textIntrebare;
-      intrebare.varianta1 = varianta1;
-      intrebare.varianta2 = varianta2;
-      intrebare.varianta3 = varianta3;
-      intrebare.varianta4 = varianta4;
       intrebare.raspunsCorect = raspunsCorect;
-      intrebare.materie = materie;
       intrebare.idUtilizator = decodedJwt.data.id;
-
-      setIntrebare((prevState) => ({
-        ...prevState,
-        //idUtilizator: decodedJwt.id,
-      }));
 
       console.log(decodedJwt.id);
 
@@ -125,7 +83,7 @@ export default function IntrebareGrila() {
       };
 
       console.log(requestOptions.body);
-      let input = IPv4 + ":5000/adaugareGrila";
+      let input = IPv4 + ":5000/adaugareIntrebareText";
 
       try {
         const response = await fetch(input, requestOptions);
@@ -134,7 +92,7 @@ export default function IntrebareGrila() {
 
         if (data.message === "Intrebarea s-a adaugat cu succes!") {
           console.log("Am adaugat intrebarea");
-          punctaj();
+          punctaj()
           navigation.navigate("SuccesPropunereIntrebare");
         } else {
         }
@@ -143,10 +101,6 @@ export default function IntrebareGrila() {
       }
 
       setTextIntrebare(null);
-      setVarianta1(null);
-      setVarianta2(null);
-      setVarianta3(null);
-      setVarianta4(null);
       setRaspunsCorect(null);
       setMaterie(null);
     } else {
@@ -214,7 +168,7 @@ export default function IntrebareGrila() {
               style={{ color: themeColors.white }}
               className="ml-4 text-3xl font-bold"
             >
-              Propune o întrebare nouă de tip grilă! ⚙
+              Propune o întrebare nouă de tip text! 📑
             </Text>
             <View
               className="mx-4 p-2 mb-2 flex-row"
@@ -231,87 +185,27 @@ export default function IntrebareGrila() {
                 className="form space-y-2"
                 style={{ width: "100%", height: "100%" }}
               >
-                <View className="flex-1 flex justify-center pl-3 space-y-3">
+                <View
+                  className="flex-1 flex justify-center pl-3 space-y-3"
+                  style={{ marginTop: 90 }}
+                >
                   <Text
                     style={{ color: themeColors.white, fontSize: 20 }}
                     className="font-semibold"
                   >
                     Care este textul întrebării?
                   </Text>
+
                   <TextInput
                     className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
-                    placeholder="Textul întrebării tale"
+                    placeholder="Textul intrebării"
                     style={{
                       width: "97%",
+                      height: "50%",
                       opacity: 0.5,
                     }}
                     onChangeText={handleChangeTextIntrebare}
                     value={textIntrebare}
-                  />
-                  <Text
-                    style={{ color: themeColors.white, fontSize: 20 }}
-                    className="font-semibold"
-                  >
-                    Prima variantă de răspuns
-                  </Text>
-                  <TextInput
-                    className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
-                    placeholder="Prima variantă de răspuns"
-                    style={{
-                      width: "97%",
-                      opacity: 0.5,
-                    }}
-                    onChangeText={handleChangeTextVarianta1}
-                    value={varianta1}
-                  />
-
-                  <Text
-                    style={{ color: themeColors.white, fontSize: 20 }}
-                    className="font-semibold"
-                  >
-                    A doua variantă de răspuns
-                  </Text>
-                  <TextInput
-                    className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
-                    placeholder="A doua variantă de răspuns"
-                    style={{
-                      width: "97%",
-                      opacity: 0.5,
-                    }}
-                    onChangeText={handleChangeTextVarianta2}
-                    value={varianta2}
-                  />
-                  <Text
-                    style={{ color: themeColors.white, fontSize: 20 }}
-                    className="font-semibold"
-                  >
-                    A treia variantă de răspuns
-                  </Text>
-                  <TextInput
-                    className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
-                    placeholder="A treia variantă de răspuns"
-                    style={{
-                      width: "97%",
-                      opacity: 0.5,
-                    }}
-                    onChangeText={handleChangeTextVarianta3}
-                    value={varianta3}
-                  />
-                  <Text
-                    style={{ color: themeColors.white, fontSize: 20 }}
-                    className="font-semibold"
-                  >
-                    A patra variantă de răspuns
-                  </Text>
-                  <TextInput
-                    className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
-                    placeholder="A patra variantă de răspuns"
-                    style={{
-                      width: "97%",
-                      opacity: 0.5,
-                    }}
-                    onChangeText={handleChangeTextVarianta4}
-                    value={varianta4}
                   />
                   <Text
                     style={{ color: themeColors.white, fontSize: 20 }}
@@ -324,34 +218,12 @@ export default function IntrebareGrila() {
                     placeholder="Răspunsul corect"
                     style={{
                       width: "97%",
+                      height: "70%",
                       opacity: 0.5,
                     }}
                     onChangeText={handleChangeRaspunsCorect}
                     value={raspunsCorect}
                   />
-                  <Picker
-                    selectedValue={materie}
-                    onValueChange={handleChangeMaterie}
-                    style={{
-                      color: "white",
-                      fontSize: 20,
-                      shadowColor: themeColors.white, // Set the shadow color to white
-                      shadowOffset: { width: 0, height: 2 },
-                      shadowOpacity: 0.6,
-                      shadowRadius: 4,
-                    }}
-                    itemStyle={{ color: "white", fontSize: 20 }}
-                  >
-                    <Picker.Item
-                      label="Bazele Programării Calculatoarelor"
-                      value="BPC"
-                    />
-                    <Picker.Item label="Baze de Date" value="BD" />
-                    <Picker.Item
-                      label="Programare Orientată Obiect"
-                      value="POO"
-                    />
-                  </Picker>
                 </View>
               </ScrollView>
             </View>
