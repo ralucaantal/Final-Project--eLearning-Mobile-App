@@ -23,6 +23,7 @@ import ChooseAvatar from "../screens/ChooseAvatar";
 import IntrebareGrila from "../screens/IntrebareGrila";
 import SuccesPropunereIntrebare from "../screens/SuccesPropunereIntrebare";
 import IntrebareText from "../screens/IntrebareText";
+import Feedback from "../screens/Feedback";
 
 const Stack = createNativeStackNavigator();
 
@@ -134,6 +135,11 @@ export default function AppNavigation() {
           name="IntrebareText"
           options={{ headerShown: false }}
           component={IntrebareText}
+        />
+        <Stack.Screen
+          name="Feedback"
+          options={{ headerShown: false }}
+          component={Feedback}
         />
       </Stack.Navigator>
     </NavigationContainer>

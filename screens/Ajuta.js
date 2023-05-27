@@ -122,9 +122,8 @@ export default function Ajuta() {
                   marginBottom: 5,
                 }}
                 onPress={() => {
-                  console.log(
-                    "se vrea propunerea unei intrebari cu raspuns deschis"
-                  );
+                  console.log("se vrea oferirea de feedback");
+                  navigation.navigate("Feedback");
                 }}
               >
                 <Text className="font-xl font-bold text-center text-gray-700">
