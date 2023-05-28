@@ -1,6 +1,6 @@
 import { View, Text, ScrollView, TouchableOpacity, Image } from "react-native";
-import React, { useState, useEffect} from "react";
-import { useNavigation } from "@react-navigation/native";
+import React, { useState, useEffect } from "react";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import {
   ArrowLeftIcon,
@@ -27,6 +27,7 @@ export default function Profile() {
   const isFocused = useIsFocused();
 
   const [decodedJwt, setDecodedJwt] = useState(null);
+  const [token, setToken] = useState(null);
   const [username, setUsername] = useState(null);
   const [zile, setZile] = useState(null);
   const [puncte, setPuncte] = useState(null);
@@ -43,6 +44,9 @@ export default function Profile() {
         setDecodedJwt(decoded);
         setUsername(decoded.data.username);
         setAvatar(decoded.data.avatar);
+        setZile(decoded.data.zile);
+        setPuncte(decoded.data.puncte);
+        setVieti(decoded.data.vieti);
 
         if (avatar == 1)
           setSursaImagine(require("../assets/avatare/avatar1.jpg"));
@@ -63,37 +67,49 @@ export default function Profile() {
         else if (avatar == 9)
           setSursaImagine(require("../assets/avatare/avatar9.jpg"));
 
-        const idUser = {
-          idUser: decoded.data.id,
-        };
+        // const idUser = {
+        //   idUser: decoded.data.id,
+        // };
 
-        console.log("idUser: ", idUser);
+        // console.log("idUser: ", idUser);
 
-        const requestOptions = {
-          method: "POST",
-          body: JSON.stringify(idUser),
-          headers: { "Content-Type": "application/json" },
-        };
+        // const requestOptions = {
+        //   method: "POST",
+        //   body: JSON.stringify(idUser),
+        //   headers: { "Content-Type": "application/json" },
+        // };
 
-        console.log(requestOptions);
-        let input = IPv4 + ":5000/puncteZileVieti";
+        // console.log(requestOptions);
+        // let input = IPv4 + ":5000/puncteZileVieti";
 
-        fetch(input, requestOptions)
-          .then((response) => response.json())
-          .then((data) => {
-            console.log("data: ", data);
+        // fetch(input, requestOptions)
+        //   .then((response) => response.json())
+        //   .then((data) => {
+        //     console.log("data: ", data);
 
-            setZile(data[0].zile);
-            setPuncte(data[0].puncte);
-            setVieti(data[0].vieti);
-          });
+        //     setZile(data[0].zile);
+        //     setPuncte(data[0].puncte);
+        //     setVieti(data[0].vieti);
+        //   });
       } catch (error) {
         console.log(error);
       }
     };
 
-    decodeJwt();
-  }, [puncte, zile, vieti,isFocused]);
+    async function fetchData() {
+      console.log("---------------------------------------------------");
+      console.log("am intrat in useFocusEffect");
+      if (token != (await AsyncStorage.getItem("jwt"))) {
+        //decodeJwt();
+        console.log("tokenuri diferite");
+        decodeJwt();
+        setToken(await AsyncStorage.getItem("jwt"));
+      }
+      //console.log(await AsyncStorage.getItem("jwt"));
+      console.log("---------------------------------------------------");
+    }
+    fetchData();
+  },[avatar]);
 
   async function removeJwtFromStorage() {
     try {
