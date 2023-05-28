@@ -25,6 +25,7 @@ import SuccesPropunereIntrebare from "../screens/SuccesPropunereIntrebare";
 import IntrebareText from "../screens/IntrebareText";
 import Feedback from "../screens/Feedback";
 import MultumireFeedback from "../screens/MultumireFeedback";
+import Curs from "../screens/Curs";
 
 const Stack = createNativeStackNavigator();
 
@@ -146,6 +147,11 @@ export default function AppNavigation() {
           name="MultumireFeedback"
           options={{ headerShown: false }}
           component={MultumireFeedback}
+        />
+        <Stack.Screen
+          name="Curs"
+          options={{ headerShown: false }}
+          component={Curs}
         />
       </Stack.Navigator>
     </NavigationContainer>

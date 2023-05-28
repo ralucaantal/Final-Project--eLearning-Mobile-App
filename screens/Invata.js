@@ -160,6 +160,9 @@ export default function Invata() {
                     <TouchableOpacity
                       style={[tw`mr-4 relative`, { marginBottom: 15 }]}
                       key={item.id}
+                      onPress={() =>
+                        navigation.navigate("Curs", { cursCerut: item.titlu })
+                      }
                     >
                       <Image
                         source={cursuriDisponibile[index].image}
