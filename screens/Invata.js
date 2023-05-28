@@ -41,14 +41,11 @@ export default function Invata() {
         const jwt = await AsyncStorage.getItem("jwt");
         const decoded = jwtDecode(jwt);
         setDecodedJwt(decoded);
-        console.log(decoded);
         setUsername(decoded.data.username);
 
         const idUser = {
           idUser: decoded.data.id,
         };
-
-        console.log("idUser: ", idUser);
 
         const requestOptions = {
           method: "POST",
@@ -62,7 +59,6 @@ export default function Invata() {
         fetch(input, requestOptions)
           .then((response) => response.json())
           .then((data) => {
-            console.log("data: ", data);
 
             console.log(data[0].zile);
 
@@ -82,7 +78,6 @@ export default function Invata() {
         fetch(input)
           .then((response) => response.json())
           .then((data) => {
-            console.log("data: ", data);
             setCursuri(data);
           });
       } catch (error) {

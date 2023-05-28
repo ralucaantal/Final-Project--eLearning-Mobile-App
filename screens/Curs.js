@@ -1,14 +1,72 @@
 import { View, Text, ScrollView, TouchableOpacity, Image } from "react-native";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
-import { ArrowLeftIcon } from "react-native-heroicons/solid";
+import { ArrowLeftIcon, CheckCircleIcon } from "react-native-heroicons/solid";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { themeColors } from "../theme/index";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import jwtDecode from "jwt-decode";
+import IPv4 from "../index";
 
 export default function Curs({ route }) {
   const navigation = useNavigation();
-  
+
+  const [decodedJwt, setDecodedJwt] = useState(null);
+
+  const [sectiuni, setSectiuni] = useState(null);
+
+  const [indexSectiune, setIndexSectiune] = useState(0);
+
+  useEffect(() => {
+    const decodeJwt = async () => {
+      try {
+        const jwt = await AsyncStorage.getItem("jwt");
+        const decoded = jwtDecode(jwt);
+        setDecodedJwt(decoded);
+
+        console.log(".................... " + route.params.cursCerut);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    const cereSectiuni = async () => {
+      await decodeJwt();
+
+      const cursCurent = {
+        nume:
+          route.params.cursCerut === "Baze De Date"
+            ? "BD"
+            : route.params.cursCerut === "Programare Orietată Obiect (POO)"
+            ? "POO"
+            : "BPC",
+      };
+
+      const requestOptions = {
+        method: "POST",
+        body: JSON.stringify(cursCurent),
+        headers: { "Content-Type": "application/json" },
+      };
+
+      console.log(requestOptions);
+      let input = IPv4 + ":5000/afisareSectiuni";
+
+      // console.log(requestOptions);
+
+      fetch(input, requestOptions)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("data: ", data);
+
+          setSectiuni(data);
+          setIndexSectiune(0);
+        });
+    };
+
+    cereSectiuni();
+  }, []);
+
   return (
     <LinearGradient
       colors={["rgba(135, 125, 250, 0.9)", "rgba(180, 174, 232, 0.7)"]}
@@ -54,54 +112,54 @@ export default function Curs({ route }) {
           </Text>
         </View>
 
-        <ScrollView
-          style={{ height: "100%", marginTop: 20 }}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: 100 }}
-        >
-          {/* {Utilizatori.map((utilizator, index) => {
-            return (
-              <TouchableOpacity
-                className="mx-4 p-2 mb-2 flex-row"
-                key={index}
-                style={{
-                  backgroundColor: "rgba(255,255,255,0.4)",
-                  borderRadius: 10,
-                }}
-              >
-                <View
-                  className="flex-row space-x-1"
-                  style={{ marginRight: 10, marginTop: 25 }}
+        {sectiuni && (
+          <ScrollView
+            style={{ height: "100%", marginTop: 20 }}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{ paddingBottom: 300 }}
+          >
+            {sectiuni.map((sectiune, index) => {
+              return (
+                <TouchableOpacity
+                  className="mx-4 p-2 mb-2 flex-row"
+                  key={index}
+                  style={{
+                    backgroundColor: "rgba(255,255,255,0.4)",
+                    borderRadius: 10,
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
                 >
-                  <Text
-                    className="font-semibold"
-                    style={{ color: themeColors.white }}
+                  <CheckCircleIcon
+                    color={themeColors.rozPal}
+                    size="30"
+                    style={{ opacity: 0.8,marginRight:5 }}
+                  />
+
+                  <View
+                    className="flex-row space-x-1"
+                    style={{ marginRight: 10 }}
                   >
-                    {utilizator.id}
-                  </Text>
-                </View>
-                <Image
-                  source={utilizator.image}
-                  style={{ width: 70, height: 70 }}
-                  className="rounded-2xl"
-                />
-                <View className="flex-1 flex justify-center pl-3 space-y-3">
-                  <Text
-                    style={{ color: themeColors.white }}
-                    className="font-semibold"
-                  >
-                    {utilizator.nume}
-                  </Text>
-                  <View className="flex-row space-x-1">
-                    <TouchableOpacity className="bg-purple-100 p-3 px-4 rounded-full mr-2">
-                      <Text>{utilizator.puncte} Puncte 🚀</Text>
-                    </TouchableOpacity>
+                    <Text
+                      className="font-semibold"
+                      style={{ color: themeColors.white, fontSize: 20 }}
+                    >
+                      {index + 1}
+                    </Text>
                   </View>
-                </View>
-              </TouchableOpacity>
-            );
-          })} */}
-        </ScrollView>
+                  <View className="flex-1 flex justify-center pl-3 space-y-3">
+                    <Text
+                      style={{ color: themeColors.white, fontSize: 20 }}
+                      className="font-semibold"
+                    >
+                      {sectiune.nume}
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              );
+            })}
+          </ScrollView>
+        )}
       </SafeAreaView>
     </LinearGradient>
   );

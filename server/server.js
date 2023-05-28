@@ -589,6 +589,28 @@ app.post("/schimbareAvatar", (req, res) => {
     });
 });
 
+app.post("/afisareSectiuni", (req, res) => {
+  console.log("req= ", req.body);
+
+  // console.log(req.body.nrIntrebari);
+  // console.log(req.body.materiiCerute[0]);
+
+  qry =
+    "select * from sectiuni where materie='" +
+    req.body.nume +
+    "';";
+
+  console.log(qry);
+  pgClient
+    .query(qry)
+    .then((res) => res.rows)
+    .then((data) => {
+      console.log("sunt in fetch de la baza de date");
+      // console.log(data);
+      res.send(data);
+    });
+});
+
 app.listen(5000, () => {
   console.log("Server started on port 5000");
 });
