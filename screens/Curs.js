@@ -25,7 +25,6 @@ export default function Curs({ route }) {
         const decoded = jwtDecode(jwt);
         setDecodedJwt(decoded);
 
-        console.log(".................... " + route.params.cursCerut);
       } catch (error) {
         console.log(error);
       }
@@ -57,7 +56,6 @@ export default function Curs({ route }) {
       fetch(input, requestOptions)
         .then((response) => response.json())
         .then((data) => {
-          console.log("data: ", data);
 
           setSectiuni(data);
           setIndexSectiune(0);
@@ -91,7 +89,7 @@ export default function Curs({ route }) {
                 borderRadius: 10,
                 alignSelf: "flex-start",
               }}
-              className="ml-4 text-xl font-bold"
+              className="ml-4 text-3xl font-bold"
             >
               CodeCampus
             </Text>
@@ -133,7 +131,7 @@ export default function Curs({ route }) {
                   <CheckCircleIcon
                     color={themeColors.rozPal}
                     size="30"
-                    style={{ opacity: 0.8,marginRight:5 }}
+                    style={{ opacity: 0.8,marginRight:10 }}
                   />
 
                   <View
@@ -149,7 +147,7 @@ export default function Curs({ route }) {
                   </View>
                   <View className="flex-1 flex justify-center pl-3 space-y-3">
                     <Text
-                      style={{ color: themeColors.white, fontSize: 20 }}
+                      style={{ color: themeColors.white, fontSize: 20,marginRight:8 }}
                       className="font-semibold"
                     >
                       {sectiune.nume}

@@ -96,9 +96,7 @@ export default function HomeScreen() {
         const jwt = await AsyncStorage.getItem("jwt");
         const decoded = jwtDecode(jwt);
         setDecodedJwt(decoded);
-        console.log("---------------------------------------------------");
-        console.log("decoded: ", decoded);
-        console.log("---------------------------------------------------");
+       
         setUsername(decoded.data.username);
 
         setZile(decoded.data.zile);
@@ -110,16 +108,13 @@ export default function HomeScreen() {
     };
 
     async function fetchData() {
-      console.log("---------------------------------------------------");
-      console.log("am intrat in useFocusEffect");
+      
       if (token != (await AsyncStorage.getItem("jwt"))) {
         //decodeJwt();
-        console.log("tokenuri diferite");
         decodeJwt();
         setToken(await AsyncStorage.getItem("jwt"));
       }
       //console.log(await AsyncStorage.getItem("jwt"));
-      console.log("---------------------------------------------------");
     }
     fetchData();
   });

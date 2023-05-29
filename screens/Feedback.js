@@ -146,7 +146,7 @@ export default function Feedback() {
                     borderRadius: 10,
                     alignSelf: "flex-start",
                   }}
-                  className="ml-4 text-xl font-bold"
+                  className="ml-4 text-3xl font-bold"
                 >
                   CodeCampus
                 </Text>
