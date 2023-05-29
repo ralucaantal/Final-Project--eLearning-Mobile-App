@@ -26,6 +26,7 @@ import IntrebareText from "../screens/IntrebareText";
 import Feedback from "../screens/Feedback";
 import MultumireFeedback from "../screens/MultumireFeedback";
 import Curs from "../screens/Curs";
+import CodQuiz from "../screens/CodQuiz";
 
 const Stack = createNativeStackNavigator();
 
@@ -152,6 +153,11 @@ export default function AppNavigation() {
           name="Curs"
           options={{ headerShown: false }}
           component={Curs}
+        />
+        <Stack.Screen
+          name="CodQuiz"
+          options={{ headerShown: false }}
+          component={CodQuiz}
         />
       </Stack.Navigator>
     </NavigationContainer>

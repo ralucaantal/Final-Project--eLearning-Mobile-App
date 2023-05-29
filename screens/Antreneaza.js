@@ -219,7 +219,8 @@ export default function Antreneaza({navigation}) {
                   console.log(selectedValue);
                   cursuriCerute = selectedCursuri;
                   nrIntrebari = selectedValue;
-                  navigation.navigate("Question",{cursuriCerute: cursuriCerute, nrIntrebari:nrIntrebari});
+                  //navigation.navigate("Question",{cursuriCerute: cursuriCerute, nrIntrebari:nrIntrebari});
+                  
                 }}
               >
                 <Text className="font-xl font-bold text-center text-gray-700">
