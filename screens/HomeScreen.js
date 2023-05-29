@@ -89,6 +89,7 @@ export default function HomeScreen() {
   const [zile, setZile] = useState(null);
   const [puncte, setPuncte] = useState(null);
   const [vieti, setVieti] = useState(null);
+  const [id, setId] = useState(null);
 
   useFocusEffect(() => {
     const decodeJwt = async () => {
@@ -98,6 +99,7 @@ export default function HomeScreen() {
         setDecodedJwt(decoded);
        
         setUsername(decoded.data.username);
+        setId(decoded.data.id);
 
         setZile(decoded.data.zile);
         setPuncte(decoded.data.puncte);
@@ -220,7 +222,7 @@ export default function HomeScreen() {
                     } else if (actiune.id === 3) {
                       navigation.navigate("Organizeaza");
                     } else if (actiune.id === 4) {
-                      navigation.navigate("InscriereQuiz");
+                      navigation.navigate("InscriereQuiz",{idUser:id});
                     } else if (actiune.id === 5) {
                       navigation.navigate("Ajuta");
                     }

@@ -652,6 +652,24 @@ app.post("/adaugareQuiz", (req, res) => {
     });
 });
 
+app.post("/validareCod", (req, res) => {
+  console.log("Ai facut POST cu datele: ", req.body);
+  let cod = req.body.cod;
+
+  pgClient
+    .query("select * from quizes where id=$1;", [cod])
+    .then((res) => res.rows)
+    .then((data) => {
+      console.log("sunt in fetch de la baza de date");
+      console.log(data.length);
+      if (data.length != 0) {
+        res.send({ message: "Codul este ok" });
+      } else {
+        res.send({ message: "Nu" });
+      }
+    });
+});
+
 app.listen(5000, () => {
   console.log("Server started on port 5000");
 });
