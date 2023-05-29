@@ -47,18 +47,15 @@ export default function LoginScreen() {
         headers: { "Content-Type": "application/json" },
       };
 
-      console.log(requestOptions.body);
       let input = IPv4 + ":5000/login";
       console.log("input: ", input);
 
       try {
         const response = await fetch(input, requestOptions);
         const data = await response.json();
-        console.log(data);
-        console.log("nimic............");
         console.log(data.jwt);
         if (data.message === "Login efectuat cu succes!" && data.jwt) {
-          console.log("Login ok");
+
 
           // Salvează JWT-ul în AsyncStorage
 

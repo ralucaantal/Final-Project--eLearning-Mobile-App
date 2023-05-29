@@ -48,7 +48,7 @@ export default function Curs({ route }) {
         headers: { "Content-Type": "application/json" },
       };
 
-      console.log(requestOptions);
+     // console.log(requestOptions);
       let input = IPv4 + ":5000/afisareSectiuni";
 
       // console.log(requestOptions);

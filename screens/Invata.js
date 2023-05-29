@@ -53,14 +53,12 @@ export default function Invata() {
           headers: { "Content-Type": "application/json" },
         };
 
-        console.log(requestOptions);
         let input = IPv4 + ":5000/puncteZileVieti";
 
         fetch(input, requestOptions)
           .then((response) => response.json())
           .then((data) => {
 
-            console.log(data[0].zile);
 
             setZile(data[0].zile);
             setPuncte(data[0].puncte);
