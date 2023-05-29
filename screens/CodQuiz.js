@@ -5,15 +5,51 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import { ArrowLeftIcon } from "react-native-heroicons/solid";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { themeColors } from "../theme/index";
+import IPv4 from "../index";
 
-export default function CodQuiz() {
+export default function CodQuiz({ route }) {
   const navigation = useNavigation();
+
+  const [codQuiz, setCodQuiz] = useState(null);
+
+  console.log(route.params);
+
+  useEffect(() => {
+    const creeazaQuiz = async () => {
+      const quiz = {
+        idUser: route.params.idUser,
+        materii: route.params.cursuriCerute,
+        nrIntrebari: route.params.nrIntrebari,
+      };
+
+      const requestOptions = {
+        method: "POST",
+        body: JSON.stringify(quiz),
+        headers: { "Content-Type": "application/json" },
+      };
+
+      // console.log(requestOptions);
+      let input = IPv4 + ":5000/adaugareQuiz";
+
+      // console.log(requestOptions);
+
+      fetch(input, requestOptions)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          setCodQuiz(data.quizId);
+        });
+    };
+
+    creeazaQuiz();
+  }, []);
+
   return (
     <LinearGradient
       colors={["rgba(135, 125, 250, 0.9)", "rgba(180, 174, 232, 0.7)"]}
@@ -81,6 +117,16 @@ export default function CodQuiz() {
                 placeholder="000000"
                 style={{ width: "100%", opacity: 0.5 }}
               /> */}
+              <Text
+                style={{
+                  color: "black",
+                  fontSize: 50,
+                  textAlign: "center"
+                }}
+                className="font-semibold"
+              >
+                {codQuiz}
+              </Text>
               <TouchableOpacity
                 className="py-3 bg-yellow-400 rounded-xl"
                 style={{ width: "100%", opacity: 0.8 }}

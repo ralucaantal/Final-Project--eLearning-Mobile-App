@@ -635,6 +635,23 @@ app.post("/afisareSectiuni", (req, res) => {
     });
 });
 
+app.post("/adaugareQuiz", (req, res) => {
+  console.log("Ai facut POST cu datele: ", req.body);
+  let idUser = req.body.idUser;
+  let materii = req.body.materii;
+  let nrIntrebari = req.body.nrIntrebari;
+
+  pgClient
+    .query(
+      "INSERT INTO quizes (id_utilizator, numar_intrebari, materii) VALUES ($1, $2, $3) RETURNING id;",
+      [idUser, nrIntrebari, materii]
+    )
+    .then((result) => {
+      const quizId = result.rows[0].id;
+      res.send({ message: "s-a adaugat cu succes!", quizId: quizId });
+    });
+});
+
 app.listen(5000, () => {
   console.log("Server started on port 5000");
 });

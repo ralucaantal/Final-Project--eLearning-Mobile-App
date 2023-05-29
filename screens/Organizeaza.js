@@ -114,7 +114,7 @@ export default function Organizeaza() {
           >
             <ScrollView className="form space-y-2" style={{ width: "100%" }}>
               <Text style={{ fontSize: 20, color: "white", marginLeft: 4 }}>
-                Alege cursurile la care vrei să te antrenezi: 👩🏻‍🏫
+                Alege cursurile care vrei să fie subiect pentru testul tău! 📚
               </Text>
               <View
                 style={{ flexDirection: "column", alignItems: "flex-start" }}
@@ -190,11 +190,11 @@ export default function Organizeaza() {
                   console.log(selectedValue);
                   cursuriCerute = selectedCursuri;
                   nrIntrebari = selectedValue;
-                  // navigation.navigate("Question", {
-                  //   cursuriCerute: cursuriCerute,
-                  //   nrIntrebari: nrIntrebari,
-                  // });
-                  navigation.navigate("CodQuiz");
+                  navigation.navigate("CodQuiz", {
+                    cursuriCerute: cursuriCerute,
+                    nrIntrebari: nrIntrebari,
+                    idUser: decodedJwt.data.id
+                  });
                 }}
               >
                 <Text className="font-xl font-bold text-center text-gray-700">
