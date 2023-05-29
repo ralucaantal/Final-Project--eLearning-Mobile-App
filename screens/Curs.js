@@ -23,8 +23,8 @@ export default function Curs({ route }) {
       try {
         const jwt = await AsyncStorage.getItem("jwt");
         const decoded = jwtDecode(jwt);
+        console.log(decoded.data.id);
         setDecodedJwt(decoded);
-
       } catch (error) {
         console.log(error);
       }
@@ -34,6 +34,7 @@ export default function Curs({ route }) {
       await decodeJwt();
 
       const cursCurent = {
+        idUser: route.params.idUser,
         nume:
           route.params.cursCerut === "Baze De Date"
             ? "BD"
@@ -48,7 +49,7 @@ export default function Curs({ route }) {
         headers: { "Content-Type": "application/json" },
       };
 
-     // console.log(requestOptions);
+      // console.log(requestOptions);
       let input = IPv4 + ":5000/afisareSectiuni";
 
       // console.log(requestOptions);
@@ -56,7 +57,7 @@ export default function Curs({ route }) {
       fetch(input, requestOptions)
         .then((response) => response.json())
         .then((data) => {
-
+          console.log(data);
           setSectiuni(data);
           setIndexSectiune(0);
         });
@@ -129,9 +130,11 @@ export default function Curs({ route }) {
                   }}
                 >
                   <CheckCircleIcon
-                    color={themeColors.rozPal}
+                    color={
+                      sectiune.complet ? themeColors.verde : themeColors.rozPal
+                    }
                     size="30"
-                    style={{ opacity: 0.8,marginRight:10 }}
+                    style={{ opacity: 0.8, marginRight: 10 }}
                   />
 
                   <View
@@ -147,7 +150,11 @@ export default function Curs({ route }) {
                   </View>
                   <View className="flex-1 flex justify-center pl-3 space-y-3">
                     <Text
-                      style={{ color: themeColors.white, fontSize: 20,marginRight:8 }}
+                      style={{
+                        color: themeColors.white,
+                        fontSize: 20,
+                        marginRight: 8,
+                      }}
                       className="font-semibold"
                     >
                       {sectiune.nume}

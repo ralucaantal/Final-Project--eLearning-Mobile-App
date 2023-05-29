@@ -365,8 +365,7 @@ app.post("/adaugareGrila", (req, res) => {
   let materie = req.body.materie;
   let idUtilizator = req.body.idUtilizator;
   let status = "In asteptare";
-  let tipIntrebare = 
-  "GRILA";
+  let tipIntrebare = "GRILA";
 
   pgClient
     .query(
@@ -396,8 +395,7 @@ app.post("/adaugareIntrebareText", (req, res) => {
   let materie = "BD";
   let idUtilizator = req.body.idUtilizator;
   let status = "In asteptare";
-  let tipIntrebare = 
-  "TEXT";
+  let tipIntrebare = "TEXT";
 
   pgClient
     .query(
@@ -522,15 +520,13 @@ app.post("/adaugarePunctajFeedback", (req, res) => {
 
 app.post("/adaugareFeedback", (req, res) => {
   console.log("Ai facut POST cu datele: ", req.body);
-  let emoji=req.body.emoji;
-  let comentariu=req.body.comentariu;
+  let emoji = req.body.emoji;
+  let comentariu = req.body.comentariu;
 
   pgClient
     .query(
       "insert into feedbacks (feedback_simbol,comentariu) values($1,$2);",
-      [
-emoji, comentariu
-      ]
+      [emoji, comentariu]
     )
     .then((result) => {
       res.send({ message: "Feedbackul s-a adaugat cu succes!" });
@@ -595,19 +591,47 @@ app.post("/afisareSectiuni", (req, res) => {
   // console.log(req.body.nrIntrebari);
   // console.log(req.body.materiiCerute[0]);
 
-  qry =
-    "select * from sectiuni where materie='" +
-    req.body.nume +
-    "';";
+  qry = "select * from sectiuni where materie='" + req.body.nume + "';";
 
-  console.log(qry);
+  qry1 =
+    "SELECT nume_sectiune FROM progres_sectiuni_utilizatori WHERE curs = '" +
+    req.body.nume +
+    "' AND id_utilizator = " +
+    req.body.idUser +
+    ";";
+
+  let sectiuniParcurse;
+  pgClient
+    .query(qry1)
+    .then((result) => result.rows)
+    .then((data) => {
+      console.log(data);
+      sectiuniParcurse = data;
+    });
+
   pgClient
     .query(qry)
     .then((res) => res.rows)
     .then((data) => {
+      let objectResponse = [];
+      for (let i = 0; i < data.length; i++) {
+        let parcurs = false;
+        for (let j = 0; j < sectiuniParcurse.length; j++) {
+          if (data[i].nume === sectiuniParcurse[j].nume_sectiune) {
+            parcurs = true;
+          }
+        }
+        let object = {
+          id: data[i].id,
+          nume: data[i].nume,
+          materie: data[i].materie,
+          complet: parcurs,
+        };
+        objectResponse.push(object);
+      }
       console.log("sunt in fetch de la baza de date");
-      // console.log(data);
-      res.send(data);
+      console.log(objectResponse);
+      res.send(objectResponse);
     });
 });
 

@@ -35,13 +35,15 @@ export default function Invata() {
   const [vieti, setVieti] = useState(null);
   const [cursuri, setCursuri] = useState(null);
 
+  const [idUser, setIdUser] = useState(null);
+
   useEffect(() => {
     const decodeJwt = async () => {
       try {
         const jwt = await AsyncStorage.getItem("jwt");
         const decoded = jwtDecode(jwt);
         setDecodedJwt(decoded);
-        setUsername(decoded.data.username);
+        setIdUser(decoded.data.id);
 
         const idUser = {
           idUser: decoded.data.id,
@@ -58,8 +60,6 @@ export default function Invata() {
         fetch(input, requestOptions)
           .then((response) => response.json())
           .then((data) => {
-
-
             setZile(data[0].zile);
             setPuncte(data[0].puncte);
             setVieti(data[0].vieti);
@@ -154,7 +154,10 @@ export default function Invata() {
                       style={[tw`mr-4 relative`, { marginBottom: 15 }]}
                       key={item.id}
                       onPress={() =>
-                        navigation.navigate("Curs", { cursCerut: item.titlu })
+                        navigation.navigate("Curs", {
+                          cursCerut: item.titlu,
+                          idUser: idUser,
+                        })
                       }
                     >
                       <Image
