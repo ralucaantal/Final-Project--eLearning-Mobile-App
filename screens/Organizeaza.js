@@ -8,6 +8,7 @@ import { themeColors } from "../theme/index";
 import { RadioButton } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import jwtDecode from "jwt-decode";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 const cursuriDisponibile = [
   {
@@ -35,6 +36,8 @@ export default function Organizeaza() {
 
   const [selectedCursuri, setSelectedCursuri] = useState([]);
   const [selectedValue, setSelectedValue] = useState("10");
+  const [selectedHour, setSelectedHour] = useState(new Date());
+  const [showTimePicker, setShowTimePicker] = useState(false);
 
   const [switches, setSwitches] = useState(
     cursuriDisponibile.reduce((acc, curs) => {
@@ -181,6 +184,47 @@ export default function Organizeaza() {
                 <Text style={{ color: "white" }}>20</Text>
               </View>
 
+              <Text style={{ fontSize: 20, color: "white", marginLeft: 4 }}>
+                Selectează ora:
+              </Text>
+
+              <TouchableOpacity
+                style={{
+                  marginLeft: 4,
+                  backgroundColor: "white",
+                  borderRadius: 5,
+                  opacity: 0.5,
+                }}
+                onPress={() => setShowTimePicker(true)}
+              >
+                <Text style={{ fontSize: 16, padding: 10 }}>
+                  {selectedHour.toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+                </Text>
+              </TouchableOpacity>
+
+              {showTimePicker && (
+                <>
+                  <Text style={{ fontSize: 15, color: "white", marginLeft: 4 }}>
+                    Apasă pentru a selecta ora: 
+                  </Text>
+                  <DateTimePicker
+                    value={selectedHour}
+                    mode="time"
+                    display="default"
+                    onChange={(event, date) => {
+                      setShowTimePicker(false);
+                      if (date) {
+                        setSelectedHour(date);
+                      }
+                    }}
+                    style={{ alignSelf: "flex-start", color: "white", marginTop:5, marginLeft:0 }}
+                  />
+                </>
+              )}
+
               <TouchableOpacity
                 className="py-3 bg-yellow-400 rounded-xl"
                 style={{ width: "100%", opacity: 0.8 }}
@@ -193,7 +237,8 @@ export default function Organizeaza() {
                   navigation.navigate("CodQuiz", {
                     cursuriCerute: cursuriCerute,
                     nrIntrebari: nrIntrebari,
-                    idUser: decodedJwt.data.id
+                    idUser: decodedJwt.data.id,
+                    oraStart: selectedHour,
                   });
                 }}
               >

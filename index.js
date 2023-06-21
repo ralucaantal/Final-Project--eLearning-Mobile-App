@@ -8,4 +8,4 @@ const facultate="http://10.30.25.205"
 
 
 let IPv4;
-export default IPv4 = bacau;
+export default IPv4 = acasa;

@@ -6,7 +6,7 @@ const app = express();
 
 const corsOptions = {
   origin: "*",
-  credentials: true, //access-control-allow-credentials:true
+  credentials: true, 
   optionSuccessStatus: 200,
 };
 
@@ -24,7 +24,7 @@ app.use(cors(corsOptions));
 
 app.get("/", (req, res) => {
   res.send(
-    "Serverul pentru lucrarea de licenta e inaugurat astazi, 30.03.2023"
+    "Serverul pentru lucrarea de licenta"
   );
 });
 

@@ -219,7 +219,7 @@ export default function Antreneaza({navigation}) {
                   console.log(selectedValue);
                   cursuriCerute = selectedCursuri;
                   nrIntrebari = selectedValue;
-                  //navigation.navigate("Question",{cursuriCerute: cursuriCerute, nrIntrebari:nrIntrebari});
+                  navigation.navigate("Question",{cursuriCerute: cursuriCerute, nrIntrebari:nrIntrebari});
                   
                 }}
               >
