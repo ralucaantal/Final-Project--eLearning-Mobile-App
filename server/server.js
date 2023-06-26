@@ -352,6 +352,15 @@ app.get("/cursuriDisponibile", (req, res) => {
     });
 });
 
+app.get("/topUtilizatori", (req, res) => {
+  pgClient
+    .query("SELECT * FROM users;")
+    .then((res) => res.rows)
+    .then((data) => {
+      res.send(data);
+    });
+});
+
 app.post("/adaugareGrila", (req, res) => {
   console.log("Ai facut POST cu datele: ", req.body);
   let textIntrebare = req.body.textIntrebare;
@@ -586,8 +595,10 @@ app.post("/schimbareAvatar", (req, res) => {
 app.post("/afisareLectii", (req, res) => {
   console.log("req= ", req.body);
 
-  qry = "SELECT * FROM lectii WHERE id_sectiune='" + req.body.idSectiune + "' ORDER BY id ASC;"
-
+  qry =
+    "SELECT * FROM lectii WHERE id_sectiune='" +
+    req.body.idSectiune +
+    "' ORDER BY id ASC;";
 
   qry1 =
     "SELECT id_lectie FROM progres_lectii_utilizatori WHERE id_sectiune = '" +
