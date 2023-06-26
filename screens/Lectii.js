@@ -9,16 +9,14 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import jwtDecode from "jwt-decode";
 import IPv4 from "../index";
 
-export default function Curs({ route }) {
+export default function Lectii({ route }) {
   const navigation = useNavigation();
 
   const [decodedJwt, setDecodedJwt] = useState(null);
 
-  const [sectiuni, setSectiuni] = useState(null);
+  const [lectii, setLectii] = useState(null);
 
-  const [indexSectiune, setIndexSectiune] = useState(0);
-
-  const [idUser, setIdUser] = useState(null);
+  const [indexLectie, setIndexLextie] = useState(0);
 
   useEffect(() => {
     const decodeJwt = async () => {
@@ -27,46 +25,39 @@ export default function Curs({ route }) {
         const decoded = jwtDecode(jwt);
         console.log(decoded.data.id);
         setDecodedJwt(decoded);
-        setIdUser(decoded.data.id);
       } catch (error) {
         console.log(error);
       }
     };
 
-    const cereSectiuni = async () => {
+    const cereLectii = async () => {
       await decodeJwt();
 
-      const cursCurent = {
+      const sectiuneCurenta = {
         idUser: route.params.idUser,
-        nume:
-          route.params.cursCerut === "Baze De Date"
-            ? "BD"
-            : route.params.cursCerut === "Programare Orietată Obiect (POO)"
-            ? "POO"
-            : "BPC",
+        idSectiune: route.params.idSectiune,
       };
 
       const requestOptions = {
         method: "POST",
-        body: JSON.stringify(cursCurent),
+        body: JSON.stringify(sectiuneCurenta),
         headers: { "Content-Type": "application/json" },
       };
 
-      // console.log(requestOptions);
-      let input = IPv4 + ":5000/afisareSectiuni";
-
-      // console.log(requestOptions);
+      let input = IPv4 + ":5000/afisareLectii";
 
       fetch(input, requestOptions)
         .then((response) => response.json())
         .then((data) => {
-          setSectiuni(data);
-          setIndexSectiune(0);
+          setLectii(data);
+          console.log(data);
         });
     };
 
-    cereSectiuni();
+    cereLectii();
   }, []);
+
+  console.log("sectiunea", route.params);
 
   return (
     <LinearGradient
@@ -105,44 +96,37 @@ export default function Curs({ route }) {
             }}
             className="ml-4 text-2xl font-bold"
           >
-            Cursul de{" "}
-            <Text style={{ fontStyle: "italic", color: themeColors.galben }}>
-              {route.params.cursCerut}
+            Pentru secțiunea{" "}
+            <Text style={{ fontStyle: "italic", color: themeColors.rozPal }}>
+              {route.params.numeSectiune}
             </Text>{" "}
-            este împărțit în următoarele secțiuni:
+            sunt disponibile următoarele lecții:
           </Text>
         </View>
 
-        {sectiuni && (
+        {lectii && (
           <ScrollView
             style={{ height: "100%", marginTop: 20 }}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{ paddingBottom: 300 }}
           >
-            {sectiuni.map((sectiune, index) => {
+            {lectii.map((lectie, index) => {
               return (
                 <TouchableOpacity
                   className="mx-4 p-2 mb-2 flex-row"
-                  key={sectiune.id}
+                  key={lectie.id}
                   style={{
                     backgroundColor: "rgba(255,255,255,0.4)",
                     borderRadius: 10,
                     alignItems: "center",
                     justifyContent: "center",
                   }}
-                  onPress={() => {
-                    navigation.navigate("Lectii", {
-                      idSectiune: sectiune.id,
-                      numeSectiune: sectiune.nume,
-                      idUser: idUser,
-                    });
-                  }}
                 >
                   <CheckCircleIcon
                     color={
-                      sectiune.complet ? themeColors.verde : themeColors.rozPal
+                      lectie.complet ? themeColors.verde : themeColors.rozPal
                     }
-                    size="30"
+                    size="40"
                     style={{ opacity: 0.8, marginRight: 10 }}
                   />
 
@@ -166,7 +150,7 @@ export default function Curs({ route }) {
                       }}
                       className="font-semibold"
                     >
-                      {sectiune.nume}
+                      {lectie.nume}
                     </Text>
                   </View>
                 </TouchableOpacity>

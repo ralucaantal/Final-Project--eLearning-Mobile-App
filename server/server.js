@@ -6,7 +6,7 @@ const app = express();
 
 const corsOptions = {
   origin: "*",
-  credentials: true, 
+  credentials: true,
   optionSuccessStatus: 200,
 };
 
@@ -23,9 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors(corsOptions));
 
 app.get("/", (req, res) => {
-  res.send(
-    "Serverul pentru lucrarea de licenta"
-  );
+  res.send("Serverul pentru lucrarea de licenta");
 });
 
 app.post("/decodeJWT", (req, res) => {
@@ -585,8 +583,57 @@ app.post("/schimbareAvatar", (req, res) => {
     });
 });
 
+app.post("/afisareLectii", (req, res) => {
+  console.log("req= ", req.body);
+
+  qry = "SELECT * FROM lectii WHERE id_sectiune='" + req.body.idSectiune + "' ORDER BY id ASC;"
+
+
+  qry1 =
+    "SELECT id_lectie FROM progres_lectii_utilizatori WHERE id_sectiune = '" +
+    req.body.idSectiune +
+    "' AND id_utilizator = " +
+    req.body.idUser +
+    ";";
+
+  let lectiiParcurse;
+  pgClient
+    .query(qry1)
+    .then((result) => result.rows)
+    .then((data) => {
+      console.log(data);
+      lectiiParcurse = data;
+    });
+
+  pgClient
+    .query(qry)
+    .then((res) => res.rows)
+    .then((data) => {
+      let objectResponse = [];
+      for (let i = 0; i < data.length; i++) {
+        let parcurs = false;
+        for (let j = 0; j < lectiiParcurse.length; j++) {
+          if (data[i].id === lectiiParcurse[j].id_lectie) {
+            parcurs = true;
+          }
+        }
+        let object = {
+          id: data[i].id,
+          nume: data[i].nume,
+          complet: parcurs,
+        };
+        objectResponse.push(object);
+      }
+      console.log("sunt in fetch de la baza de date");
+      console.log(objectResponse);
+      res.send(objectResponse);
+    });
+});
+
 app.post("/afisareSectiuni", (req, res) => {
   console.log("req= ", req.body);
+
+  qry = "select * from sectiuni where materie='" + req.body.nume + "';";
 
   // console.log(req.body.nrIntrebari);
   // console.log(req.body.materiiCerute[0]);
@@ -640,12 +687,12 @@ app.post("/adaugareQuiz", (req, res) => {
   let idUser = req.body.idUser;
   let materii = req.body.materii;
   let nrIntrebari = req.body.nrIntrebari;
-  let oraStart=req.body.oraStartș
+  let oraStart = req.body.oraStartș;
 
   pgClient
     .query(
       "INSERT INTO quizes (id_utilizator, numar_intrebari, materii,start) VALUES ($1, $2, $3,$4) RETURNING id;",
-      [idUser, nrIntrebari, materii,oraStart]
+      [idUser, nrIntrebari, materii, oraStart]
     )
     .then((result) => {
       const quizId = result.rows[0].id;

@@ -27,6 +27,7 @@ import Feedback from "../screens/Feedback";
 import MultumireFeedback from "../screens/MultumireFeedback";
 import Curs from "../screens/Curs";
 import CodQuiz from "../screens/CodQuiz";
+import Lectii from "../screens/Lectii";
 
 const Stack = createNativeStackNavigator();
 
@@ -158,6 +159,11 @@ export default function AppNavigation() {
           name="CodQuiz"
           options={{ headerShown: false }}
           component={CodQuiz}
+        />
+        <Stack.Screen
+          name="Lectii"
+          options={{ headerShown: false }}
+          component={Lectii}
         />
       </Stack.Navigator>
     </NavigationContainer>
