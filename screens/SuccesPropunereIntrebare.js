@@ -120,7 +120,9 @@ export default function SuccesPropunereIntrebare() {
                 marginTop: 5,
                 marginBottom: 5,
               }}
-              onPress={() => {}}
+              onPress={() => {
+                navigation.navigate("StatusIntrebari");
+              }}
             >
               <Text className="font-xl font-bold text-center text-gray-700">
                 Vezi statusul întrebărilor propuse până acum

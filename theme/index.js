@@ -5,5 +5,6 @@ export const themeColors = {
   verde: "#3cb371",
   movPastel: "#b4aee8",
   rozPal: "#f5a5c5",
-  galben: '#FBBF24'
+  galben: '#FBBF24',
+  rosu: '#c3195d'
 };

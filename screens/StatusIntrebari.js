@@ -32,14 +32,14 @@ export default function StatusIntrebari() {
                 borderRadius: 10,
                 alignSelf: "flex-start",
               }}
-              className="ml-4 text-3xl font-bold"
+              className="ml-4 text-xl font-bold"
             >
               CodeCampus
             </Text>
           </View>
           <Text
             style={{ color: themeColors.white }}
-            className="ml-4 text-2xl font-bold"
+            className="ml-4 text-4xl font-bold"
           >
             Status întrebări propuse 🧐❔
           </Text>
@@ -49,7 +49,9 @@ export default function StatusIntrebari() {
           style={{ height: "100%", marginTop: 20 }}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: 100 }}
-        ></ScrollView>
+        >
+          
+        </ScrollView>
       </SafeAreaView>
     </LinearGradient>
   );
