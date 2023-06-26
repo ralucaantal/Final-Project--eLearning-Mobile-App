@@ -354,7 +354,7 @@ app.get("/cursuriDisponibile", (req, res) => {
 
 app.get("/topUtilizatori", (req, res) => {
   pgClient
-    .query("SELECT * FROM users;")
+    .query("SELECT * FROM users ORDER BY puncte DESC;")
     .then((res) => res.rows)
     .then((data) => {
       res.send(data);

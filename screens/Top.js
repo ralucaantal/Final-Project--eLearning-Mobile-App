@@ -54,7 +54,6 @@ export default function Top() {
     };
 
     const cereTop = async () => {
-
       try {
         let input = IPv4 + ":5000/topUtilizatori";
 
@@ -67,8 +66,10 @@ export default function Top() {
         console.log(error);
       }
     };
+
+    decodeJwt();
     cereTop();
-  });
+  }, []);
 
   return (
     <LinearGradient
@@ -114,12 +115,15 @@ export default function Top() {
             contentContainerStyle={{ paddingBottom: 100 }}
           >
             {Utilizatori.map((utilizator, index) => {
+              const isUtilizatorCurent = utilizator.id === idUser;
               return (
                 <TouchableOpacity
                   className="mx-4 p-2 mb-2 flex-row"
                   key={index}
                   style={{
-                    backgroundColor: "rgba(255,255,255,0.4)",
+                    backgroundColor: isUtilizatorCurent
+                      ? "rgba(165, 165, 165, 0.4)" 
+                      : "rgba(255, 255, 255, 0.4)",
                     borderRadius: 10,
                   }}
                 >
@@ -131,17 +135,17 @@ export default function Top() {
                       className="font-semibold"
                       style={{ color: themeColors.white }}
                     >
-                      {index+1}
+                      {index + 1}
                     </Text>
                   </View>
                   <Image
-                    source={avatarMap[utilizator.avatar ]}
+                    source={avatarMap[utilizator.avatar]}
                     style={{ width: 70, height: 70 }}
                     className="rounded-2xl"
                   />
                   <View className="flex-1 flex justify-center pl-3 space-y-3">
                     <Text
-                      style={{ color: themeColors.white, fontSize:16 }}
+                      style={{ color: themeColors.white, fontSize: 16 }}
                       className="font-semibold italic"
                     >
                       @{utilizator.user_name}
