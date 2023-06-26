@@ -26,6 +26,7 @@ export default function CodQuiz({ route }) {
         idUser: route.params.idUser,
         materii: route.params.cursuriCerute,
         nrIntrebari: route.params.nrIntrebari,
+        oraStart: route.params.oraStart
       };
 
       const requestOptions = {

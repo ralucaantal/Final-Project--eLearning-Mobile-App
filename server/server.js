@@ -640,11 +640,12 @@ app.post("/adaugareQuiz", (req, res) => {
   let idUser = req.body.idUser;
   let materii = req.body.materii;
   let nrIntrebari = req.body.nrIntrebari;
+  let oraStart=req.body.oraStartș
 
   pgClient
     .query(
-      "INSERT INTO quizes (id_utilizator, numar_intrebari, materii) VALUES ($1, $2, $3) RETURNING id;",
-      [idUser, nrIntrebari, materii]
+      "INSERT INTO quizes (id_utilizator, numar_intrebari, materii,start) VALUES ($1, $2, $3,$4) RETURNING id;",
+      [idUser, nrIntrebari, materii,oraStart]
     )
     .then((result) => {
       const quizId = result.rows[0].id;

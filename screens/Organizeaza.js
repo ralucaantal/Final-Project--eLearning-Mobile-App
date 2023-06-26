@@ -238,7 +238,7 @@ export default function Organizeaza() {
                     cursuriCerute: cursuriCerute,
                     nrIntrebari: nrIntrebari,
                     idUser: decodedJwt.data.id,
-                    oraStart: selectedHour,
+                    oraStart: selectedHour.getTime(),
                   });
                 }}
               >
