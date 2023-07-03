@@ -112,7 +112,7 @@ export default function Top() {
           <ScrollView
             style={{ height: "100%", marginTop: 20 }}
             showsVerticalScrollIndicator={false}
-            contentContainerStyle={{ paddingBottom: 100 }}
+            contentContainerStyle={{ paddingBottom: 200 }}
           >
             {Utilizatori.map((utilizator, index) => {
               const isUtilizatorCurent = utilizator.id === idUser;
@@ -122,7 +122,7 @@ export default function Top() {
                   key={index}
                   style={{
                     backgroundColor: isUtilizatorCurent
-                      ? "rgba(165, 165, 165, 0.4)" 
+                      ? "rgba(255, 165, 165, 0.4)" 
                       : "rgba(255, 255, 255, 0.4)",
                     borderRadius: 10,
                   }}
