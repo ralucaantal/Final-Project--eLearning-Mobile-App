@@ -34,8 +34,8 @@ export default function LoginScreen() {
 
   const handleLogin = async () => {
     if (email !== "" && password !== "") {
-      console.log(email);
-      console.log(password);
+     // console.log(email);
+      //console.log(password);
       loginData.email = email;
       loginData.password = password;
       //setEmail("");
@@ -48,12 +48,12 @@ export default function LoginScreen() {
       };
 
       let input = IPv4 + ":5000/login";
-      console.log("input: ", input);
+      //console.log("input: ", input);
 
       try {
         const response = await fetch(input, requestOptions);
         const data = await response.json();
-        console.log(data.jwt);
+        //console.log(data.jwt);
         if (data.message === "Login efectuat cu succes!" && data.jwt) {
 
 

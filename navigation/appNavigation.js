@@ -28,6 +28,7 @@ import MultumireFeedback from "../screens/MultumireFeedback";
 import Curs from "../screens/Curs";
 import CodQuiz from "../screens/CodQuiz";
 import Lectii from "../screens/Lectii";
+import TextLectie from "../screens/TextLectie";
 
 const Stack = createNativeStackNavigator();
 
@@ -164,6 +165,11 @@ export default function AppNavigation() {
           name="Lectii"
           options={{ headerShown: false }}
           component={Lectii}
+        />
+        <Stack.Screen
+          name="TextLectie"
+          options={{ headerShown: false }}
+          component={TextLectie}
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -607,6 +607,166 @@ app.post("/schimbareAvatar", (req, res) => {
     });
 });
 
+app.post("/schimbareEmail", (req, res) => {
+  console.log("ai facut post cu datele: ", req.body);
+
+  qry =
+    "UPDATE users SET email = '" +
+    req.body.newEmail +
+    "' WHERE id = " +
+    req.body.idUser +
+    ";";
+
+  console.log(qry);
+
+  pgClient
+    .query(qry)
+    .then((res) => res.rows)
+    .then((data) => {
+      console.log("sunt in fetch de la baza de date");
+      // console.log(data);
+
+      pgClient
+        .query(
+          "select id,email,user_name, password,zile,puncte,vieti from users where id=$1;",
+          [req.body.idUser]
+        )
+        .then((res) => res.rows)
+        .then((data) => {
+          let token = jwt.sign(
+            {
+              data: {
+                id: data[0].id,
+                username: data[0].user_name,
+                password: data[0].password,
+                email: data[0].email,
+                zile: data[0].zile,
+                puncte: data[0].puncte,
+                vieti: data[0].vieti,
+              },
+            },
+            serverSecret,
+            { expiresIn: "24h" }
+          );
+          console.log("tokenul tau este: ", token);
+
+          res.send({
+            jwt: token,
+            message: "s-a actualizat cu succes!",
+          });
+        });
+
+      // res.send(data);
+    });
+});
+
+app.post("/schimbareParola", (req, res) => {
+  console.log("ai facut post cu datele: ", req.body);
+
+  qry =
+    "UPDATE users SET user_name = '" +
+    req.body.newUsername +
+    "' WHERE id = " +
+    req.body.idUser +
+    ";";
+
+  console.log(qry);
+
+  pgClient
+    .query(qry)
+    .then((res) => res.rows)
+    .then((data) => {
+      console.log("sunt in fetch de la baza de date");
+      // console.log(data);
+
+      pgClient
+        .query(
+          "select id,email,user_name, password,zile,puncte,vieti from users where id=$1;",
+          [req.body.idUser]
+        )
+        .then((res) => res.rows)
+        .then((data) => {
+          let token = jwt.sign(
+            {
+              data: {
+                id: data[0].id,
+                username: data[0].user_name,
+                password: data[0].password,
+                email: data[0].email,
+                zile: data[0].zile,
+                puncte: data[0].puncte,
+                vieti: data[0].vieti,
+              },
+            },
+            serverSecret,
+            { expiresIn: "24h" }
+          );
+          console.log(data[0].user_name);
+          console.log("tokenul tau este: ", token);
+
+          res.send({
+            jwt: token,
+            message: "s-a actualizat cu succes!",
+          });
+        });
+
+      // res.send(data);
+    });
+});
+
+app.post("/schimbareUsername", (req, res) => {
+  console.log("ai facut post cu datele: ", req.body);
+
+  qry =
+    "UPDATE users SET password = '" +
+    req.body.newPassword +
+    "' WHERE id = " +
+    req.body.idUser +
+    ";";
+
+  console.log(qry);
+
+  pgClient
+    .query(qry)
+    .then((res) => res.rows)
+    .then((data) => {
+      console.log("sunt in fetch de la baza de date");
+      // console.log(data);
+
+      pgClient
+        .query(
+          "select id,email,user_name, password,zile,puncte,vieti from users where id=$1;",
+          [req.body.idUser]
+        )
+        .then((res) => res.rows)
+        .then((data) => {
+          let token = jwt.sign(
+            {
+              data: {
+                id: data[0].id,
+                username: data[0].user_name,
+                password: data[0].password,
+                email: data[0].email,
+                zile: data[0].zile,
+                puncte: data[0].puncte,
+                vieti: data[0].vieti,
+              },
+            },
+            serverSecret,
+            { expiresIn: "24h" }
+          );
+          console.log("tokenul tau este: ", token);
+
+          res.send({
+            jwt: token,
+            message: "s-a actualizat cu succes!",
+          });
+        });
+
+      // res.send(data);
+    });
+});
+
 app.post("/afisareLectii", (req, res) => {
   console.log("req= ", req.body);
 

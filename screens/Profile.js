@@ -33,6 +33,7 @@ export default function Profile() {
   const [puncte, setPuncte] = useState(null);
   const [vieti, setVieti] = useState(null);
   const [avatar, setAvatar] = useState(1);
+  const [idUser, setIdUser] = useState(null);
 
   const [sursaImagine, setSursaImagine] = useState(null);
 
@@ -47,6 +48,7 @@ export default function Profile() {
         setZile(decoded.data.zile);
         setPuncte(decoded.data.puncte);
         setVieti(decoded.data.vieti);
+        setIdUser(decoded.data.id);
 
         if (avatar == 1)
           setSursaImagine(require("../assets/avatare/avatar1.jpg"));
@@ -97,11 +99,11 @@ export default function Profile() {
     };
 
     async function fetchData() {
-     //console.log("---------------------------------------------------");
-    //console.log("am intrat in useFocusEffect");
+      //console.log("---------------------------------------------------");
+      //console.log("am intrat in useFocusEffect");
       if (token != (await AsyncStorage.getItem("jwt"))) {
         //decodeJwt();
-       // console.log("tokenuri diferite");
+        // console.log("tokenuri diferite");
         decodeJwt();
         setToken(await AsyncStorage.getItem("jwt"));
       }
@@ -109,7 +111,7 @@ export default function Profile() {
       //console.log("---------------------------------------------------");
     }
     fetchData();
-  },[avatar]);
+  }, [avatar]);
 
   async function removeJwtFromStorage() {
     try {
@@ -242,8 +244,8 @@ export default function Profile() {
               borderRadius: 10,
             }}
             onPress={() => {
-              console.log("Redirectionare spre setari profil");
-              navigation.navigate("SetariProfil");
+
+                navigation.navigate("SetariProfil");
             }}
           >
             <AtSymbolIcon color={themeColors.galben} size="50" />
@@ -304,7 +306,10 @@ export default function Profile() {
               backgroundColor: "rgba(255,255,255,0.3)",
               borderRadius: 10,
             }}
-            onPress={() => navigation.navigate("StatusIntrebari")}
+            onPress={() => {
+              if (idUser)
+                navigation.navigate("StatusIntrebari", { idUser: idUser });
+            }}
           >
             <ClockIcon color={themeColors.galben} size="50" />
             <View className="flex-1 flex justify-center pl-3 space-y-3">

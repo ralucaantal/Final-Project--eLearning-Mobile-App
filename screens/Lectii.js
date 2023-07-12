@@ -121,6 +121,9 @@ export default function Lectii({ route }) {
                     alignItems: "center",
                     justifyContent: "center",
                   }}
+                  onPress={() => {
+                    navigation.navigate("TextLectie", { idLectie: lectie.id });
+                  }}
                 >
                   <CheckCircleIcon
                     color={

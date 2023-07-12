@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function StatusIntrebari() {
+export default function StatusIntrebari({ route }) {
   const navigation = useNavigation();
 
   const [intrebari, setIntrebari] = useState(null);
@@ -39,22 +39,23 @@ export default function StatusIntrebari() {
   const [decodedJwt, setDecodedJwt] = useState(null);
 
   useEffect(() => {
-    const decodeJwt = async () => {
-      try {
-        const jwt = await AsyncStorage.getItem("jwt");
-        const decoded = jwtDecode(jwt);
-        setDecodedJwt(decoded);
-        setIdUser(decoded.data.id);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+    // const decodeJwt = async () => {
+    //   try {
+    //     const jwt = await AsyncStorage.getItem("jwt");
+    //     const decoded = jwtDecode(jwt);
+    //     setDecodedJwt(decoded);
+    //     setIdUser(decoded.data.id);
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // };
 
     const statusIntrebari = async () => {
-      await decodeJwt();
+      // await decodeJwt();
 
       try {
-        const utilizator = { idUser: idUser };
+        const utilizator = { idUser: route.params.idUser };
+        console.log(utilizator);
 
         const requestOptions = {
           method: "POST",

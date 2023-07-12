@@ -17,6 +17,7 @@ import FeatherIcon from "react-native-vector-icons/Feather";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import jwtDecode from "jwt-decode";
+import IPv4 from "../index";
 
 export default function SetariProfil() {
   const navigation = useNavigation();
@@ -27,6 +28,12 @@ export default function SetariProfil() {
   const [email, setEmail] = useState(null);
   const [puncte, setPuncte] = useState(null);
   const [vieti, setVieti] = useState(null);
+  const [idUser, setIdUser] = useState(null);
+
+  const [newUsername, setNewUsername] = useState("");
+  const [newEmail, setNewEmail] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [oldPassword, setOldPassword] = useState("");
 
   useEffect(() => {
     const decodeJwt = async () => {
@@ -40,6 +47,7 @@ export default function SetariProfil() {
         setPuncte(decoded.data.puncte.toString());
         setVieti(decoded.data.vieti.toString());
         setEmail(decoded.data.email);
+        setIdUser(decoded.data.id);
         console.log(zile);
       } catch (error) {
         console.log(error);
@@ -48,6 +56,124 @@ export default function SetariProfil() {
 
     decodeJwt();
   }, []);
+
+  const modificaEmail = async () => {
+    if (idUser && newEmai1 != "") {
+      const schimbareEmail = {
+        idUser: idUser,
+        newEmail: newEmail,
+      };
+
+      const requestOptions = {
+        method: "POST",
+        body: JSON.stringify(schimbareEmail),
+        headers: { "Content-Type": "application/json" },
+      };
+
+      console.log(requestOptions);
+      let input = IPv4 + ":5000/schimbareEmail";
+
+      fetch(input, requestOptions)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data.message);
+          if (data.message === "s-a actualizat cu succes!") {
+            //daca primesc confirmarea ca noul utilizator e bagat in bd ma trimite pe login
+            navigation.navigate("Profile");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  };
+
+  const modificaUsername = () => {
+    if (idUser && newUsername != "") {
+      const schimbareUsername = {
+        idUser: idUser,
+        newUsername: newUsername,
+      };
+
+      const requestOptions = {
+        method: "POST",
+        body: JSON.stringify(schimbareUsername),
+        headers: { "Content-Type": "application/json" },
+      };
+
+      console.log(requestOptions);
+      let input = IPv4 + ":5000/schimbareUsername";
+
+      fetch(input, requestOptions)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data.message);
+          if (data.message === "s-a actualizat cu succes!") {
+            setDecodedJwt(jwtDecode(data.jwt));
+            navigation.navigate("Profile");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  };
+
+  const modificaParola = () => {
+    if (
+      idUser &&
+      newPassword != "" &&
+      oldPassword != "" &&
+      newPassword === oldPassword
+    ) {
+      const schimbareParola = {
+        idUser: idUser,
+        newPassword: newPassword,
+      };
+
+      const requestOptions = {
+        method: "POST",
+        body: JSON.stringify(schimbareParola),
+        headers: { "Content-Type": "application/json" },
+      };
+
+      console.log(requestOptions);
+      let input = IPv4 + ":5000/schimbareParola";
+
+      fetch(input, requestOptions)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data.message);
+          if (data.message === "s-a actualizat cu succes!") {
+            setDecodedJwt(jwtDecode(data.jwt));
+            navigation.navigate("Profile");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  };
+
+  const handleChangePassword = (inputText) => {
+    //console.log(inputText);
+    setNewPassword(inputText);
+  };
+
+  const handleChangeEmail = (inputText) => {
+    //console.log(inputText);
+    setNewEmail(inputText);
+  };
+
+  const handleChangeUsername = (inputText) => {
+    //console.log(inputText);
+    setNewUsername(inputText);
+  };
+
+  const handleChangeOldPassword = (inputText) => {
+    //console.log(inputText);
+    setOldPassword(inputText);
+  };
 
   return (
     <KeyboardAvoidingView
@@ -116,7 +242,7 @@ export default function SetariProfil() {
                 />
                 <TouchableOpacity
                   onPress={() => {
-                    // handle onPress
+                    navigation.navigate("ChooseAvatar");
                   }}
                 >
                   <View
@@ -170,14 +296,12 @@ export default function SetariProfil() {
                   className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
                   placeholder={`@${username}`}
                   style={{ width: "100%", opacity: 0.5 }}
+                  onChangeText={handleChangeUsername}
                 />
                 <TouchableOpacity
                   className="py-3 bg-yellow-400 rounded-xl"
                   style={{ width: "100%", opacity: 0.8 }}
-                  onPress={() => {
-                    // console.log("S-au facut modificari pt utilizator");
-                    // navigation.navigate("Profile");
-                  }}
+                  onPress={modificaUsername}
                 >
                   <Text className="font-xl font-bold text-center text-gray-700">
                     Modifică username
@@ -188,14 +312,12 @@ export default function SetariProfil() {
                   className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
                   placeholder={email}
                   style={{ width: "100%", opacity: 0.5 }}
+                  onChangeText={handleChangeEmail}
                 />
                 <TouchableOpacity
                   className="py-3 bg-yellow-400 rounded-xl"
                   style={{ width: "100%", opacity: 0.8 }}
-                  onPress={() => {
-                    // console.log("S-au facut modificari pt utilizator");
-                    // navigation.navigate("Profile");
-                  }}
+                  onPress={modificaEmail}
                 >
                   <Text className="font-xl font-bold text-center text-gray-700">
                     Modifică adresă de email
@@ -212,20 +334,19 @@ export default function SetariProfil() {
                   className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
                   placeholder="* * * * * * * * * *"
                   style={{ width: "100%", opacity: 0.5 }}
+                  onChangeText={handleChangeOldPassword}
                 />
                 <Text className="text-white ml-4">Parolă nouă</Text>
                 <TextInput
                   className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
                   placeholder="* * * * * * * * * *"
                   style={{ width: "100%", opacity: 0.5 }}
+                  onChangeText={handleChangePassword}
                 />
                 <TouchableOpacity
                   className="py-3 bg-yellow-400 rounded-xl"
                   style={{ width: "100%", opacity: 0.8 }}
-                  onPress={() => {
-                    // console.log("S-au facut modificari pt utilizator");
-                    // navigation.navigate("Profile");
-                  }}
+                  onPress={modificaParola}
                 >
                   <Text className="font-xl font-bold text-center text-gray-700">
                     Modifică parolă
