@@ -25,7 +25,7 @@ import IPv4 from "../index";
 export default function IntrebariLectie({ route }) {
   const navigation = useNavigation();
 
-  console.log(route.params.idUser);
+  console.log(route.params.lectie);
 
   return (
     <KeyboardAvoidingView
@@ -56,12 +56,28 @@ export default function IntrebariLectie({ route }) {
                   borderRadius: 10,
                   alignSelf: "flex-start",
                 }}
-                className="ml-4 text-3xl font-bold"
+                className="ml-4 text-xl font-bold"
               >
                 CodeCampus
               </Text>
             </View>
           </View>
+          <Text
+            style={{
+              marginLeft: 20,
+              marginRight: 20,
+              marginTop: 15,
+              color: themeColors.white
+            }}
+            className="ml-4 italic text-xl font-bold"
+          >
+            Prin întrebările următoare se vor verifica cunoștințele asimilate
+            prin parcurgerea lecției
+            <Text style={{ color: themeColors.galben }}>
+              {" " + (route.params && route.params.lectie[0].nume)}
+            </Text>
+            .
+          </Text>
         </SafeAreaView>
       </LinearGradient>
     </KeyboardAvoidingView>
