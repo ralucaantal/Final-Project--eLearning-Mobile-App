@@ -200,6 +200,20 @@ app.post("/trainingQuiz", (req, res) => {
     });
 });
 
+app.post("/cerereLectie", (req, res) => {
+  console.log("req= ", req.body);
+
+  qry = "select * from lectii where id=" + req.body.idLectieCeruta + ";";
+  console.log(qry);
+  pgClient
+    .query(qry)
+    .then((res) => res.rows)
+    .then((data) => {
+      console.log("sunt in fetch de la baza de date");
+      res.send(data);
+    });
+});
+
 app.post("/adaugarePunctajQuizIndividual", (req, res) => {
   console.log("ai facut post cu datele: ", req.body);
 
