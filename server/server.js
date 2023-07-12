@@ -353,8 +353,6 @@ app.get("/cursuriDisponibile", (req, res) => {
 });
 
 app.post("/statusIntrebariPropuse", (req, res) => {
-  console.log("req= ", req.body);
-
   qry =
     "SELECT * FROM intrebari_propuse WHERE id_utilizator=" +
     req.body.idUser +
@@ -364,7 +362,6 @@ app.post("/statusIntrebariPropuse", (req, res) => {
     .query(qry)
     .then((res) => res.rows)
     .then((data) => {
-      console.log("sunt in fetch de la baza de date");
       // console.log(data);
       res.send(data);
     });

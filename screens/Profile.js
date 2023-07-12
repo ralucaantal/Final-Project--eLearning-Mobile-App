@@ -97,16 +97,16 @@ export default function Profile() {
     };
 
     async function fetchData() {
-      console.log("---------------------------------------------------");
-      console.log("am intrat in useFocusEffect");
+     //console.log("---------------------------------------------------");
+    //console.log("am intrat in useFocusEffect");
       if (token != (await AsyncStorage.getItem("jwt"))) {
         //decodeJwt();
-        console.log("tokenuri diferite");
+       // console.log("tokenuri diferite");
         decodeJwt();
         setToken(await AsyncStorage.getItem("jwt"));
       }
       //console.log(await AsyncStorage.getItem("jwt"));
-      console.log("---------------------------------------------------");
+      //console.log("---------------------------------------------------");
     }
     fetchData();
   },[avatar]);
@@ -114,12 +114,12 @@ export default function Profile() {
   async function removeJwtFromStorage() {
     try {
       await AsyncStorage.removeItem("jwt");
-      console.log("JWT a fost șters cu succes din Async Storage.");
+      // console.log("JWT a fost șters cu succes din Async Storage.");
     } catch (error) {
-      console.log(
-        "Eroare la ștergerea JWT-ului din Async Storage: ",
-        error.message
-      );
+      // console.log(
+      //   "Eroare la ștergerea JWT-ului din Async Storage: ",
+      //   error.message
+      // );
     }
   }
 

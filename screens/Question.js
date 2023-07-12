@@ -107,7 +107,6 @@ export default function Question({ route }) {
     setRaspunsText("");
     console.log(raspuns);
 
-
     const postData = {
       raspunsText: raspuns.replace(/`/g, "'"),
       raspunsCorect: raspunsCorect,
@@ -121,8 +120,6 @@ export default function Question({ route }) {
 
     console.log(requestOptions);
     let input = IPv4 + ":5000/verificareRaspunsText";
-
-    // console.log(requestOptions);
 
     fetch(input, requestOptions)
       .then((response) => response.json())
