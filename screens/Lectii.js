@@ -8,6 +8,8 @@ import { themeColors } from "../theme/index";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import jwtDecode from "jwt-decode";
 import IPv4 from "../index";
+import tw from "tailwind-react-native-classnames";
+
 
 export default function Lectii({ route }) {
   const navigation = useNavigation();
@@ -57,7 +59,6 @@ export default function Lectii({ route }) {
     cereLectii();
   }, []);
 
-  console.log("sectiunea", route.params);
 
   return (
     <LinearGradient
@@ -88,23 +89,37 @@ export default function Lectii({ route }) {
               CodeCampus
             </Text>
           </View>
-          <Text
-            style={{
-              color: themeColors.white,
-              marginLeft: 20,
-              marginRight: 20,
-            }}
-            className="ml-4 text-2xl font-bold"
-          >
-            Pentru secțiunea{" "}
-            <Text style={{ fontStyle: "italic", color: themeColors.rozPal }}>
-              {route.params.numeSectiune}
-            </Text>{" "}
-            sunt disponibile următoarele lecții:
-          </Text>
+          {route.params.idSectiune !== 22 && (
+            <Text
+              style={{
+                color: themeColors.white,
+                marginLeft: 20,
+                marginRight: 20,
+              }}
+              className="ml-4 text-2xl font-bold"
+            >
+              Pentru secțiunea{" "}
+              <Text style={{ fontStyle: "italic", color: themeColors.rozPal }}>
+                {route.params.numeSectiune}
+              </Text>{" "}
+              sunt disponibile următoarele lecții:
+            </Text>
+          )}
+          {route.params.idSectiune === 22 && (
+            <Text
+              style={{
+                color: themeColors.white,
+                marginLeft: 20,
+                marginRight: 20,
+              }}
+              className="ml-4 italic text-2xl font-bold"
+            >
+              Baza de date pe care se vor lucra exercițiile puse la dispoziție
+              de CodeCampus arată astfel:
+            </Text>
+          )}
         </View>
-
-        {lectii && (
+        {lectii && route.params.idSectiune != 22 && (
           <ScrollView
             style={{ height: "100%", marginTop: 20 }}
             showsVerticalScrollIndicator={false}
@@ -160,6 +175,24 @@ export default function Lectii({ route }) {
               );
             })}
           </ScrollView>
+        )}
+        {route.params.idSectiune === 22 && (
+          <View
+            className="mx-4 p-2 mb-2 flex-row"
+            style={{
+              backgroundColor: "rgba(255, 255, 255, 0.3)",
+              // backgroundColor: "rgba(180, 174, 232, 0.5)",
+              borderRadius: 10,
+              marginTop: 10,
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <Image
+              source={require("../assets/images/schemabd.jpg")}
+              style={[tw`w-80 h-60 rounded-xl`, { resizeMode: "cover",marginLeft:10 }]}
+            />
+          </View>
         )}
       </SafeAreaView>
     </LinearGradient>

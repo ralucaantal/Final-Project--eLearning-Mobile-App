@@ -36,7 +36,7 @@ export default function IntrebariLectie({ route }) {
     return [intrebare.intrebare1, intrebare.intrebare2, intrebare.intrebare3];
   });
 
-  let intrebariCorecte = 0;
+  const [intrebariCorecte, setIntrebariCorecte] = useState(0);
   const [indexIntrebareCurenta, setIndexIntrebareCurenta] = useState(0);
 
   // console.log(texteIntrebari);
@@ -50,11 +50,14 @@ export default function IntrebariLectie({ route }) {
   });
 
   useEffect(() => {
-    console.log(
-      "Valoarea actualizată a indexIntrebareCurenta:",
-      indexIntrebareCurenta
-    );
-  }, [indexIntrebareCurenta]);
+    // console.log(
+    //   "Valoarea actualizată a indexIntrebareCurenta:",
+    //   indexIntrebareCurenta
+    // );
+    console.log("nr de intrebari corecte:", intrebariCorecte);
+
+    if (intrebariCorecte === 3) navigation.navigate("Home");
+  }, [indexIntrebareCurenta, intrebariCorecte]);
 
   //console.log(raspunsuriCorecte);
 
@@ -114,7 +117,7 @@ export default function IntrebariLectie({ route }) {
               <ScrollView>
                 {texteIntrebari[0].map(
                   (intrebare, index) =>
-                     index === indexIntrebareCurenta && (
+                    index === indexIntrebareCurenta && (
                       <View key={index.toString()}>
                         <View style={{ marginTop: 15 }}>
                           <Text
@@ -169,8 +172,6 @@ export default function IntrebariLectie({ route }) {
                                 setRaspunsIntrebare2("A");
                               if (indexIntrebareCurenta === 2)
                                 setRaspunsIntrebare3("A");
-
-                              console.log(indexIntrebareCurenta);
                             }}
                           >
                             <Text className="font-xl font-bold text-center text-gray-700">
@@ -194,7 +195,7 @@ export default function IntrebariLectie({ route }) {
                               if (indexIntrebareCurenta === 2)
                                 setRaspunsIntrebare3("F");
 
-                             // console.log(indexIntrebareCurenta);
+                              // console.log(indexIntrebareCurenta);
                             }}
                           >
                             <Text className="font-xl font-bold text-center text-gray-700">
@@ -212,42 +213,35 @@ export default function IntrebariLectie({ route }) {
                               marginTop: 10,
                             }}
                             onPress={() => {
-                      
-                              console.log(texteIntrebari, texteIntrebari[0].length)
-                              console.log(intrebare)
-
                               if (indexIntrebareCurenta === 0) {
-
                                 if (
-                                  raspunsIntrebare1 === raspunsuriCorecte[0]
+                                  raspunsIntrebare1 === raspunsuriCorecte[0][0]
                                 ) {
-                                  intrebariCorecte++;
+                                  setIntrebariCorecte(intrebariCorecte + 1);
                                 }
                               }
                               if (indexIntrebareCurenta === 1) {
-
                                 if (
-                                  raspunsIntrebare2 === raspunsuriCorecte[1]
+                                  raspunsIntrebare2 === raspunsuriCorecte[0][1]
                                 ) {
-                                  intrebariCorecte++;
+                                  setIntrebariCorecte(intrebariCorecte + 1);
                                 }
                               }
                               if (indexIntrebareCurenta === 2) {
                                 if (
-                                  raspunsIntrebare3 === raspunsuriCorecte[2]
+                                  raspunsIntrebare3 === raspunsuriCorecte[0][2]
                                 ) {
-                                  intrebariCorecte++;
+                                  setIntrebariCorecte(intrebariCorecte + 1);
                                 }
                               }
 
-
-                              setIndexIntrebareCurenta(indexIntrebareCurenta+1)
-
+                              setIndexIntrebareCurenta(
+                                indexIntrebareCurenta + 1
+                              );
 
                               if (indexIntrebareCurenta + 1 === 3) {
                                 console.log("astea au fost intrebarile");
                               }
-
                             }}
                           >
                             <Text className="font-xl font-bold text-center text-gray-700">
@@ -258,7 +252,6 @@ export default function IntrebariLectie({ route }) {
                       </View>
                     )
                 )}
-
               </ScrollView>
             )}
           </View>
