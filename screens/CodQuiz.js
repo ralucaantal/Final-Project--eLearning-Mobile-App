@@ -128,6 +128,16 @@ export default function CodQuiz({ route }) {
               >
                 {codQuiz}
               </Text>
+              <Text
+                style={{
+                  color: themeColors.white,
+                  fontSize: 15,
+                  marginRight: 8,
+                }}
+                className="italic font-semibold"
+              >
+                Atenție! Acest cod este valabil 30 de minute începând cu ora de start pe care ai ales-o pentru testul tău! 🕒
+              </Text>
               <TouchableOpacity
                 className="py-3 bg-yellow-400 rounded-xl"
                 style={{ width: "100%", opacity: 0.8 }}

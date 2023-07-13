@@ -885,7 +885,11 @@ app.post("/adaugareQuiz", (req, res) => {
   let idUser = req.body.idUser;
   let materii = req.body.materii;
   let nrIntrebari = req.body.nrIntrebari;
-  let oraStart = req.body.oraStartș;
+  //let oraStart = req.body.oraStart;
+
+  const oraStart = new Date(req.body.oraStart);
+  const oraStartFormatata = oraStart.toLocaleTimeString();
+  console.log(oraStartFormatata);
 
   pgClient
     .query(

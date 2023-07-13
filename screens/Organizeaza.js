@@ -208,7 +208,7 @@ export default function Organizeaza() {
               {showTimePicker && (
                 <>
                   <Text style={{ fontSize: 15, color: "white", marginLeft: 4 }}>
-                    Apasă pentru a selecta ora: 
+                    Apasă pentru a selecta ora:
                   </Text>
                   <DateTimePicker
                     value={selectedHour}
@@ -220,7 +220,12 @@ export default function Organizeaza() {
                         setSelectedHour(date);
                       }
                     }}
-                    style={{ alignSelf: "flex-start", color: "white", marginTop:5, marginLeft:0 }}
+                    style={{
+                      alignSelf: "flex-start",
+                      color: "white",
+                      marginTop: 5,
+                      marginLeft: 0,
+                    }}
                   />
                 </>
               )}
@@ -232,8 +237,8 @@ export default function Organizeaza() {
                   console.log("Utilizatorul a ales cum vrea sa fie quiz-ul.");
                   console.log("ceva", selectedCursuri);
                   console.log(selectedValue);
-                  cursuriCerute = selectedCursuri;
-                  nrIntrebari = selectedValue;
+                  const cursuriCerute = selectedCursuri;
+                  const nrIntrebari = selectedValue;
                   navigation.navigate("CodQuiz", {
                     cursuriCerute: cursuriCerute,
                     nrIntrebari: nrIntrebari,
