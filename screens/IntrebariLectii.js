@@ -56,7 +56,11 @@ export default function IntrebariLectie({ route }) {
     // );
     console.log("nr de intrebari corecte:", intrebariCorecte);
 
-    if (intrebariCorecte === 3) navigation.navigate("Home");
+      if (indexIntrebareCurenta === 3) navigation.navigate("FinalizareLectie", {
+        lectie: route.params.lectie,
+        idUser: route.params.idUser,
+        raspunsuriCorecte: intrebariCorecte,
+      });
   }, [indexIntrebareCurenta, intrebariCorecte]);
 
   //console.log(raspunsuriCorecte);
@@ -241,6 +245,11 @@ export default function IntrebariLectie({ route }) {
 
                               if (indexIntrebareCurenta + 1 === 3) {
                                 console.log("astea au fost intrebarile");
+                                // navigation.navigate("FinalizareLectie", {
+                                //   lectie: route.params.lectie,
+                                //   idUser: route.params.idUser,
+                                //   raspunsuriCorecte: intrebariCorecte,
+                                // });
                               }
                             }}
                           >

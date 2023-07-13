@@ -11,28 +11,26 @@ import jwtDecode from "jwt-decode";
 
 //const puncteCastigate = 50;
 
-export default function FinalQuiz({ route }) {
+export default function FinalizareLectie({ route }) {
   const navigation = useNavigation();
 
   const [puncteCastigate, setPuncteCastigate] = useState(null);
 
-  const verificarePuncteCastigate = () => {
-    setPuncteCastigate(0);
-    setPuncteCastigate(route.params.punctajCastigat);
-  };
+  //   const verificarePuncteCastigate = () => {
+  //     setPuncteCastigate(0);
+  //     setPuncteCastigate(route.params.punctajCastigat);
+  //   };
 
   useEffect(() => {
     const punctaj = async () => {
-      const finalQuiz = {
-        puncteCastigate: route.params.punctajCastigat,
-        idUser: route.params.idUtilizator,
+      const puncteDeAdaugat = {
+        puncteCastigate: 50,
+        idUser: route.params.idUser,
       };
-
-      console.log("finalQuiz: ", finalQuiz);
 
       const requestOptions = {
         method: "POST",
-        body: JSON.stringify(finalQuiz),
+        body: JSON.stringify(puncteDeAdaugat),
         headers: { "Content-Type": "application/json" },
       };
 
@@ -44,8 +42,34 @@ export default function FinalQuiz({ route }) {
 
       await AsyncStorage.setItem("jwt", data.jwt);
     };
-    punctaj();
+
+    const progres = async () => {
+      const progresUtilizator = {
+        idUser: route.params.idUser,
+        idLectie: route.params.lectie[0].id,
+        idSectiune: route.params.lectie[0].id_sectiune,
+      };
+
+      const requestOptions = {
+        method: "POST",
+        body: JSON.stringify(progresUtilizator),
+        headers: { "Content-Type": "application/json" },
+      };
+
+      console.log(requestOptions);
+      let input = IPv4 + ":5000/adaugareProgresUtilizator";
+
+      const response = await fetch(input, requestOptions);
+      const data = await response.json();
+    };
+
+    if (route.params.raspunsuriCorecte === 3) {
+      punctaj();
+      progres();
+    }
   }, []);
+
+  console.log("Lectia:", route.params.lectie);
 
   return (
     <LinearGradient
@@ -62,7 +86,7 @@ export default function FinalQuiz({ route }) {
           </TouchableOpacity>
         </View>
         <View className="mt-3 space-y-3">
-          <View className="mt-3 space-y-3">
+          {/* <View className="mt-3 space-y-3">
             <Text
               style={{
                 color: themeColors.white,
@@ -75,13 +99,25 @@ export default function FinalQuiz({ route }) {
             >
               CodeCampus
             </Text>
-          </View>
-          <Text
-            style={{ color: themeColors.white }}
-            className="ml-4 text-3xl font-bold"
-          >
-            Felicitări! Ai finalizat un quiz! 🏅
-          </Text>
+          </View> */}
+          {route.params.raspunsuriCorecte === 3 && (
+            <Text
+              style={{ color: themeColors.white }}
+              className="ml-4 italic text-3xl font-bold"
+            >
+              Felicitări! Ai finalizat lecția cu titlul{" "}
+              {route.params.lectie[0].nume}! 🏅
+            </Text>
+          )}
+          {route.params.raspunsuriCorecte !== 3 && (
+            <Text
+              style={{ color: themeColors.white }}
+              className="ml-4 italic text-3xl font-bold"
+            >
+              Îmi pare rău! Va trebui să parcurgi din nou lecția cu titlul{" "}
+              {route.params.lectie[0].nume}! 😥
+            </Text>
+          )}
         </View>
         <TouchableOpacity
           className="mx-4 p-2 mb-2 flex-row"
@@ -91,27 +127,29 @@ export default function FinalQuiz({ route }) {
             marginTop: 10,
           }}
         >
-          <View className="flex-row space-x-1 justify-content-end">
-            <Text
-              className="font-semibold"
-              style={{
-                color: themeColors.white,
-                fontSize: 20,
-                marginTop: 8,
-                marginLeft: 5,
-              }}
-            >
-              Ai câștigat
-            </Text>
-            <View
-              className="flex-row space-x-1"
-              style={{ display: "flex", marginLeft: "auto" }}
-            >
-              <TouchableOpacity className="bg-purple-100 p-3 px-4 rounded-full mr-2">
-                <Text>{route.params.punctajCastigat} Puncte 🚀</Text>
-              </TouchableOpacity>
+          {route.params.raspunsuriCorecte === 3 && (
+            <View className="flex-row space-x-1 justify-content-end">
+              <Text
+                className="font-semibold"
+                style={{
+                  color: themeColors.white,
+                  fontSize: 20,
+                  marginTop: 8,
+                  marginLeft: 5,
+                }}
+              >
+                Ai câștigat
+              </Text>
+              <View
+                className="flex-row space-x-1"
+                style={{ display: "flex", marginLeft: "auto" }}
+              >
+                <TouchableOpacity className="bg-purple-100 p-3 px-4 rounded-full mr-2">
+                  <Text>50 Puncte 🚀</Text>
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
+          )}
         </TouchableOpacity>
         <ScrollView
           style={{ height: "100%", marginTop: 20 }}
@@ -137,65 +175,28 @@ export default function FinalQuiz({ route }) {
                 marginBottom: 5,
               }}
               onPress={() => {
+                navigation.navigate("Invata");
+              }}
+            >
+              <Text className="font-xl font-bold text-center text-gray-700">
+                Continuă să înveți!
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              className="py-3 bg-yellow-400 rounded-xl"
+              style={{
+                width: "100%",
+                opacity: 0.8,
+                alignSelf: "flex-end",
+                marginTop: 5,
+                marginBottom: 5,
+              }}
+              onPress={() => {
                 navigation.navigate("Antreneaza");
               }}
             >
               <Text className="font-xl font-bold text-center text-gray-700">
-                Generează încă un quiz
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              className="py-3 bg-yellow-400 rounded-xl"
-              style={{
-                width: "100%",
-                opacity: 0.8,
-                alignSelf: "flex-end",
-                marginTop: 5,
-                marginBottom: 5,
-              }}
-              onPress={() => {
-                console.log("ne ducem la urmatoarea intrebare");
-                navigation.navigate("Top");
-              }}
-            >
-              <Text className="font-xl font-bold text-center text-gray-700">
-                Vezi topul utilizatorilor
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              className="py-3 bg-yellow-400 rounded-xl"
-              style={{
-                width: "100%",
-                opacity: 0.8,
-                alignSelf: "flex-end",
-                marginTop: 5,
-                marginBottom: 5,
-              }}
-              onPress={() => {
-                console.log("ne ducem la urmatoarea intrebare");
-                navigation.navigate("Statistici");
-              }}
-            >
-              <Text className="font-xl font-bold text-center text-gray-700">
-                Vezi statisticile tale
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              className="py-3 bg-yellow-400 rounded-xl"
-              style={{
-                width: "100%",
-                opacity: 0.8,
-                alignSelf: "flex-end",
-                marginTop: 5,
-                marginBottom: 5,
-              }}
-              onPress={() => {
-                console.log("ne ducem la urmatoarea intrebare");
-                navigation.navigate("Home");
-              }}
-            >
-              <Text className="font-xl font-bold text-center text-gray-700">
-                Înapoi la Home
+                Exersează printr-un quiz!
               </Text>
             </TouchableOpacity>
           </View>

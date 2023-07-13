@@ -30,6 +30,7 @@ import CodQuiz from "../screens/CodQuiz";
 import Lectii from "../screens/Lectii";
 import TextLectie from "../screens/TextLectie";
 import IntrebariLectie from "../screens/IntrebariLectii";
+import FinalizareLectie from "../screens/FinalizareLectie";
 
 const Stack = createNativeStackNavigator();
 
@@ -176,6 +177,11 @@ export default function AppNavigation() {
           name="IntrebariLectie"
           options={{ headerShown: false }}
           component={IntrebariLectie}
+        />
+        <Stack.Screen
+          name="FinalizareLectie"
+          options={{ headerShown: false }}
+          component={FinalizareLectie}
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -255,7 +255,7 @@ app.post("/adaugarePunctajQuizIndividual", (req, res) => {
             serverSecret,
             { expiresIn: "24h" }
           );
-          console.log("tokenul tau este: ", token);
+          //console.log("tokenul tau este: ", token);
 
           res.send({
             jwt: token,
@@ -917,6 +917,23 @@ app.post("/validareCod", (req, res) => {
       }
     });
 });
+
+app.post("/adaugareProgresUtilizator", (req, res) => {
+  console.log("Ai facut POST cu datele: ", req.body);
+  let idUser = req.body.idUser;
+  let idLectie = req.body.idLectie;
+  let idSectiune = req.body.idSectiune;
+
+  pgClient
+    .query(
+      "INSERT INTO progres_lectii_utilizatori (id_lectie, id_sectiune, id_utilizator) SELECT $1, $2, $3 WHERE NOT EXISTS (SELECT * FROM progres_lectii_utilizatori WHERE id_lectie = $1 AND id_sectiune = $2 AND id_utilizator = $3);",
+      [idLectie, idSectiune, idUser]
+    )
+    .then((res) => {
+      res.send({ message: "s-a adaugat cu succes!" });
+    });
+});
+
 
 app.listen(5000, () => {
   console.log("Server started on port 5000");
