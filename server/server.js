@@ -833,8 +833,6 @@ app.post("/afisareLectii", (req, res) => {
 app.post("/afisareSectiuni", (req, res) => {
   console.log("req= ", req.body);
 
-  qry = "select * from sectiuni where materie='" + req.body.nume + "';";
-
   // console.log(req.body.nrIntrebari);
   // console.log(req.body.materiiCerute[0]);
 
@@ -934,6 +932,21 @@ app.post("/adaugareProgresUtilizator", (req, res) => {
     });
 });
 
+app.post("/adaugareProgresSectiuni", (req, res) => {
+  console.log("Ai facut POST cu datele: ", req.body);
+  let idUser = req.body.idUser;
+  let numeSectiune = req.body.numeSectiune;
+  let materie = req.body.materie;
+
+  pgClient
+    .query(
+      "INSERT INTO progres_sectiuni_utilizatori (nume_sectiune,id_utilizator, curs) SELECT $1, $2, $3 WHERE NOT EXISTS (SELECT * FROM progres_sectiuni_utilizatori WHERE nume_sectiune = $1 AND id_utilizator = $2 AND materie=$3);",
+      [numeSectiune, idUser, materie]
+    )
+    .then((res) => {
+      res.send({ message: "s-a adaugat cu succes!" });
+    });
+});
 
 app.listen(5000, () => {
   console.log("Server started on port 5000");

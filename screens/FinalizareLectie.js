@@ -119,15 +119,15 @@ export default function FinalizareLectie({ route }) {
             </Text>
           )}
         </View>
-        <TouchableOpacity
-          className="mx-4 p-2 mb-2 flex-row"
-          style={{
-            backgroundColor: "rgba(255,255,255,0.4)",
-            borderRadius: 10,
-            marginTop: 10,
-          }}
-        >
-          {route.params.raspunsuriCorecte === 3 && (
+        {route.params.raspunsuriCorecte === 3 && (
+          <TouchableOpacity
+            className="mx-4 p-2 mb-2 flex-row"
+            style={{
+              backgroundColor: "rgba(255,255,255,0.4)",
+              borderRadius: 10,
+              marginTop: 10,
+            }}
+          >
             <View className="flex-row space-x-1 justify-content-end">
               <Text
                 className="font-semibold"
@@ -149,8 +149,8 @@ export default function FinalizareLectie({ route }) {
                 </TouchableOpacity>
               </View>
             </View>
-          )}
-        </TouchableOpacity>
+          </TouchableOpacity>
+        )}
         <ScrollView
           style={{ height: "100%", marginTop: 20 }}
           showsVerticalScrollIndicator={false}
@@ -197,6 +197,23 @@ export default function FinalizareLectie({ route }) {
             >
               <Text className="font-xl font-bold text-center text-gray-700">
                 Exersează printr-un quiz!
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              className="py-3 bg-yellow-400 rounded-xl"
+              style={{
+                width: "100%",
+                opacity: 0.8,
+                alignSelf: "flex-end",
+                marginTop: 5,
+                marginBottom: 5,
+              }}
+              onPress={() => {
+                navigation.navigate("Home");
+              }}
+            >
+              <Text className="font-xl font-bold text-center text-gray-700">
+                Înapoi la Home
               </Text>
             </TouchableOpacity>
           </View>

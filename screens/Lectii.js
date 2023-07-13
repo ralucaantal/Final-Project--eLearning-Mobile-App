@@ -10,7 +10,6 @@ import jwtDecode from "jwt-decode";
 import IPv4 from "../index";
 import tw from "tailwind-react-native-classnames";
 
-
 export default function Lectii({ route }) {
   const navigation = useNavigation();
 
@@ -52,13 +51,38 @@ export default function Lectii({ route }) {
         .then((response) => response.json())
         .then((data) => {
           setLectii(data);
-          //console.log(data);
+          // console.log(data);
+          let sectiuneCompleta = 1;
+          for (let i = 0; i < data.length; i++)
+            if (data[i].complet != true) sectiuneCompleta = 0;
+          if (sectiuneCompleta === 1) {
+            console.log("Sectiunea este completa", route.params.materie);
+
+            const progresSectiune = {
+              idUser: route.params.idUser,
+              idSectiune: route.params.idSectiune,
+              numeSectiune: route.params.numeSectiune,
+              materie: route.params.materie,
+            };
+
+            const requestOptions = {
+              method: "POST",
+              body: JSON.stringify(progresSectiune),
+              headers: { "Content-Type": "application/json" },
+            };
+
+            let input1 = IPv4 + ":5000/adaugareProgresSectiuni";
+            fetch(input1, requestOptions)
+              .then((response) => response.json())
+              .then((data) => {
+                //console.log(data);
+              });
+          }
         });
     };
 
     cereLectii();
   }, []);
-
 
   return (
     <LinearGradient
@@ -190,7 +214,10 @@ export default function Lectii({ route }) {
           >
             <Image
               source={require("../assets/images/schemabd.jpg")}
-              style={[tw`w-80 h-60 rounded-xl`, { resizeMode: "cover",marginLeft:10 }]}
+              style={[
+                tw`w-80 h-60 rounded-xl`,
+                { resizeMode: "cover", marginLeft: 10 },
+              ]}
             />
           </View>
         )}

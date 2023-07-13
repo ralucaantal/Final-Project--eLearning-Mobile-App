@@ -61,6 +61,7 @@ export default function Curs({ route }) {
         .then((response) => response.json())
         .then((data) => {
           setSectiuni(data);
+          console.log(data);
           setIndexSectiune(0);
         });
     };
@@ -135,6 +136,7 @@ export default function Curs({ route }) {
                       idSectiune: sectiune.id,
                       numeSectiune: sectiune.nume,
                       idUser: idUser,
+                      materie: sectiune.materie
                     });
                   }}
                 >
