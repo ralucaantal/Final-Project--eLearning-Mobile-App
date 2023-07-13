@@ -50,7 +50,7 @@ export default function Lectii({ route }) {
         .then((response) => response.json())
         .then((data) => {
           setLectii(data);
-          console.log(data);
+          //console.log(data);
         });
     };
 

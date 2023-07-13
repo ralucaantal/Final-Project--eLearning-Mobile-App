@@ -26,13 +26,20 @@ import IPv4 from "../index";
 export default function IntrebariLectie({ route }) {
   const navigation = useNavigation();
 
-  const [indexIntrebareCurenta, setIndexIntrebareCurenta] = useState(0);
+  // const [indexIntrebareCurenta, setIndexIntrebareCurenta] = useState(0);
+
+  const [raspunsIntrebare1, setRaspunsIntrebare1] = useState(null);
+  const [raspunsIntrebare2, setRaspunsIntrebare2] = useState(null);
+  const [raspunsIntrebare3, setRaspunsIntrebare3] = useState(null);
 
   const texteIntrebari = route.params.lectie.map((intrebare) => {
     return [intrebare.intrebare1, intrebare.intrebare2, intrebare.intrebare3];
   });
 
-  console.log(texteIntrebari);
+  let intrebariCorecte = 0;
+  const [indexIntrebareCurenta, setIndexIntrebareCurenta] = useState(0);
+
+  // console.log(texteIntrebari);
 
   const raspunsuriCorecte = route.params.lectie.map((intrebare) => {
     return [
@@ -42,7 +49,14 @@ export default function IntrebariLectie({ route }) {
     ];
   });
 
-  console.log(raspunsuriCorecte);
+  useEffect(() => {
+    console.log(
+      "Valoarea actualizată a indexIntrebareCurenta:",
+      indexIntrebareCurenta
+    );
+  }, [indexIntrebareCurenta]);
+
+  //console.log(raspunsuriCorecte);
 
   return (
     <KeyboardAvoidingView
@@ -98,10 +112,10 @@ export default function IntrebariLectie({ route }) {
           <View>
             {texteIntrebari && (
               <ScrollView>
-                {texteIntrebari.map(
+                {texteIntrebari[0].map(
                   (intrebare, index) =>
-                    index === indexIntrebareCurenta && (
-                      <View key={index}>
+                     index === indexIntrebareCurenta && (
+                      <View key={index.toString()}>
                         <View style={{ marginTop: 15 }}>
                           <Text
                             style={{ color: themeColors.white }}
@@ -131,7 +145,7 @@ export default function IntrebariLectie({ route }) {
                               style={{ color: themeColors.white, fontSize: 20 }}
                               className="font-semibold"
                             >
-                              {intrebare[index]}
+                              {intrebare}
                             </Text>
                           </View>
                         </View>
@@ -146,9 +160,18 @@ export default function IntrebariLectie({ route }) {
                               alignSelf: "flex-end",
                               marginTop: 10,
                               marginRight: 20,
-                              backgroundColor: themeColors.rozPal,
+                              backgroundColor: themeColors.gri,
                             }}
-                            onPress={() => {}}
+                            onPress={() => {
+                              if (indexIntrebareCurenta === 0)
+                                setRaspunsIntrebare1("A");
+                              if (indexIntrebareCurenta === 1)
+                                setRaspunsIntrebare2("A");
+                              if (indexIntrebareCurenta === 2)
+                                setRaspunsIntrebare3("A");
+
+                              console.log(indexIntrebareCurenta);
+                            }}
                           >
                             <Text className="font-xl font-bold text-center text-gray-700">
                               Adevărat
@@ -163,30 +186,79 @@ export default function IntrebariLectie({ route }) {
                               marginTop: 10,
                               backgroundColor: themeColors.rozPal,
                             }}
-                            onPress={() => {}}
+                            onPress={() => {
+                              if (indexIntrebareCurenta === 0)
+                                setRaspunsIntrebare1("F");
+                              if (indexIntrebareCurenta === 1)
+                                setRaspunsIntrebare2("F");
+                              if (indexIntrebareCurenta === 2)
+                                setRaspunsIntrebare3("F");
+
+                             // console.log(indexIntrebareCurenta);
+                            }}
                           >
                             <Text className="font-xl font-bold text-center text-gray-700">
                               Fals
                             </Text>
                           </TouchableOpacity>
                         </View>
-                        <TouchableOpacity
-                          className="py-3 bg-yellow-400 rounded-xl"
-                          style={{
-                            width: "30%",
-                            opacity: 0.8,
-                            alignSelf: "center",
-                            marginTop: 10,
-                          }}
-                          onPress={() => {}}
-                        >
-                          <Text className="font-xl font-bold text-center text-gray-700">
-                            Ok!
-                          </Text>
-                        </TouchableOpacity>
+                        <View>
+                          <TouchableOpacity
+                            className="py-3 bg-yellow-400 rounded-xl"
+                            style={{
+                              width: "30%",
+                              opacity: 0.8,
+                              alignSelf: "center",
+                              marginTop: 10,
+                            }}
+                            onPress={() => {
+                      
+                              console.log(texteIntrebari, texteIntrebari[0].length)
+                              console.log(intrebare)
+
+                              if (indexIntrebareCurenta === 0) {
+
+                                if (
+                                  raspunsIntrebare1 === raspunsuriCorecte[0]
+                                ) {
+                                  intrebariCorecte++;
+                                }
+                              }
+                              if (indexIntrebareCurenta === 1) {
+
+                                if (
+                                  raspunsIntrebare2 === raspunsuriCorecte[1]
+                                ) {
+                                  intrebariCorecte++;
+                                }
+                              }
+                              if (indexIntrebareCurenta === 2) {
+                                if (
+                                  raspunsIntrebare3 === raspunsuriCorecte[2]
+                                ) {
+                                  intrebariCorecte++;
+                                }
+                              }
+
+
+                              setIndexIntrebareCurenta(indexIntrebareCurenta+1)
+
+
+                              if (indexIntrebareCurenta + 1 === 3) {
+                                console.log("astea au fost intrebarile");
+                              }
+
+                            }}
+                          >
+                            <Text className="font-xl font-bold text-center text-gray-700">
+                              Ok!
+                            </Text>
+                          </TouchableOpacity>
+                        </View>
                       </View>
                     )
                 )}
+
               </ScrollView>
             )}
           </View>
