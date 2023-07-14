@@ -46,9 +46,9 @@ export default function InscriereQuiz({ route }) {
         const data = await response.json();
         console.log(data);
 
-        if (data.message === "Codul este ok") {
-          console.log("Cod ok");
-        } 
+        // if (data.message === "Codul este ok") {
+        //   console.log("Cod ok");
+        // } 
       } catch (error) {
         console.log(error);
       }
