@@ -50,7 +50,8 @@ export default function InscriereQuiz({ route }) {
           alert("Codul nu este bun!");
         } else if (data.message === "Se poate rezolva quiz-ul.") {
           console.log("urmeaza rezolvarea quiz-ului");
-         // console.log(data);
+          actualizareStatistici();
+          // console.log(data);
           navigation.navigate("QuizOrganizat", {
             materii: data.materii,
             nrIntrebari: data.nrIntrebari,
@@ -60,6 +61,25 @@ export default function InscriereQuiz({ route }) {
         console.log(error);
       }
     }
+  };
+
+  const actualizareStatistici = async () => {
+    const statistici = {
+      idUser: route.params.idUser,
+      actiune: "S-a inscris la un quiz",
+    };
+
+    const requestOptions = {
+      method: "POST",
+      body: JSON.stringify(statistici),
+      headers: { "Content-Type": "application/json" },
+    };
+
+    console.log(requestOptions);
+    let input = IPv4 + ":5000/actualizareUltimaActiune";
+
+    const response = await fetch(input, requestOptions);
+    const data = await response.json();
   };
 
   return (

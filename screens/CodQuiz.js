@@ -26,7 +26,7 @@ export default function CodQuiz({ route }) {
         idUser: route.params.idUser,
         materii: route.params.cursuriCerute,
         nrIntrebari: route.params.nrIntrebari,
-        oraStart: route.params.oraStart
+        oraStart: route.params.oraStart,
       };
 
       const requestOptions = {
@@ -49,6 +49,28 @@ export default function CodQuiz({ route }) {
     };
 
     creeazaQuiz();
+
+    const actualizareStatistici = async () => {
+      await creeazaQuiz();
+      const statistici = {
+        idUser: route.params.idUser,
+        actiune: "A organizat un quiz",
+      };
+
+      const requestOptions = {
+        method: "POST",
+        body: JSON.stringify(statistici),
+        headers: { "Content-Type": "application/json" },
+      };
+
+      console.log(requestOptions);
+      let input = IPv4 + ":5000/actualizareUltimaActiune";
+
+      const response = await fetch(input, requestOptions);
+      const data = await response.json();
+    };
+
+    actualizareStatistici();
   }, []);
 
   return (
@@ -122,7 +144,7 @@ export default function CodQuiz({ route }) {
                 style={{
                   color: "black",
                   fontSize: 50,
-                  textAlign: "center"
+                  textAlign: "center",
                 }}
                 className="font-semibold"
               >
@@ -136,7 +158,8 @@ export default function CodQuiz({ route }) {
                 }}
                 className="italic font-semibold"
               >
-                Atenție! Acest cod este valabil 30 de minute începând cu ora de start pe care ai ales-o pentru testul tău! 🕒
+                Atenție! Acest cod este valabil 30 de minute începând cu ora de
+                start pe care ai ales-o pentru testul tău! 🕒
               </Text>
               <TouchableOpacity
                 className="py-3 bg-yellow-400 rounded-xl"
