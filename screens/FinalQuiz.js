@@ -36,7 +36,7 @@ export default function FinalQuiz({ route }) {
         headers: { "Content-Type": "application/json" },
       };
 
-      console.log(requestOptions);
+      //console.log(requestOptions);
       let input = IPv4 + ":5000/adaugarePunctajQuizIndividual";
 
       const response = await fetch(input, requestOptions);
@@ -57,12 +57,35 @@ export default function FinalQuiz({ route }) {
         headers: { "Content-Type": "application/json" },
       };
 
-      console.log(requestOptions);
+      //console.log(requestOptions);
       let input = IPv4 + ":5000/actualizareUltimaActiune";
 
       const response = await fetch(input, requestOptions);
       const data = await response.json();
     };
+
+    const actualizareStatisticiTeste = async () => {
+      const statistici = {
+        idUser: route.params.idUtilizator,
+        corecte: route.params.corecte,
+        gresite: route.params.greseli,
+      };
+
+      const requestOptions = {
+        method: "POST",
+        body: JSON.stringify(statistici),
+        headers: { "Content-Type": "application/json" },
+      };
+
+      //console.log(requestOptions);
+      let input = IPv4 + ":5000/actualizareStatisticiTeste";
+
+      const response = await fetch(input, requestOptions);
+      const data = await response.json();
+    };
+
+    //console.log(route.params);
+    actualizareStatisticiTeste();
     punctaj();
     actualizareStatistici();
   }, []);

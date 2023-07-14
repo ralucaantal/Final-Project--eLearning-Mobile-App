@@ -82,10 +82,29 @@ export default function FinalizareLectie({ route }) {
       const data = await response.json();
     };
 
+    const adaugareStatisticiLectie = async () => {
+      const statistici = {
+        idUser: route.params.idUser,
+      };
+
+      const requestOptions = {
+        method: "POST",
+        body: JSON.stringify(statistici),
+        headers: { "Content-Type": "application/json" },
+      };
+
+      console.log(requestOptions);
+      let input = IPv4 + ":5000/actualizareStatisticiLectie";
+
+      const response = await fetch(input, requestOptions);
+      const data = await response.json();
+    };
+
     if (route.params.raspunsuriCorecte === 3) {
       punctaj();
       progres();
       actualizareStatistici();
+      adaugareStatisticiLectie()
     }
   }, []);
 

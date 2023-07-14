@@ -58,7 +58,7 @@ export default function Statistici({ route }) {
       fetch(input, requestOptions)
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
+          //console.log(data);
           setStatistici(data);
         });
     };
@@ -282,10 +282,8 @@ export default function Statistici({ route }) {
                     marginBottom: 10,
                   }}
                 >
-                  😥 Număr greșeli: {" "}
-                  <Text className="italic">
-                    {statistici[0].nr_greseli}
-                  </Text>
+                  😥 Număr greșeli:{" "}
+                  <Text className="italic">{statistici[0].nr_greseli}</Text>
                 </Text>
               </TouchableOpacity>
             </View>

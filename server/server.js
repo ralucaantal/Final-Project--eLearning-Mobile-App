@@ -1053,6 +1053,58 @@ app.post("/actualizareUltimaActiune", (req, res) => {
     });
 });
 
+app.post("/actualizareStatisticiTeste", (req, res) => {
+  console.log("ai facut post cu datele: ", req.body);
+
+  let idUser = req.body.idUser;
+  let corecte = req.body.corecte;
+  let gresite = req.body.gresite;
+  // const qry = "UPDATE statisticI SET ultima_actiune = $1, data_ultima_actiune = $2, WHERE id_user = $3;
+  //   ", [actiune, now, idUser];
+  // };
+
+  pgClient
+    .query(
+      "UPDATE statistici SET nr_greseli = nr_greseli + $1, nr_raspunsuri_corecte = nr_raspunsuri_corecte + $2 ,nr_teste_rezolvate=nr_teste_rezolvate+1 WHERE id_user = $3;",
+      [gresite,corecte,idUser]
+    )
+    .then((result) => {
+      console.log("Actualizarea a fost efectuată cu succes");
+      res.send({ message: "Actualizarea a fost efectuată cu succes" });
+    })
+    .catch((error) => {
+      console.log("A apărut o eroare la actualizarea datelor:", error);
+      res
+        .status(500)
+        .send({ message: "A apărut o eroare la actualizarea datelor" });
+    });
+});
+
+app.post("/actualizareStatisticiLectie", (req, res) => {
+  console.log("ai facut post cu datele: ", req.body);
+
+  let idUser = req.body.idUser;
+  // const qry = "UPDATE statisticI SET ultima_actiune = $1, data_ultima_actiune = $2, WHERE id_user = $3;
+  //   ", [actiune, now, idUser];
+  // };
+
+  pgClient
+    .query(
+      "UPDATE statistici SET nr_lectii_parcurse=nr_lectii_parcurse+1 WHERE id_user = $1;",
+      [idUser]
+    )
+    .then((result) => {
+      console.log("Actualizarea a fost efectuată cu succes");
+      res.send({ message: "Actualizarea a fost efectuată cu succes" });
+    })
+    .catch((error) => {
+      console.log("A apărut o eroare la actualizarea datelor:", error);
+      res
+        .status(500)
+        .send({ message: "A apărut o eroare la actualizarea datelor" });
+    });
+});
+
 app.listen(5000, () => {
   console.log("Server started on port 5000");
 });

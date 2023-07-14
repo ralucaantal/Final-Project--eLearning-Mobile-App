@@ -50,6 +50,9 @@ export default function Question({ route }) {
     materiiCerute: route.params.cursuriCerute,
   });
 
+  const [greseli, setGreseli] = useState(0);
+  const [corecte, setCorecte] = useState(0);
+
   const [raspunsText, setRaspunsText] = useState("");
   // let counter = 0;
 
@@ -125,8 +128,10 @@ export default function Question({ route }) {
       .then((response) => response.json())
       .then((data) => {
         console.log("data: ", data);
-        if (data.message === "Raspuns corect!")
+        if (data.message === "Raspuns corect!") {
           setPunctajCatigat(punctajCastigat + 100);
+          setCorecte(corecte + 1);
+        } else setGreseli(greseli + 1);
       });
   };
 
@@ -286,6 +291,8 @@ export default function Question({ route }) {
                                       navigation.navigate("FinalQuiz", {
                                         punctajCastigat: punctajCastigat,
                                         idUtilizator: decodedJwt.data.id,
+                                        corecte: corecte,
+                                        greseli: greseli,
                                       });
                                     }
                                   }}
@@ -466,7 +473,8 @@ export default function Question({ route }) {
                                       selectedValue === intrebare.raspuns_corect
                                     ) {
                                       setPunctajCatigat(punctajCastigat + 50);
-                                    }
+                                      setCorecte(corecte + 1);
+                                    } else setGreseli(greseli + 1);
 
                                     setIndexIntrebareCurenta(
                                       indexIntrebareCurenta + 1
@@ -483,6 +491,8 @@ export default function Question({ route }) {
                                       navigation.navigate("FinalQuiz", {
                                         punctajCastigat: punctajCastigat,
                                         idUtilizator: decodedJwt.data.id,
+                                        corecte: corecte,
+                                        greseli: greseli,
                                       });
                                     }
                                   }}
