@@ -59,6 +59,9 @@ export default function SignUpScreen() {
           setErrorDataRegister({ message: data.message });
           if (data.message === "s-a adaugat cu succes!") {
             //daca primesc confirmarea ca noul utilizator e bagat in bd ma trimite pe login
+
+            
+
             navigation.navigate("Welcome");
           }
         })
