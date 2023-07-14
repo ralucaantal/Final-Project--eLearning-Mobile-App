@@ -74,7 +74,7 @@ export default function IntrebareText() {
       intrebare.raspunsCorect = raspunsCorect;
       intrebare.idUtilizator = decodedJwt.data.id;
 
-      console.log(decodedJwt.id);
+      //console.log(decodedJwt.id);
 
       const requestOptions = {
         method: "POST",
@@ -92,8 +92,11 @@ export default function IntrebareText() {
 
         if (data.message === "Intrebarea s-a adaugat cu succes!") {
           console.log("Am adaugat intrebarea");
-          punctaj()
-          navigation.navigate("SuccesPropunereIntrebare");
+          punctaj();
+          navigation.navigate("SuccesPropunereIntrebare", {
+            idUser: decodedJwt.data.id,
+            tipIntrebare: "text",
+          });
         } else {
         }
       } catch (error) {
@@ -121,7 +124,7 @@ export default function IntrebareText() {
       headers: { "Content-Type": "application/json" },
     };
 
-    console.log(requestOptions);
+    //console.log(requestOptions);
     let input = IPv4 + ":5000/adaugarePunctajPropunereIntrebare";
 
     const response = await fetch(input, requestOptions);

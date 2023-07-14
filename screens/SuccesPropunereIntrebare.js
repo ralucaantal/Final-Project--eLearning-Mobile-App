@@ -11,7 +11,7 @@ import jwtDecode from "jwt-decode";
 
 //const puncteCastigate = 50;
 
-export default function SuccesPropunereIntrebare() {
+export default function SuccesPropunereIntrebare({ route }) {
   const navigation = useNavigation();
 
   const [token, setToken] = useState(null);
@@ -28,7 +28,27 @@ export default function SuccesPropunereIntrebare() {
       }
     };
 
+    const actualizareStatistici = async () => {
+      const statistici = {
+        idUser: route.params.idUser,
+        actiune: "A propus o intrebare",
+      };
+      //console.log(decodedJwt.data.id);
+      const requestOptions = {
+        method: "POST",
+        body: JSON.stringify(statistici),
+        headers: { "Content-Type": "application/json" },
+      };
+
+      // console.log(requestOptions);
+      let input = IPv4 + ":5000/actualizareUltimaActiune";
+
+      const response = await fetch(input, requestOptions);
+      const data = await response.json();
+    };
+
     decodeJwt();
+    actualizareStatistici();
   });
 
   return (
@@ -121,7 +141,9 @@ export default function SuccesPropunereIntrebare() {
                 marginBottom: 5,
               }}
               onPress={() => {
-                navigation.navigate("StatusIntrebari");
+                navigation.navigate("StatusIntrebari", {
+                  idUser: decodedJwt.data.id,
+                });
               }}
             >
               <Text className="font-xl font-bold text-center text-gray-700">

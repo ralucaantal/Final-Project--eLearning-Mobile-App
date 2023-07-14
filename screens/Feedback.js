@@ -84,6 +84,7 @@ export default function Feedback() {
         if (data.message === "Feedbackul s-a adaugat cu succes!") {
           console.log("Am adaugat feedback-ul");
           punctaj();
+          actualizareStatistici();
           navigation.navigate("MultumireFeedback");
         } else {
         }
@@ -93,6 +94,25 @@ export default function Feedback() {
     } else {
       console.log("Feedback invalid");
     }
+  };
+
+  const actualizareStatistici = async () => {
+    const statistici = {
+      idUser: decodedJwt.data.id,
+      actiune: "A oferit feedback",
+    };
+    //console.log(decodedJwt.data.id);
+    const requestOptions = {
+      method: "POST",
+      body: JSON.stringify(statistici),
+      headers: { "Content-Type": "application/json" },
+    };
+
+    // console.log(requestOptions);
+    let input = IPv4 + ":5000/actualizareUltimaActiune";
+
+    const response = await fetch(input, requestOptions);
+    const data = await response.json();
   };
 
   const punctaj = async () => {
@@ -107,7 +127,7 @@ export default function Feedback() {
       headers: { "Content-Type": "application/json" },
     };
 
-    console.log(requestOptions);
+    //console.log(requestOptions);
     let input = IPv4 + ":5000/adaugarePunctajFeedback";
 
     const response = await fetch(input, requestOptions);
