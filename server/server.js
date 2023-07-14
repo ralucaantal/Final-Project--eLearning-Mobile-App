@@ -902,44 +902,6 @@ app.post("/adaugareQuiz", (req, res) => {
     });
 });
 
-// app.post("/validareCod", (req, res) => {
-//   console.log("Ai facut POST cu datele: ", req.body);
-//   let cod = req.body.cod;
-//   let now = new Date();
-
-//   pgClient
-//     .query("select * from quizes where id=$1;", [cod])
-//     .then((res) => res.rows)
-//     .then((data) => {
-//       console.log("sunt in fetch de la baza de date");
-//       console.log(data.length);
-//       if (data.length != 0) {
-//         console.log("Cod ok");
-//         var start = new Date(data[0].start);
-//         var now = new Date();
-//         var start = new Date(); // setează data de start așa cum ai nevoie
-
-//         start.setMinutes(start.getMinutes() + 20); // adaugă 20 de minute la data de start
-
-//         if (now.getTime() > start.getTime()
-//         && now.getTime() <= start.getTime() - 20 * 60 * 1000) {
-//           res.send({message: "Se poate rezolva quiz-ul"});
-//         } else if (
-//           now.getTime() > start.getTime() &&
-//           now.getTime() >= start.getTime() - 20 * 60 * 1000
-//         ) {
-//           res.send({message:"Se pot vedea doar statistici."});
-//         } else if(now.getTime() < start.getTime()) {
-//           res.send({message:"Quiz-ul nu este disponibil încă."});
-//         }
-
-//         //res.send({ message: "Codul este ok" });
-//       } else {
-//         res.send({ message: "Nu" });
-//       }
-//     });
-// });
-
 app.post("/validareCod", (req, res) => {
   console.log("Ai facut POST cu datele: ", req.body);
   let cod = req.body.cod;
@@ -957,7 +919,12 @@ app.post("/validareCod", (req, res) => {
         var end = new Date(start.getTime() + 20 * 60 * 1000); // Adaugă 20 de minute la data de start
 
         if (now >= start && now <= end) {
-          res.send({ message: "Se poate rezolva quiz-ul" });
+          console.log(data[0].numar_intrebari)
+          res.send({
+            message: "Se poate rezolva quiz-ul.",
+            materii: data[0].materii,
+            nrIntrebari: data[0].numar_intrebari,
+          });
         } else if (now < start) {
           res.send({ message: "Quiz-ul nu este disponibil încă." });
         } else {

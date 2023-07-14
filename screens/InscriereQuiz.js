@@ -48,6 +48,13 @@ export default function InscriereQuiz({ route }) {
 
         if (data.message === "Nu") {
           alert("Codul nu este bun!");
+        } else if (data.message === "Se poate rezolva quiz-ul.") {
+          console.log("urmeaza rezolvarea quiz-ului");
+         // console.log(data);
+          navigation.navigate("QuizOrganizat", {
+            materii: data.materii,
+            nrIntrebari: data.nrIntrebari,
+          });
         }
       } catch (error) {
         console.log(error);

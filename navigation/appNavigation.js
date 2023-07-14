@@ -31,6 +31,7 @@ import Lectii from "../screens/Lectii";
 import TextLectie from "../screens/TextLectie";
 import IntrebariLectie from "../screens/IntrebariLectii";
 import FinalizareLectie from "../screens/FinalizareLectie";
+import QuizOrganizat from "../screens/QuizOrganizat";
 
 const Stack = createNativeStackNavigator();
 
@@ -182,6 +183,11 @@ export default function AppNavigation() {
           name="FinalizareLectie"
           options={{ headerShown: false }}
           component={FinalizareLectie}
+        />
+        <Stack.Screen
+          name="QuizOrganizat"
+          options={{ headerShown: false }}
+          component={QuizOrganizat}
         />
       </Stack.Navigator>
     </NavigationContainer>
