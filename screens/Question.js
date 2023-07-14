@@ -25,7 +25,7 @@ import IPv4 from "../index";
 export default function Question({ route }) {
   const navigation = useNavigation();
   const [selectedValue, setSelectedValue] = useState(null);
-
+  const [idUser, setIdUser] = useState(null);
   const [nrIntrebari, setNrIntrebari] = useState(0);
   const [materiiCerute, setMateriiCerute] = useState(null);
 
@@ -67,7 +67,7 @@ export default function Question({ route }) {
         setZile(decoded.data.zile.toString());
         setPuncte(decoded.data.puncte.toString());
         setVieti(decoded.data.vieti.toString());
-
+        setIdUser(decoded.data.id);
         setNrIntrebari(route.params.nrIntrebari);
         setMateriiCerute(route.params.cursuriCerute);
         // console.log("cursuri cerute: ", route.params.cursuriCerute);
@@ -101,6 +101,25 @@ export default function Question({ route }) {
     decodeJwt();
   }, []);
 
+  const scadereVieti = async () => {
+    const statistici = {
+      idUser: idUser,
+      actiune: 0,
+    };
+
+    const requestOptions = {
+      method: "POST",
+      body: JSON.stringify(statistici),
+      headers: { "Content-Type": "application/json" },
+    };
+
+    console.log(requestOptions);
+    let input = IPv4 + ":5000/actualizareVieti";
+
+    const response = await fetch(input, requestOptions);
+    const data = await response.json();
+  };
+
   // console.log(intrebariBD);
   const handleChangeText = (inputText) => {
     setRaspunsText(inputText);
@@ -131,7 +150,10 @@ export default function Question({ route }) {
         if (data.message === "Raspuns corect!") {
           setPunctajCatigat(punctajCastigat + 100);
           setCorecte(corecte + 1);
-        } else setGreseli(greseli + 1);
+        } else {
+          setGreseli(greseli + 1);
+          scadereVieti();
+        }
       });
   };
 
@@ -474,7 +496,11 @@ export default function Question({ route }) {
                                     ) {
                                       setPunctajCatigat(punctajCastigat + 50);
                                       setCorecte(corecte + 1);
-                                    } else setGreseli(greseli + 1);
+                                    } else {
+                                      setGreseli(greseli + 1);
+                                      scadereVieti();
+                                      console.log("id user este: ", idUser);
+                                    }
 
                                     setIndexIntrebareCurenta(
                                       indexIntrebareCurenta + 1

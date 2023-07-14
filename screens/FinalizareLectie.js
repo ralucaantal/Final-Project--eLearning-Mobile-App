@@ -21,7 +21,25 @@ export default function FinalizareLectie({ route }) {
   //     setPuncteCastigate(route.params.punctajCastigat);
   //   };
 
+  const [puncte, setPuncte] = useState(null);
+  const [vieti, setVieti] = useState(null);
+  const [decodedJwt, setDecodedJwt] = useState(null);
+  const [idUser, setIdUser] = useState(null);
+
   useEffect(() => {
+    const decodeJwt = async () => {
+      try {
+        const jwt = await AsyncStorage.getItem("jwt");
+        const decoded = jwtDecode(jwt);
+        setDecodedJwt(decoded);
+        setIdUser(decoded.data.id);
+        setPuncte(decoded.data.puncte);
+        setVieti(decoded.data.vieti);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
     const punctaj = async () => {
       const puncteDeAdaugat = {
         puncteCastigate: 50,
@@ -100,11 +118,32 @@ export default function FinalizareLectie({ route }) {
       const data = await response.json();
     };
 
+    const primesteViata = async () => {
+      const statistici = {
+        idUser: route.params.idUser,
+        actiune: 1,
+      };
+
+      const requestOptions = {
+        method: "POST",
+        body: JSON.stringify(statistici),
+        headers: { "Content-Type": "application/json" },
+      };
+
+      console.log(requestOptions);
+      let input = IPv4 + ":5000/actualizareVieti";
+
+      const response = await fetch(input, requestOptions);
+      const data = await response.json();
+    };
+
+    decodeJwt();
     if (route.params.raspunsuriCorecte === 3) {
       punctaj();
       progres();
       actualizareStatistici();
-      adaugareStatisticiLectie()
+      adaugareStatisticiLectie();
+      if (vieti < 5) primesteViata();
     }
   }, []);
 

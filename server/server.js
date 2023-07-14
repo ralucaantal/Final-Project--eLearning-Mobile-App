@@ -1109,12 +1109,10 @@ app.post("/actualizareUltimaActiune", (req, res) => {
                   "A apărut o eroare la obținerea datelor utilizatorului:",
                   error
                 );
-                res
-                  .status(500)
-                  .send({
-                    message:
-                      "A apărut o eroare la obținerea datelor utilizatorului",
-                  });
+                res.status(500).send({
+                  message:
+                    "A apărut o eroare la obținerea datelor utilizatorului",
+                });
               });
           })
           .catch((error) => {
@@ -1172,12 +1170,10 @@ app.post("/actualizareUltimaActiune", (req, res) => {
                   "A apărut o eroare la obținerea datelor utilizatorului:",
                   error
                 );
-                res
-                  .status(500)
-                  .send({
-                    message:
-                      "A apărut o eroare la obținerea datelor utilizatorului",
-                  });
+                res.status(500).send({
+                  message:
+                    "A apărut o eroare la obținerea datelor utilizatorului",
+                });
               });
           })
           .catch((error) => {
@@ -1264,6 +1260,81 @@ app.post("/actualizareStatisticiLectie", (req, res) => {
         .status(500)
         .send({ message: "A apărut o eroare la actualizarea datelor" });
     });
+});
+
+// app.post("/actualizareVieti", (req, res) => {
+//   console.log("ai facut post cu datele: ", req.body);
+
+//   let idUser = req.body.idUser;
+//   let actiune = req.body.actiune;
+//   // const qry = "UPDATE statisticI SET ultima_actiune = $1, data_ultima_actiune = $2, WHERE id_user = $3;
+//   //   ", [actiune, now, idUser];
+//   // };
+
+//   if (actiune == 1) {
+//     pgClient
+//       .query("UPDATE users SET vieti = vieti + 1 WHERE id = $1;", [idUser])
+//       .then((result) => {
+//       //  console.log("Actualizarea a fost efectuată cu succes");
+//         res.send({ message: "Actualizarea a fost efectuată cu succes" });
+//       })
+//       .catch((error) => {
+//         console.log("A apărut o eroare la actualizarea datelor:", error);
+//         res
+//           .status(500)
+//           .send({ message: "A apărut o eroare la actualizarea datelor" });
+//       });
+//   } else if (actiune == 0) {
+//     console.log(actiune);
+//     pgClient
+//       .query("UPDATE users SET vieti = vieti - 1 WHERE id = $1;", [idUser])
+//       .then((result) => {
+//         //console.log("Actualizarea a fost efectuată cu succes");
+//         res.send({ message: "Actualizarea a fost efectuată cu succes" });
+//       })
+//       .catch((error) => {
+//         console.log("A apărut o eroare la actualizarea datelor:", error);
+//         res
+//           .status(500)
+//           .send({ message: "A apărut o eroare la actualizarea datelor" });
+//       });
+//   }
+// });
+
+app.post("/actualizareVieti", (req, res) => {
+  console.log("ai facut post cu datele: ", req.body);
+
+  let idUser = req.body.idUser;
+  let actiune = parseInt(req.body.actiune); // Convertiți într-un număr întreg
+
+  if (actiune === 1) {
+    pgClient
+      .query("UPDATE users SET vieti = vieti + 1 WHERE id = $1;", [idUser])
+      .then(() => {
+        console.log("Actualizarea a fost efectuată cu succes");
+        res.send({ message: "Actualizarea a fost efectuată cu succes" });
+      })
+      .catch((error) => {
+        console.log("A apărut o eroare la actualizarea datelor:", error);
+        res
+          .status(500)
+          .send({ message: "A apărut o eroare la actualizarea datelor" });
+      });
+  } else if (actiune === 0) {
+    console.log(actiune);
+    pgClient
+      .query("UPDATE users SET vieti = vieti - 1 WHERE id = $1;", [idUser])
+      .then(() => {
+        console.log("Actualizarea a fost efectuată cu succes");
+        res.send({ message: "Actualizarea a fost efectuată cu succes" });
+      })
+      .catch((error) => {
+        console.log("A apărut o eroare la actualizarea datelor:", error);
+        res
+          .status(500)
+          .send({ message: "A apărut o eroare la actualizarea datelor" });
+      });
+  }
 });
 
 app.listen(5000, () => {
