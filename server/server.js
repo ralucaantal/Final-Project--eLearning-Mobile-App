@@ -1004,7 +1004,7 @@ app.post("/adaugareProgresUtilizator", (req, res) => {
       "INSERT INTO progres_lectii_utilizatori (id_lectie, id_sectiune, id_utilizator) SELECT $1, $2, $3 WHERE NOT EXISTS (SELECT * FROM progres_lectii_utilizatori WHERE id_lectie = $1 AND id_sectiune = $2 AND id_utilizator = $3);",
       [idLectie, idSectiune, idUser]
     )
-    .then((res) => {
+    .then((result) => {
       res.send({ message: "s-a adaugat cu succes!" });
     });
 });
@@ -1017,11 +1017,39 @@ app.post("/adaugareProgresSectiuni", (req, res) => {
 
   pgClient
     .query(
-      "INSERT INTO progres_sectiuni_utilizatori (nume_sectiune,id_utilizator, curs) SELECT $1, $2, $3 WHERE NOT EXISTS (SELECT * FROM progres_sectiuni_utilizatori WHERE nume_sectiune = $1 AND id_utilizator = $2 AND materie=$3);",
+      "INSERT INTO progres_sectiuni_utilizatori (nume_sectiune,id_utilizator, curs) SELECT $1, $2, $3 WHERE NOT EXISTS (SELECT * FROM progres_sectiuni_utilizatori WHERE nume_sectiune = $1 AND id_utilizator = $2 AND curs=$3);",
       [numeSectiune, idUser, materie]
     )
-    .then((res) => {
+    .then((result) => {
       res.send({ message: "s-a adaugat cu succes!" });
+    });
+});
+
+app.post("/actualizareUltimaActiune", (req, res) => {
+  console.log("ai facut post cu datele: ", req.body);
+
+  let idUser = req.body.idUser;
+  let actiune = req.body.actiune;
+  let now = new Date();
+
+  // const qry = "UPDATE statisticI SET ultima_actiune = $1, data_ultima_actiune = $2, WHERE id_user = $3;
+  //   ", [actiune, now, idUser];
+  // };
+
+  pgClient
+    .query(
+      "UPDATE statistici SET ultima_actiune = $1, data_ultima_actiune = $2 WHERE id_user = $3;",
+      [actiune, now, idUser]
+    )
+    .then((result) => {
+      console.log("Actualizarea a fost efectuată cu succes");
+      res.send({ message: "Actualizarea a fost efectuată cu succes" });
+    })
+    .catch((error) => {
+      console.log("A apărut o eroare la actualizarea datelor:", error);
+      res
+        .status(500)
+        .send({ message: "A apărut o eroare la actualizarea datelor" });
     });
 });
 
