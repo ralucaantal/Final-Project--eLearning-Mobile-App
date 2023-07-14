@@ -1032,24 +1032,185 @@ app.post("/actualizareUltimaActiune", (req, res) => {
   let actiune = req.body.actiune;
   let now = new Date();
 
-  // const qry = "UPDATE statisticI SET ultima_actiune = $1, data_ultima_actiune = $2, WHERE id_user = $3;
-  //   ", [actiune, now, idUser];
-  // };
-
+  // Obțineți data ultimei acțiuni înainte de actualizare
   pgClient
-    .query(
-      "UPDATE statistici SET ultima_actiune = $1, data_ultima_actiune = $2 WHERE id_user = $3;",
-      [actiune, now, idUser]
-    )
+    .query("SELECT data_ultima_actiune FROM statistici WHERE id_user = $1;", [
+      idUser,
+    ])
     .then((result) => {
-      console.log("Actualizarea a fost efectuată cu succes");
-      res.send({ message: "Actualizarea a fost efectuată cu succes" });
+      const dataUltimaActiune = new Date(result.rows[0].data_ultima_actiune);
+
+      // ...
+
+      // Verificați dacă ultima acțiune este de ieri sau de azi
+      const dataCurenta = new Date();
+
+      if (
+        dataUltimaActiune.getDate() === dataCurenta.getDate() &&
+        dataUltimaActiune.getMonth() === dataCurenta.getMonth() &&
+        dataUltimaActiune.getFullYear() === dataCurenta.getFullYear()
+      ) {
+        // Ultima acțiune este de azi
+        // Adăugați codul pentru cazul când ultima acțiune este de azi aici
+        console.log("Ultima acțiune este de azi");
+
+        // Returnați răspunsul către client
+        res.send({ message: "Ultima acțiune este de azi" });
+      } else if (
+        dataUltimaActiune.getDate() === dataCurenta.getDate() - 1 &&
+        dataUltimaActiune.getMonth() === dataCurenta.getMonth() &&
+        dataUltimaActiune.getFullYear() === dataCurenta.getFullYear()
+      ) {
+        // Ultima acțiune este de ieri
+        // Adăugați codul pentru cazul când ultima acțiune este de ieri aici
+        console.log("Ultima acțiune este de ieri");
+
+        // Actualizați câmpul "zile" în tabelul "users" pentru id_utilizator
+        pgClient
+          .query("UPDATE users SET zile = zile + 1 WHERE id = $1;", [idUser])
+          .then(() => {
+            console.log("Actualizarea zilelor a fost efectuată cu succes");
+
+            // Obțineți datele utilizatorului actualizate
+            pgClient
+              .query(
+                "SELECT id, email, user_name, password, zile, puncte, vieti FROM users WHERE id = $1;",
+                [idUser]
+              )
+              .then((userData) => {
+                const user = userData.rows[0];
+
+                // Generați un token JWT pentru utilizator
+                const token = jwt.sign(
+                  {
+                    data: {
+                      id: user.id,
+                      username: user.user_name,
+                      password: user.password,
+                      email: user.email,
+                      zile: user.zile,
+                      puncte: user.puncte,
+                      vieti: user.vieti,
+                    },
+                  },
+                  serverSecret,
+                  { expiresIn: "24h" }
+                );
+                console.log("Token-ul tău este: ", token);
+
+                // Returnați răspunsul către client
+                res.send({
+                  jwt: token,
+                  message: "Actualizarea a fost efectuată cu succes!",
+                });
+              })
+              .catch((error) => {
+                console.log(
+                  "A apărut o eroare la obținerea datelor utilizatorului:",
+                  error
+                );
+                res
+                  .status(500)
+                  .send({
+                    message:
+                      "A apărut o eroare la obținerea datelor utilizatorului",
+                  });
+              });
+          })
+          .catch((error) => {
+            console.log("A apărut o eroare la actualizarea zilelor:", error);
+            res
+              .status(500)
+              .send({ message: "A apărut o eroare la actualizarea zilelor" });
+          });
+      } else {
+        // Ultima acțiune nu este de azi și nici de ieri
+        // Adăugați codul pentru alte cazuri aici
+        console.log("Ultima acțiune nu este de azi și nici de ieri");
+
+        // Actualizați câmpul "zile" în tabelul "users" pentru id_utilizator
+        pgClient
+          .query("UPDATE users SET zile = 1 WHERE id = $1;", [idUser])
+          .then(() => {
+            console.log("Actualizarea zilelor a fost efectuată cu succes");
+
+            // Obțineți datele utilizatorului actualizate
+            pgClient
+              .query(
+                "SELECT id, email, user_name, password, zile, puncte, vieti FROM users WHERE id = $1;",
+                [idUser]
+              )
+              .then((userData) => {
+                const user = userData.rows[0];
+
+                // Generați un token JWT pentru utilizator
+                const token = jwt.sign(
+                  {
+                    data: {
+                      id: user.id,
+                      username: user.user_name,
+                      password: user.password,
+                      email: user.email,
+                      zile: user.zile,
+                      puncte: user.puncte,
+                      vieti: user.vieti,
+                    },
+                  },
+                  serverSecret,
+                  { expiresIn: "24h" }
+                );
+                console.log("Token-ul tău este: ", token);
+
+                // Returnați răspunsul către client
+                res.send({
+                  jwt: token,
+                  message: "Actualizarea a fost efectuată cu succes!",
+                });
+              })
+              .catch((error) => {
+                console.log(
+                  "A apărut o eroare la obținerea datelor utilizatorului:",
+                  error
+                );
+                res
+                  .status(500)
+                  .send({
+                    message:
+                      "A apărut o eroare la obținerea datelor utilizatorului",
+                  });
+              });
+          })
+          .catch((error) => {
+            console.log("A apărut o eroare la actualizarea zilelor:", error);
+            res
+              .status(500)
+              .send({ message: "A apărut o eroare la actualizarea zilelor" });
+          });
+      }
+
+      // ...
+
+      // Actualizați ultima_acțiune și data_ultima_acțiune cu valorile noi
+      pgClient
+        .query(
+          "UPDATE statistici SET ultima_actiune = $1, data_ultima_actiune = $2 WHERE id_user = $3;",
+          [actiune, now, idUser]
+        )
+        .then(() => {
+          console.log("Actualizarea a fost efectuată cu succes");
+        })
+        .catch((error) => {
+          console.log("A apărut o eroare la actualizarea datelor:", error);
+          res
+            .status(500)
+            .send({ message: "A apărut o eroare la actualizarea datelor" });
+        });
     })
     .catch((error) => {
-      console.log("A apărut o eroare la actualizarea datelor:", error);
+      console.log("A apărut o eroare la obținerea datelor:", error);
       res
         .status(500)
-        .send({ message: "A apărut o eroare la actualizarea datelor" });
+        .send({ message: "A apărut o eroare la obținerea datelor" });
     });
 });
 
@@ -1066,7 +1227,7 @@ app.post("/actualizareStatisticiTeste", (req, res) => {
   pgClient
     .query(
       "UPDATE statistici SET nr_greseli = nr_greseli + $1, nr_raspunsuri_corecte = nr_raspunsuri_corecte + $2 ,nr_teste_rezolvate=nr_teste_rezolvate+1 WHERE id_user = $3;",
-      [gresite,corecte,idUser]
+      [gresite, corecte, idUser]
     )
     .then((result) => {
       console.log("Actualizarea a fost efectuată cu succes");
