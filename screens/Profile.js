@@ -16,7 +16,6 @@ import { themeColors } from "../theme/index";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import jwtDecode from "jwt-decode";
-import Avatare from "../screens/ChooseAvatar";
 
 import IPv4 from "../index";
 
@@ -244,8 +243,7 @@ export default function Profile() {
               borderRadius: 10,
             }}
             onPress={() => {
-
-                navigation.navigate("SetariProfil");
+              navigation.navigate("SetariProfil");
             }}
           >
             <AtSymbolIcon color={themeColors.galben} size="50" />
@@ -264,16 +262,16 @@ export default function Profile() {
               backgroundColor: "rgba(255,255,255,0.3)",
               borderRadius: 10,
             }}
+            onPress={() => {
+              console.log("se vor afisa statisticile utilizatorului.");
+              navigation.navigate("Statistici", { idUser: idUser });
+            }}
           >
             <ChartPieIcon color={themeColors.galben} size="50" />
             <View className="flex-1 flex justify-center pl-3 space-y-3">
               <Text
                 style={{ color: themeColors.white }}
                 className="font-semibold"
-                onPress={() => {
-                  console.log("se vor afisa statisticile utilizatorului.");
-                  navigation.navigate("Statistici");
-                }}
               >
                 Statistici utilizator
               </Text>

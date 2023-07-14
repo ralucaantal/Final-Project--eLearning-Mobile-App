@@ -59,10 +59,28 @@ export default function SignUpScreen() {
           setErrorDataRegister({ message: data.message });
           if (data.message === "s-a adaugat cu succes!") {
             //daca primesc confirmarea ca noul utilizator e bagat in bd ma trimite pe login
+            console.log(data.idUser);
 
-            
+            const statistici = {
+              idUser: data.idUser,
+            };
 
-            navigation.navigate("Welcome");
+            const requestOptions = {
+              method: "POST",
+              body: JSON.stringify(statistici),
+              headers: { "Content-Type": "application/json" },
+            };
+
+            console.log(requestOptions);
+            let input1 = IPv4 + ":5000/creareStatistici";
+
+            fetch(input1, requestOptions)
+              .then((response) => response.json())
+              .then((data) => {
+                console.log(data.message);
+                if (data.message === "s-a adaugat cu succes!")
+                  navigation.navigate("Welcome");
+              });
           }
         })
         .catch((error) => {

@@ -127,7 +127,7 @@ app.post("/register", (req, res) => {
               console.log("nu exista");
               pgClient
                 .query(
-                  "insert into users (user_name,email, password,puncte,zile,vieti,tip_cont,avatar) values($1,$2,$3,$4,$5,$6,$7,$8);",
+                  "insert into users (user_name,email, password,puncte,zile,vieti,tip_cont,avatar) values($1,$2,$3,$4,$5,$6,$7,$8) returning id;",
                   [
                     username,
                     email,
@@ -140,7 +140,11 @@ app.post("/register", (req, res) => {
                   ]
                 )
                 .then((result) => {
-                  res.send({ message: "s-a adaugat cu succes!" });
+                  console.log(result.rows[0].id);
+                  res.send({
+                    message: "s-a adaugat cu succes!",
+                    idUser: result.rows[0].id,
+                  });
                 });
             } else {
               res.send({ message: "Acest username deja exista!" });
@@ -280,6 +284,20 @@ app.post("/puncteZileVieti", (req, res) => {
     .then((data) => {
       console.log("sunt in fetch de la baza de date");
       // console.log(data);
+      res.send(data);
+    });
+});
+
+app.post("/cereStatistici", (req, res) => {
+  console.log("ai facut post cu datele: ", req.body);
+
+  qry = "select * from statistici where id_user=" + req.body.idUser + ";";
+
+  pgClient
+    .query(qry)
+    .then((res) => res.rows)
+    .then((data) => {
+      console.log("sunt in fetch de la baza de date");
       res.send(data);
     });
 });
@@ -902,6 +920,41 @@ app.post("/adaugareQuiz", (req, res) => {
     });
 });
 
+app.post("/creareStatistici", (req, res) => {
+  console.log("Ai facut POST cu datele: ", req.body);
+  let idUser = req.body.idUser;
+  let currentDate = new Date();
+
+  let dataCreare = currentDate.toLocaleTimeString();
+  let ultimaActiune = "Creare cont";
+  let dataUltimaActiune = currentDate.toLocaleTimeString();
+
+  let nrLectiiParcurse = 0;
+  let nrTesteRezolvate = 0;
+  let nrGreseli = 0;
+  let nrRaspunsuriCorecte = 0;
+
+  //let oraStart = req.body.oraStart;
+
+  pgClient
+    .query(
+      "INSERT INTO statistici (id_user, data_creare, ultima_actiune, data_ultima_actiune,nr_lectii_parcurse,nr_teste_rezolvate,nr_greseli,nr_raspunsuri_corecte) VALUES ($1, $2, $3,$4,$5,$6,$7,$8) RETURNING id;",
+      [
+        idUser,
+        dataCreare,
+        ultimaActiune,
+        dataUltimaActiune,
+        nrLectiiParcurse,
+        nrTesteRezolvate,
+        nrGreseli,
+        nrRaspunsuriCorecte,
+      ]
+    )
+    .then((result) => {
+      res.send({ message: "s-a adaugat cu succes!" });
+    });
+});
+
 app.post("/validareCod", (req, res) => {
   console.log("Ai facut POST cu datele: ", req.body);
   let cod = req.body.cod;
@@ -919,7 +972,7 @@ app.post("/validareCod", (req, res) => {
         var end = new Date(start.getTime() + 20 * 60 * 1000); // Adaugă 20 de minute la data de start
 
         if (now >= start && now <= end) {
-          console.log(data[0].numar_intrebari)
+          console.log(data[0].numar_intrebari);
           res.send({
             message: "Se poate rezolva quiz-ul.",
             materii: data[0].materii,
