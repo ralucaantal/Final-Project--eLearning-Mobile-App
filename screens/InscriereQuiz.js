@@ -23,7 +23,7 @@ export default function InscriereQuiz({ route }) {
     setCod(inputText);
   };
 
-  const incepeQuiz = async() => {
+  const incepeQuiz = async () => {
     console.log(route);
     if (cod !== null) {
       console.log(cod);
@@ -46,13 +46,12 @@ export default function InscriereQuiz({ route }) {
         const data = await response.json();
         console.log(data);
 
-        // if (data.message === "Codul este ok") {
-        //   console.log("Cod ok");
-        // } 
+        if (data.message === "Nu") {
+          alert("Codul nu este bun!");
+        }
       } catch (error) {
         console.log(error);
       }
-
     }
   };
 
