@@ -34,7 +34,7 @@ export default function MagazinVieti({ route }) {
   const [vieti, setVieti] = useState(null);
   const [id, setId] = useState(null);
 
-  const [nrVietiCumparate, setNrVietiCumparate] = useState(null);
+  const [nrVietiCumparate, setNrVietiCumparate] = useState(0);
 
   useFocusEffect(() => {
     const decodeJwt = async () => {
@@ -64,6 +64,49 @@ export default function MagazinVieti({ route }) {
     }
     fetchData();
   });
+
+  const handleChangeNrVietiCumparate = (inputText) => {
+    const parsedValue = parseInt(inputText, 10);
+    setNrVietiCumparate(parsedValue);
+  };
+
+  const cumparaVieti = async () => {
+    // console.log("Vrea sa cumpere: ", nrVietiCumparate);
+    // console.log("Are: ", vieti);
+
+    if (vieti + nrVietiCumparate > 5) {
+      console.log("Nu e ok");
+      alert("Ai voie sa ai maxim 5 vieti!!!");
+      setNrVietiCumparate(0);
+    } else if (nrVietiCumparate * 250 > puncte) {
+      console.log("Nu sunt destule puncte!");
+      alert("Nu iti permiti sa iti cumperi cate vieti iti doresti!!!");
+      setNrVietiCumparate(0);
+    } else {
+      const dateCumparareVieti = {
+        idUser: id,
+        vieti: nrVietiCumparate,
+        puncte: nrVietiCumparate * 250,
+      };
+
+      const requestOptions = {
+        method: "POST",
+        body: JSON.stringify(dateCumparareVieti),
+        headers: { "Content-Type": "application/json" },
+      };
+
+      console.log(requestOptions);
+      let input = IPv4 + ":5000/cumparaVieti";
+
+      const response = await fetch(input, requestOptions);
+      const data = await response.json();
+
+      await AsyncStorage.setItem("jwt", data.jwt);
+
+      if (data.message === "s-a actualizat cu succes!")
+        navigation.navigate("Home");
+    }
+  };
 
   return (
     <KeyboardAvoidingView
@@ -122,7 +165,7 @@ export default function MagazinVieti({ route }) {
           <ScrollView
             style={{ height: "100%", marginTop: 20 }}
             showsVerticalScrollIndicator={false}
-            contentContainerStyle={{ paddingBottom: 100 }}
+            contentContainerStyle={{ paddingBottom: 230 }}
           >
             <TouchableOpacity
               className="mx-4 p-2 mb-2 flex-column"
@@ -169,21 +212,21 @@ export default function MagazinVieti({ route }) {
                   display: "flex",
                   flexDirection: "row",
                   alignItems: "center",
-                  alignSelf: "center"
+                  alignSelf: "center",
                 }}
               >
                 <TextInput
                   className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
                   placeholder="Nr. vieti"
                   style={{
-                    width: "30%",
-                    height: "20%",
+                    width: "40%",
+                    height: "10%",
                     opacity: 0.5,
                     marginTop: 10,
                     //marginLeft: 20,
                   }}
-                  //onChangeText={handleChangeTextIntrebare}
-                  value={nrVietiCumparate}
+                  onChangeText={handleChangeNrVietiCumparate}
+                  value={nrVietiCumparate ? nrVietiCumparate.toString() : ""}
                 />
                 <Text
                   style={{
@@ -198,22 +241,21 @@ export default function MagazinVieti({ route }) {
                 </Text>
               </View>
             </TouchableOpacity>
+            <TouchableOpacity
+              className="py-3 bg-yellow-400 rounded-xl"
+              style={{
+                width: "30%",
+                opacity: 0.8,
+                alignSelf: "flex-end",
+                marginRight: 17,
+              }}
+              onPress={cumparaVieti}
+            >
+              <Text className="font-xl font-bold text-center text-gray-700">
+                Cumpăr!
+              </Text>
+            </TouchableOpacity>
           </ScrollView>
-          {/* <TouchableOpacity
-            className="py-3 bg-yellow-400 rounded-xl"
-            style={{
-              width: "30%",
-              opacity: 0.8,
-              alignSelf: "flex-end",
-              marginRight: 25,
-              marginBottom: -70,
-            }}
-            //onPress={adaugareIntrebare}
-          >
-            <Text className="font-xl font-bold text-center text-gray-700">
-              OK!
-            </Text>
-          </TouchableOpacity> */}
         </SafeAreaView>
       </LinearGradient>
     </KeyboardAvoidingView>

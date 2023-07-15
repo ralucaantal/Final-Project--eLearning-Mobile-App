@@ -1367,6 +1367,51 @@ app.post("/actualizareVieti", (req, res) => {
   }
 });
 
+app.post("/cumparaVieti", (req, res) => {
+  console.log("ai facut post cu datele: ", req.body);
+
+  pgClient
+    .query("UPDATE users SET vieti=vieti+$1, puncte=puncte+$2 WHERE id=$3;",[req.body.vieti, req.body.puncte,req.body.idUser])
+    .then((res) => res.rows)
+    .then((data) => {
+      console.log("sunt in fetch de la baza de date");
+      // console.log(data);
+
+      pgClient
+        .query(
+          "select id,email,user_name, password,zile,puncte,vieti,avatar from users where id=$1;",
+          [req.body.idUser]
+        )
+        .then((res) => res.rows)
+        .then((data) => {
+          let token = jwt.sign(
+            {
+              data: {
+                id: data[0].id,
+                username: data[0].user_name,
+                password: data[0].password,
+                email: data[0].email,
+                zile: data[0].zile,
+                puncte: data[0].puncte,
+                vieti: data[0].vieti,
+                avatar: data[0].avatar,
+              },
+            },
+            serverSecret,
+            { expiresIn: "24h" }
+          );
+          console.log("tokenul tau este: ", token);
+
+          res.send({
+            jwt: token,
+            message: "s-a actualizat cu succes!",
+          });
+        });
+
+      // res.send(data);
+    });
+});
+
 app.listen(5000, () => {
   console.log("Server started on port 5000");
 });
