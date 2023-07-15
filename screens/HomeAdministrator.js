@@ -139,7 +139,7 @@ export default function HomeAdministrator() {
                 marginBottom: 5,
               }}
               onPress={() => {
-                //navigation.navigate("Antreneaza");
+                navigation.navigate("IntrebariTextAdmin");
               }}
             >
               <Text className="font-xl font-bold text-center text-gray-700">
@@ -156,7 +156,7 @@ export default function HomeAdministrator() {
                 marginBottom: 5,
               }}
               onPress={() => {
-                //navigation.navigate("Antreneaza");
+                navigation.navigate("IntrebariGrilaAdmin");
               }}
             >
               <Text className="font-xl font-bold text-center text-gray-700">

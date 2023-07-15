@@ -332,6 +332,20 @@ app.post("/cereStatisticiAdmin", (req, res) => {
     });
 });
 
+app.post("/cereIntrebariAdmin", (req, res) => {
+  console.log("ai facut post cu datele: ", req.body);
+
+  pgClient
+    .query("SELECT * FROM intrebari WHERE tip_intrebare=$1;", [
+      req.body.tipIntrebare,
+    ])
+    .then((res) => res.rows)
+    .then((data) => {
+      console.log("sunt in fetch de la baza de date");
+      res.send(data);
+    });
+});
+
 app.post("/verificareRaspunsText", (req, res) => {
   console.log("ai facut post cu datele: ", req.body);
 
@@ -434,14 +448,15 @@ app.post("/afisareLectiiAdmin", (req, res) => {
 
 app.get("/testeOrganizate", (req, res) => {
   pgClient
-    .query("SELECT quizes.*, users.user_name,users.avatar FROM quizes INNER JOIN users ON quizes.id_utilizator = users.id;")
+    .query(
+      "SELECT quizes.*, users.user_name,users.avatar FROM quizes INNER JOIN users ON quizes.id_utilizator = users.id;"
+    )
     .then((result) => result.rows)
     .then((data) => {
       console.log(data);
       res.send(data);
     });
 });
-
 
 app.post("/statusIntrebariPropuse", (req, res) => {
   qry =
@@ -647,6 +662,39 @@ app.post("/adaugareFeedback", (req, res) => {
     )
     .then((result) => {
       res.send({ message: "Feedbackul s-a adaugat cu succes!" });
+    });
+});
+
+// app.post("/stergeIntrebare", (req, res) => {
+//   //console.log("Ai facut POST cu datele: ", req.body);
+
+//   pgClient
+//     .query("delete from intrebari where id=$1;", [req.body.idIntrebare])
+//     .then((result) => {
+//       res.send({ message: "Feedbackul s-a adaugat cu succes!" });
+//     });
+// });
+
+app.post("/stergeIntrebare", (req, res) => {
+  // console.log("Ai facut POST cu datele: ", req.body);
+
+  pgClient
+    .query("DELETE FROM intrebari WHERE id=$1;", [req.body.idIntrebare])
+    .then(() => {
+      // După ștergerea întrebării, selectăm toate întrebările rămase din tabela "intrebari"
+      return pgClient.query("SELECT * FROM intrebari WHERE tip_intrebare=$1;", [
+        req.body.tipIntrebare,
+      ]);
+    })
+    .then((result) => result.rows)
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((error) => {
+      console.log("A apărut o eroare la ștergerea întrebării:", error);
+      res
+        .status(500)
+        .send({ message: "A apărut o eroare la ștergerea întrebării" });
     });
 });
 

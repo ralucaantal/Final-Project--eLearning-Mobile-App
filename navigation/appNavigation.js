@@ -40,6 +40,8 @@ import CursuriAdmin from "../screens/CursuriAdmin";
 import SectiuniAdministrator from "../screens/SectiuniAdministrator";
 import LectiiAdmin from "../screens/LectiiAdmin";
 import Teste from "../screens/Teste";
+import IntrebariTextAdmin from "../screens/IntrebariTextAdmin";
+import IntrebariGrilaAdmin from "../screens/IntrebariGrilaAdmin";
 
 const Stack = createNativeStackNavigator();
 
@@ -236,6 +238,16 @@ export default function AppNavigation() {
           name="Teste"
           options={{ headerShown: false }}
           component={Teste}
+        />
+        <Stack.Screen
+          name="IntrebariTextAdmin"
+          options={{ headerShown: false }}
+          component={IntrebariTextAdmin}
+        />
+        <Stack.Screen
+          name="IntrebariGrilaAdmin"
+          options={{ headerShown: false }}
+          component={IntrebariGrilaAdmin}
         />
       </Stack.Navigator>
     </NavigationContainer>
