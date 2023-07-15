@@ -608,7 +608,7 @@ app.post("/schimbareAvatar", (req, res) => {
 
       pgClient
         .query(
-          "select id,email,user_name, password,zile,puncte,vieti from users where id=$1;",
+          "select id,email,user_name, password,zile,puncte,vieti,avatar from users where id=$1;",
           [req.body.idUser]
         )
         .then((res) => res.rows)
@@ -623,6 +623,7 @@ app.post("/schimbareAvatar", (req, res) => {
                 zile: data[0].zile,
                 puncte: data[0].puncte,
                 vieti: data[0].vieti,
+                avatar: data[0].avatar,
               },
             },
             serverSecret,
@@ -1262,45 +1263,6 @@ app.post("/actualizareStatisticiLectie", (req, res) => {
     });
 });
 
-// app.post("/actualizareVieti", (req, res) => {
-//   console.log("ai facut post cu datele: ", req.body);
-
-//   let idUser = req.body.idUser;
-//   let actiune = req.body.actiune;
-//   // const qry = "UPDATE statisticI SET ultima_actiune = $1, data_ultima_actiune = $2, WHERE id_user = $3;
-//   //   ", [actiune, now, idUser];
-//   // };
-
-//   if (actiune == 1) {
-//     pgClient
-//       .query("UPDATE users SET vieti = vieti + 1 WHERE id = $1;", [idUser])
-//       .then((result) => {
-//       //  console.log("Actualizarea a fost efectuată cu succes");
-//         res.send({ message: "Actualizarea a fost efectuată cu succes" });
-//       })
-//       .catch((error) => {
-//         console.log("A apărut o eroare la actualizarea datelor:", error);
-//         res
-//           .status(500)
-//           .send({ message: "A apărut o eroare la actualizarea datelor" });
-//       });
-//   } else if (actiune == 0) {
-//     console.log(actiune);
-//     pgClient
-//       .query("UPDATE users SET vieti = vieti - 1 WHERE id = $1;", [idUser])
-//       .then((result) => {
-//         //console.log("Actualizarea a fost efectuată cu succes");
-//         res.send({ message: "Actualizarea a fost efectuată cu succes" });
-//       })
-//       .catch((error) => {
-//         console.log("A apărut o eroare la actualizarea datelor:", error);
-//         res
-//           .status(500)
-//           .send({ message: "A apărut o eroare la actualizarea datelor" });
-//       });
-//   }
-// });
-
 app.post("/actualizareVieti", (req, res) => {
   console.log("ai facut post cu datele: ", req.body);
 
@@ -1312,7 +1274,34 @@ app.post("/actualizareVieti", (req, res) => {
       .query("UPDATE users SET vieti = vieti + 1 WHERE id = $1;", [idUser])
       .then(() => {
         console.log("Actualizarea a fost efectuată cu succes");
-        res.send({ message: "Actualizarea a fost efectuată cu succes" });
+
+        pgClient
+          .query(
+            "select id,email,user_name, password,zile,puncte,vieti from users where id=$1;",
+            [req.body.idUser]
+          )
+          .then((res) => res.rows)
+          .then((data) => {
+            let token = jwt.sign(
+              {
+                data: {
+                  id: data[0].id,
+                  username: data[0].user_name,
+                  password: data[0].password,
+                  email: data[0].email,
+                  zile: data[0].zile,
+                  puncte: data[0].puncte,
+                  vieti: data[0].vieti,
+                },
+              },
+              serverSecret,
+              { expiresIn: "24h" }
+            );
+            res.send({
+              message: "Actualizarea a fost efectuată cu succes",
+              jwt: token,
+            });
+          });
       })
       .catch((error) => {
         console.log("A apărut o eroare la actualizarea datelor:", error);
@@ -1326,7 +1315,34 @@ app.post("/actualizareVieti", (req, res) => {
       .query("UPDATE users SET vieti = vieti - 1 WHERE id = $1;", [idUser])
       .then(() => {
         console.log("Actualizarea a fost efectuată cu succes");
-        res.send({ message: "Actualizarea a fost efectuată cu succes" });
+
+        pgClient
+          .query(
+            "select id,email,user_name, password,zile,puncte,vieti from users where id=$1;",
+            [req.body.idUser]
+          )
+          .then((res) => res.rows)
+          .then((data) => {
+            let token = jwt.sign(
+              {
+                data: {
+                  id: data[0].id,
+                  username: data[0].user_name,
+                  password: data[0].password,
+                  email: data[0].email,
+                  zile: data[0].zile,
+                  puncte: data[0].puncte,
+                  vieti: data[0].vieti,
+                },
+              },
+              serverSecret,
+              { expiresIn: "24h" }
+            );
+            res.send({
+              message: "Actualizarea a fost efectuată cu succes",
+              jwt: token,
+            });
+          });
       })
       .catch((error) => {
         console.log("A apărut o eroare la actualizarea datelor:", error);

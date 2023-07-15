@@ -36,7 +36,7 @@ export default function Profile() {
 
   const [sursaImagine, setSursaImagine] = useState(null);
 
-  useEffect(() => {
+  useFocusEffect(() => {
     const decodeJwt = async () => {
       try {
         const jwt = await AsyncStorage.getItem("jwt");
@@ -67,31 +67,6 @@ export default function Profile() {
           setSursaImagine(require("../assets/avatare/avatar8.jpg"));
         else if (avatar == 9)
           setSursaImagine(require("../assets/avatare/avatar9.jpg"));
-
-        // const idUser = {
-        //   idUser: decoded.data.id,
-        // };
-
-        // console.log("idUser: ", idUser);
-
-        // const requestOptions = {
-        //   method: "POST",
-        //   body: JSON.stringify(idUser),
-        //   headers: { "Content-Type": "application/json" },
-        // };
-
-        // console.log(requestOptions);
-        // let input = IPv4 + ":5000/puncteZileVieti";
-
-        // fetch(input, requestOptions)
-        //   .then((response) => response.json())
-        //   .then((data) => {
-        //     console.log("data: ", data);
-
-        //     setZile(data[0].zile);
-        //     setPuncte(data[0].puncte);
-        //     setVieti(data[0].vieti);
-        //   });
       } catch (error) {
         console.log(error);
       }
@@ -110,7 +85,7 @@ export default function Profile() {
       //console.log("---------------------------------------------------");
     }
     fetchData();
-  }, [avatar]);
+  });
 
   async function removeJwtFromStorage() {
     try {

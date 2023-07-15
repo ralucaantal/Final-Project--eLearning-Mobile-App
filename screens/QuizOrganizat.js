@@ -131,11 +131,34 @@ export default function QuizOrganizat({ route }) {
         if (data.message === "Raspuns corect!") {
           setPunctajCatigat(punctajCastigat + 100);
           setCorecte(corecte + 1);
-        } else setGreseli(greseli + 1);
+        } else {
+          setGreseli(greseli + 1);
+          scadereVieti();
+        }
       });
   };
 
   console.log(route.params);
+
+  const scadereVieti = async () => {
+    const statistici = {
+      idUser: idUser,
+      actiune: 0,
+    };
+
+    const requestOptions = {
+      method: "POST",
+      body: JSON.stringify(statistici),
+      headers: { "Content-Type": "application/json" },
+    };
+
+    console.log(requestOptions);
+    let input = IPv4 + ":5000/actualizareVieti";
+
+    const response = await fetch(input, requestOptions);
+    const data = await response.json();
+    await AsyncStorage.setItem("jwt", data.jwt);
+  };
 
   return (
     <KeyboardAvoidingView
@@ -474,7 +497,10 @@ export default function QuizOrganizat({ route }) {
                                     ) {
                                       setPunctajCatigat(punctajCastigat + 50);
                                       setCorecte(corecte + 1);
-                                    } else setGreseli(greseli + 1);
+                                    } else {
+                                      setGreseli(greseli + 1);
+                                      scadereVieti();
+                                    }
 
                                     setIndexIntrebareCurenta(
                                       indexIntrebareCurenta + 1

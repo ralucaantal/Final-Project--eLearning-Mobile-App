@@ -8,7 +8,7 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 import React, { useState, useEffect } from "react";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import {
   ArrowLeftIcon,
@@ -42,6 +42,7 @@ export default function Question({ route }) {
   const [zile, setZile] = useState(null);
   const [puncte, setPuncte] = useState(null);
   const [vieti, setVieti] = useState(null);
+  const [token, setToken] = useState(null);
 
   const [intrebariBD, setIntrebariBD] = useState(null);
 
@@ -56,7 +57,7 @@ export default function Question({ route }) {
   const [raspunsText, setRaspunsText] = useState("");
   // let counter = 0;
 
-  useEffect(() => {
+  useFocusEffect(() => {
     const decodeJwt = async () => {
       try {
         const jwt = await AsyncStorage.getItem("jwt");
@@ -98,8 +99,16 @@ export default function Question({ route }) {
       }
     };
 
-    decodeJwt();
-  }, []);
+    async function fetchData() {
+      if (token != (await AsyncStorage.getItem("jwt"))) {
+        //decodeJwt();
+        decodeJwt();
+        setToken(await AsyncStorage.getItem("jwt"));
+      }
+      //console.log(await AsyncStorage.getItem("jwt"));
+    }
+    fetchData();
+  });
 
   const scadereVieti = async () => {
     const statistici = {
@@ -118,6 +127,7 @@ export default function Question({ route }) {
 
     const response = await fetch(input, requestOptions);
     const data = await response.json();
+    await AsyncStorage.setItem("jwt", data.jwt);
   };
 
   // console.log(intrebariBD);
