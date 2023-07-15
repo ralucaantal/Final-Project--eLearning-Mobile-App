@@ -8,7 +8,7 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 import React, { useState, useEffect } from "react";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import {
   ArrowLeftIcon,
@@ -43,6 +43,8 @@ export default function QuizOrganizat({ route }) {
   const [puncte, setPuncte] = useState(null);
   const [vieti, setVieti] = useState(null);
 
+  const [idUser, setIdUser] = useState(null);
+
   const [intrebariBD, setIntrebariBD] = useState(null);
 
   const [quizData, setQuizData] = useState({
@@ -52,11 +54,13 @@ export default function QuizOrganizat({ route }) {
 
   const [greseli, setGreseli] = useState(0);
   const [corecte, setCorecte] = useState(0);
+  const [token, setToken] = useState(null);
+
 
   const [raspunsText, setRaspunsText] = useState("");
   // let counter = 0;
 
-  useEffect(() => {
+  useFocusEffect(() => {
     const decodeJwt = async () => {
       try {
         const jwt = await AsyncStorage.getItem("jwt");
@@ -67,13 +71,18 @@ export default function QuizOrganizat({ route }) {
         setZile(decoded.data.zile.toString());
         setPuncte(decoded.data.puncte.toString());
         setVieti(decoded.data.vieti.toString());
-
+        setIdUser(decoded.data.id);
         setNrIntrebari(route.params.nrIntrebari);
         setMateriiCerute(route.params.cursuriCerute);
         // console.log("cursuri cerute: ", route.params.cursuriCerute);
         // console.log("nr intrebari", route.params.nrIntrebari);
 
         // console.log(quizData);
+
+        if (decoded.data.vieti <= 0) {
+          alert("Nu mai ai vieti! Completeaza o lectie sau cumpara vieti!");
+          navigation.navigate("Home");
+        }
 
         const requestOptions = {
           method: "POST",
@@ -98,8 +107,15 @@ export default function QuizOrganizat({ route }) {
       }
     };
 
-    decodeJwt();
-  }, []);
+    async function fetchData() {
+      if (token != (await AsyncStorage.getItem("jwt"))) {
+        decodeJwt();
+        setToken(await AsyncStorage.getItem("jwt"));
+      }
+      //console.log(await AsyncStorage.getItem("jwt"));
+    }
+    fetchData();
+  });
 
   // console.log(intrebariBD);
   const handleChangeText = (inputText) => {

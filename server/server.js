@@ -1371,7 +1371,7 @@ app.post("/cumparaVieti", (req, res) => {
   console.log("ai facut post cu datele: ", req.body);
 
   pgClient
-    .query("UPDATE users SET vieti=vieti+$1, puncte=puncte+$2 WHERE id=$3;",[req.body.vieti, req.body.puncte,req.body.idUser])
+    .query("UPDATE users SET vieti=vieti+$1, puncte=puncte-$2 WHERE id=$3;",[req.body.vieti, req.body.puncte,req.body.idUser])
     .then((res) => res.rows)
     .then((data) => {
       console.log("sunt in fetch de la baza de date");
