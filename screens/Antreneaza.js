@@ -41,7 +41,7 @@ const cursuriDisponibile = [
 
 export let cursuriCerute, nrIntrebari;
 
-export default function Antreneaza({navigation}) {
+export default function Antreneaza({ navigation }) {
   // const navigation = useNavigation();
   const [selectedCursuri, setSelectedCursuri] = useState([]);
   const [selectedValue, setSelectedValue] = useState("10");
@@ -77,6 +77,11 @@ export default function Antreneaza({navigation}) {
         setZile(decoded.data.zile.toString());
         setPuncte(decoded.data.puncte.toString());
         setVieti(decoded.data.vieti.toString());
+        if (decoded.data.vieti <= 0) {
+          alert("Nu mai ai vieti! Completeaza o lectie sau cumpara vieti!");
+          navigation.navigate("Home");
+        }
+
         console.log(zile);
       } catch (error) {
         console.log(error);
@@ -109,24 +114,18 @@ export default function Antreneaza({navigation}) {
           </Text>
         </View>
         <View className="pl-4">
-              <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                    <TouchableOpacity
-                      className="bg-purple-100 p-3 px-4 rounded-full mr-2"
-                    >
-                      <Text>{zile} Zile ⚡</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      className="bg-purple-100 p-3 px-4 rounded-full mr-2"
-                    >
-                      <Text>{puncte} Puncte 🚀</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      className="bg-purple-100 p-3 px-4 rounded-full mr-2"
-                    >
-                      <Text>{vieti} Vieți 🤍</Text>
-                    </TouchableOpacity>
-              </ScrollView>
-            </View>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            <TouchableOpacity className="bg-purple-100 p-3 px-4 rounded-full mr-2">
+              <Text>{zile} Zile ⚡</Text>
+            </TouchableOpacity>
+            <TouchableOpacity className="bg-purple-100 p-3 px-4 rounded-full mr-2">
+              <Text>{puncte} Puncte 🚀</Text>
+            </TouchableOpacity>
+            <TouchableOpacity className="bg-purple-100 p-3 px-4 rounded-full mr-2">
+              <Text>{vieti} Vieți 🤍</Text>
+            </TouchableOpacity>
+          </ScrollView>
+        </View>
         <ScrollView
           style={{ height: "100%", marginTop: 20 }}
           showsVerticalScrollIndicator={false}
@@ -219,8 +218,10 @@ export default function Antreneaza({navigation}) {
                   console.log(selectedValue);
                   cursuriCerute = selectedCursuri;
                   nrIntrebari = selectedValue;
-                  navigation.navigate("Question",{cursuriCerute: cursuriCerute, nrIntrebari:nrIntrebari});
-                  
+                  navigation.navigate("Question", {
+                    cursuriCerute: cursuriCerute,
+                    nrIntrebari: nrIntrebari,
+                  });
                 }}
               >
                 <Text className="font-xl font-bold text-center text-gray-700">

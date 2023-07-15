@@ -97,7 +97,7 @@ export default function HomeScreen() {
         const jwt = await AsyncStorage.getItem("jwt");
         const decoded = jwtDecode(jwt);
         setDecodedJwt(decoded);
-       
+
         setUsername(decoded.data.username);
         setId(decoded.data.id);
 
@@ -110,7 +110,6 @@ export default function HomeScreen() {
     };
 
     async function fetchData() {
-      
       if (token != (await AsyncStorage.getItem("jwt"))) {
         //decodeJwt();
         decodeJwt();
@@ -222,7 +221,10 @@ export default function HomeScreen() {
                     } else if (actiune.id === 3) {
                       navigation.navigate("Organizeaza");
                     } else if (actiune.id === 4) {
-                      navigation.navigate("InscriereQuiz",{idUser:id});
+                      navigation.navigate("InscriereQuiz", {
+                        idUser: id,
+                        vieti: vieti,
+                      });
                     } else if (actiune.id === 5) {
                       navigation.navigate("Ajuta");
                     }

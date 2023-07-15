@@ -70,12 +70,15 @@ export default function Organizeaza() {
         setZile(decoded.data.zile.toString());
         setPuncte(decoded.data.puncte.toString());
         setVieti(decoded.data.vieti.toString());
+        if (decoded.data.vieti <= 0) {
+          alert("Nu mai ai vieti! Completeaza o lectie sau cumpara vieti!");
+          navigation.navigate("Home");
+        }
         console.log(zile);
       } catch (error) {
         console.log(error);
       }
     };
-
 
     decodeJwt();
   }, []);

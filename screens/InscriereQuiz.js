@@ -19,6 +19,11 @@ export default function InscriereQuiz({ route }) {
 
   const [cod, setCod] = useState(null);
 
+  if (route.params.vieti <= 0) {
+    alert("Nu mai ai vieti! Completeaza o lectie sau cumpara vieti!");
+    navigation.navigate("Home");
+  }
+
   const handleChangeCod = (inputText) => {
     setCod(inputText);
   };

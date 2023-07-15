@@ -10,6 +10,7 @@ import {
   ClipboardDocumentListIcon,
   ClockIcon,
   XMarkIcon,
+  HeartIcon,
 } from "react-native-heroicons/solid";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { themeColors } from "../theme/index";
@@ -291,6 +292,27 @@ export default function Profile() {
                 className="font-semibold"
               >
                 Status întrebări propuse
+              </Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            className="mx-4 p-2 mb-2 flex-row"
+            style={{
+              backgroundColor: "rgba(255,255,255,0.3)",
+              borderRadius: 10,
+            }}
+            onPress={() => {
+              if (idUser)
+                navigation.navigate("StatusIntrebari", { idUser: idUser });
+            }}
+          >
+            <HeartIcon color={themeColors.galben} size="50" />
+            <View className="flex-1 flex justify-center pl-3 space-y-3">
+              <Text
+                style={{ color: themeColors.white }}
+                className="font-semibold"
+              >
+                Magazin de vieți
               </Text>
             </View>
           </TouchableOpacity>

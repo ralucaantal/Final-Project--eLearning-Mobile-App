@@ -76,6 +76,11 @@ export default function Question({ route }) {
 
         // console.log(quizData);
 
+        if (decoded.data.vieti <= 0) {
+          alert("Nu mai ai vieti! Completeaza o lectie sau cumpara vieti!");
+          navigation.navigate("Home");
+        }
+
         const requestOptions = {
           method: "POST",
           body: JSON.stringify(quizData),
@@ -101,7 +106,6 @@ export default function Question({ route }) {
 
     async function fetchData() {
       if (token != (await AsyncStorage.getItem("jwt"))) {
-        //decodeJwt();
         decodeJwt();
         setToken(await AsyncStorage.getItem("jwt"));
       }
