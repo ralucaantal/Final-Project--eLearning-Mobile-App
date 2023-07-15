@@ -209,7 +209,7 @@ export default function Profile() {
           </View>
         </ScrollView>
         <ScrollView
-          style={{ height: 400 }}
+          style={{ height: 500 }}
           showsVerticalScrollIndicator={false}
         >
           <TouchableOpacity
@@ -306,12 +306,13 @@ export default function Profile() {
             }}
           >
             <HeartIcon color={themeColors.galben} size="50" />
+
             <View className="flex-1 flex justify-center pl-3 space-y-3">
               <Text
                 style={{ color: themeColors.white }}
                 className="font-semibold"
               >
-                Magazin de vieți 
+                Magazin de vieți
               </Text>
             </View>
           </TouchableOpacity>
@@ -338,7 +339,7 @@ export default function Profile() {
             </View>
           </TouchableOpacity>
         </ScrollView>
-        <View className="mt-3 space-y-3">
+        {/* <View className="mt-3 space-y-3">
           <Text
             style={{
               color: themeColors.white,
@@ -347,11 +348,11 @@ export default function Profile() {
               borderRadius: 10,
               alignSelf: "center",
             }}
-            className="ml-4 text-3xl font-bold"
+            className="ml-4 text-xl font-bold"
           >
             CodeCampus
           </Text>
-        </View>
+        </View> */}
       </SafeAreaView>
     </LinearGradient>
   );
