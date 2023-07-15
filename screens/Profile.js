@@ -302,8 +302,7 @@ export default function Profile() {
               borderRadius: 10,
             }}
             onPress={() => {
-              if (idUser)
-                navigation.navigate("StatusIntrebari", { idUser: idUser });
+              navigation.navigate("MagazinVieti");
             }}
           >
             <HeartIcon color={themeColors.galben} size="50" />
@@ -312,7 +311,7 @@ export default function Profile() {
                 style={{ color: themeColors.white }}
                 className="font-semibold"
               >
-                Magazin de vieți
+                Magazin de vieți 
               </Text>
             </View>
           </TouchableOpacity>
