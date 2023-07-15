@@ -48,6 +48,123 @@ export default function HomeAdministrator() {
             Administrare aplicație 🚀
           </Text>
         </View>
+        <ScrollView
+          style={{ height: "100%", marginTop: 20 }}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 100 }}
+        >
+          <View
+            className="mx-4 p-2 mb-2 flex-column"
+            style={{
+              backgroundColor: "rgba(255,255,255,0.4)",
+              borderRadius: 10,
+              marginTop: 10,
+            }}
+          >
+            <TouchableOpacity
+              className="py-3 bg-yellow-400 rounded-xl"
+              style={{
+                width: "100%",
+                opacity: 0.8,
+                alignSelf: "flex-end",
+                marginTop: 5,
+                marginBottom: 5,
+              }}
+              onPress={() => {
+                navigation.navigate("Utilizatori");
+              }}
+            >
+              <Text className="font-xl font-bold text-center text-gray-700">
+                Vezi Utilizatori
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              className="py-3 bg-yellow-400 rounded-xl"
+              style={{
+                width: "100%",
+                opacity: 0.8,
+                alignSelf: "flex-end",
+                marginTop: 5,
+                marginBottom: 5,
+              }}
+              onPress={() => {
+                //navigation.navigate("Antreneaza");
+              }}
+            >
+              <Text className="font-xl font-bold text-center text-gray-700">
+                Vezi Cursuri
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              className="py-3 bg-yellow-400 rounded-xl"
+              style={{
+                width: "100%",
+                opacity: 0.8,
+                alignSelf: "flex-end",
+                marginTop: 5,
+                marginBottom: 5,
+              }}
+              onPress={() => {
+                //navigation.navigate("Antreneaza");
+              }}
+            >
+              <Text className="font-xl font-bold text-center text-gray-700">
+                Vezi Teste Organizate
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              className="py-3 bg-yellow-400 rounded-xl"
+              style={{
+                width: "100%",
+                opacity: 0.8,
+                alignSelf: "flex-end",
+                marginTop: 5,
+                marginBottom: 5,
+              }}
+              onPress={() => {
+                //navigation.navigate("Antreneaza");
+              }}
+            >
+              <Text className="font-xl font-bold text-center text-gray-700">
+                Vezi Întrebări Propuse
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              className="py-3 bg-yellow-400 rounded-xl"
+              style={{
+                width: "100%",
+                opacity: 0.8,
+                alignSelf: "flex-end",
+                marginTop: 5,
+                marginBottom: 5,
+              }}
+              onPress={() => {
+                //navigation.navigate("Antreneaza");
+              }}
+            >
+              <Text className="font-xl font-bold text-center text-gray-700">
+                Vezi Întrebări Text Existente
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              className="py-3 bg-yellow-400 rounded-xl"
+              style={{
+                width: "100%",
+                opacity: 0.8,
+                alignSelf: "flex-end",
+                marginTop: 5,
+                marginBottom: 5,
+              }}
+              onPress={() => {
+                //navigation.navigate("Antreneaza");
+              }}
+            > 
+              <Text className="font-xl font-bold text-center text-gray-700">
+                Vezi Întrebări Grilă Existente
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
       </SafeAreaView>
     </LinearGradient>
   );

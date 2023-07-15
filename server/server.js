@@ -315,6 +315,23 @@ app.post("/cereStatistici", (req, res) => {
     });
 });
 
+app.post("/cereStatisticiAdmin", (req, res) => {
+  console.log("ai facut post cu datele: ", req.body);
+
+  qry =
+    "SELECT statistici.*, users.puncte, users.zile, users.vieti,users.email, users.user_name FROM statistici JOIN users ON statistici.id_user = users.id WHERE statistici.id_user = " +
+    req.body.idUser +
+    ";";
+
+  pgClient
+    .query(qry)
+    .then((res) => res.rows)
+    .then((data) => {
+      console.log("sunt in fetch de la baza de date");
+      res.send(data);
+    });
+});
+
 app.post("/verificareRaspunsText", (req, res) => {
   console.log("ai facut post cu datele: ", req.body);
 
@@ -414,7 +431,9 @@ app.post("/statusIntrebariPropuse", (req, res) => {
 
 app.get("/topUtilizatori", (req, res) => {
   pgClient
-    .query("SELECT * FROM users ORDER BY puncte DESC;")
+    .query(
+      "SELECT * FROM users WHERE user_name <> 'admin' ORDER BY puncte DESC;"
+    )
     .then((res) => res.rows)
     .then((data) => {
       res.send(data);
@@ -1235,8 +1254,8 @@ app.post("/actualizareStatisticiTeste", (req, res) => {
   console.log("ai facut post cu datele: ", req.body);
 
   let idUser = req.body.idUser;
-  let corecte = req.body.corecte;
-  let gresite = req.body.gresite;
+  let corecte = parseInt(req.body.corecte);
+  let gresite = parseInt(req.body.gresite);
   // const qry = "UPDATE statisticI SET ultima_actiune = $1, data_ultima_actiune = $2, WHERE id_user = $3;
   //   ", [actiune, now, idUser];
   // };

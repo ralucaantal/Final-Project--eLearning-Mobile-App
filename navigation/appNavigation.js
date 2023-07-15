@@ -34,6 +34,8 @@ import FinalizareLectie from "../screens/FinalizareLectie";
 import QuizOrganizat from "../screens/QuizOrganizat";
 import MagazinVieti from "../screens/MagazinVieti";
 import HomeAdministrator from "../screens/HomeAdministrator";
+import Utilizatori from "../screens/Utilizatori";
+import StatisticiUtilizatori from "../screens/StatisticiUtilizatori";
 
 const Stack = createNativeStackNavigator();
 
@@ -200,6 +202,16 @@ export default function AppNavigation() {
           name="HomeAdministrator"
           options={{ headerShown: false }}
           component={HomeAdministrator}
+        />
+        <Stack.Screen
+          name="Utilizatori"
+          options={{ headerShown: false }}
+          component={Utilizatori}
+        />
+        <Stack.Screen
+          name="StatisticiUtilizatori"
+          options={{ headerShown: false }}
+          component={StatisticiUtilizatori}
         />
       </Stack.Navigator>
     </NavigationContainer>
