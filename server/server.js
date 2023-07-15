@@ -41,6 +41,10 @@ app.post("/decodeJWT", (req, res) => {
         username: decoded.data.user_name,
         password: decoded.data.password,
         email: decoded.data.email,
+        avatar: decoded.data.avatar,
+        puncte: decoded.data.puncte,
+        zile: decoded.data.zile,
+        vieti: decoded.data.vieti,
       });
     }
   });
@@ -239,7 +243,7 @@ app.post("/adaugarePunctajQuizIndividual", (req, res) => {
 
       pgClient
         .query(
-          "select id,email,user_name, password,zile,puncte,vieti from users where id=$1;",
+          "select id,email,user_name, password,zile,puncte,vieti,avatar from users where id=$1;",
           [req.body.idUser]
         )
         .then((res) => res.rows)
@@ -254,6 +258,7 @@ app.post("/adaugarePunctajQuizIndividual", (req, res) => {
                 zile: data[0].zile,
                 puncte: data[0].puncte,
                 vieti: data[0].vieti,
+                avatar: data[0].avatar,
               },
             },
             serverSecret,
@@ -489,7 +494,7 @@ app.post("/adaugarePunctajPropunereIntrebare", (req, res) => {
 
       pgClient
         .query(
-          "select id,email,user_name, password,zile,puncte,vieti from users where id=$1;",
+          "select id,email,user_name, password,zile,puncte,vieti,avatar from users where id=$1;",
           [req.body.idUser]
         )
         .then((res) => res.rows)
@@ -504,6 +509,7 @@ app.post("/adaugarePunctajPropunereIntrebare", (req, res) => {
                 zile: data[0].zile,
                 puncte: data[0].puncte,
                 vieti: data[0].vieti,
+                avatar: data[0].avatar,
               },
             },
             serverSecret,
@@ -541,7 +547,7 @@ app.post("/adaugarePunctajFeedback", (req, res) => {
 
       pgClient
         .query(
-          "select id,email,user_name, password,zile,puncte,vieti from users where id=$1;",
+          "select id,email,user_name, password,zile,puncte,vieti,avatar from users where id=$1;",
           [req.body.idUser]
         )
         .then((res) => res.rows)
@@ -556,6 +562,7 @@ app.post("/adaugarePunctajFeedback", (req, res) => {
                 zile: data[0].zile,
                 puncte: data[0].puncte,
                 vieti: data[0].vieti,
+                avatar: data[0].avatar,
               },
             },
             serverSecret,
@@ -661,7 +668,7 @@ app.post("/schimbareEmail", (req, res) => {
 
       pgClient
         .query(
-          "select id,email,user_name, password,zile,puncte,vieti from users where id=$1;",
+          "select id,email,user_name, password,zile,puncte,vieti,avatar from users where id=$1;",
           [req.body.idUser]
         )
         .then((res) => res.rows)
@@ -676,6 +683,7 @@ app.post("/schimbareEmail", (req, res) => {
                 zile: data[0].zile,
                 puncte: data[0].puncte,
                 vieti: data[0].vieti,
+                avatar: data[0].avatar,
               },
             },
             serverSecret,
@@ -714,7 +722,7 @@ app.post("/schimbareParola", (req, res) => {
 
       pgClient
         .query(
-          "select id,email,user_name, password,zile,puncte,vieti from users where id=$1;",
+          "select id,email,user_name, password,zile,puncte,vieti,avatar from users where id=$1;",
           [req.body.idUser]
         )
         .then((res) => res.rows)
@@ -729,6 +737,7 @@ app.post("/schimbareParola", (req, res) => {
                 zile: data[0].zile,
                 puncte: data[0].puncte,
                 vieti: data[0].vieti,
+                avatar: data[0].avatar,
               },
             },
             serverSecret,
@@ -768,7 +777,7 @@ app.post("/schimbareUsername", (req, res) => {
 
       pgClient
         .query(
-          "select id,email,user_name, password,zile,puncte,vieti from users where id=$1;",
+          "select id,email,user_name, password,zile,puncte,vieti,avatar from users where id=$1;",
           [req.body.idUser]
         )
         .then((res) => res.rows)
@@ -783,6 +792,7 @@ app.post("/schimbareUsername", (req, res) => {
                 zile: data[0].zile,
                 puncte: data[0].puncte,
                 vieti: data[0].vieti,
+                avatar: data[0].avatar,
               },
             },
             serverSecret,
@@ -1075,7 +1085,7 @@ app.post("/actualizareUltimaActiune", (req, res) => {
             // Obțineți datele utilizatorului actualizate
             pgClient
               .query(
-                "SELECT id, email, user_name, password, zile, puncte, vieti FROM users WHERE id = $1;",
+                "SELECT id, email, user_name, password, zile, puncte, vieti,avatar FROM users WHERE id = $1;",
                 [idUser]
               )
               .then((userData) => {
@@ -1092,6 +1102,7 @@ app.post("/actualizareUltimaActiune", (req, res) => {
                       zile: user.zile,
                       puncte: user.puncte,
                       vieti: user.vieti,
+                      avatar: user.avatar,
                     },
                   },
                   serverSecret,
@@ -1136,7 +1147,7 @@ app.post("/actualizareUltimaActiune", (req, res) => {
             // Obțineți datele utilizatorului actualizate
             pgClient
               .query(
-                "SELECT id, email, user_name, password, zile, puncte, vieti FROM users WHERE id = $1;",
+                "SELECT id, email, user_name, password, zile, puncte, vieti,avatar FROM users WHERE id = $1;",
                 [idUser]
               )
               .then((userData) => {
@@ -1153,6 +1164,7 @@ app.post("/actualizareUltimaActiune", (req, res) => {
                       zile: user.zile,
                       puncte: user.puncte,
                       vieti: user.vieti,
+                      avatar: user.avatar,
                     },
                   },
                   serverSecret,
@@ -1277,7 +1289,7 @@ app.post("/actualizareVieti", (req, res) => {
 
         pgClient
           .query(
-            "select id,email,user_name, password,zile,puncte,vieti from users where id=$1;",
+            "select id,email,user_name, password,zile,puncte,vieti,avatar from users where id=$1;",
             [req.body.idUser]
           )
           .then((res) => res.rows)
@@ -1292,6 +1304,7 @@ app.post("/actualizareVieti", (req, res) => {
                   zile: data[0].zile,
                   puncte: data[0].puncte,
                   vieti: data[0].vieti,
+                  avatar: data[0].avatar,
                 },
               },
               serverSecret,
@@ -1318,7 +1331,7 @@ app.post("/actualizareVieti", (req, res) => {
 
         pgClient
           .query(
-            "select id,email,user_name, password,zile,puncte,vieti from users where id=$1;",
+            "select id,email,user_name, password,zile,puncte,vieti,avatar from users where id=$1;",
             [req.body.idUser]
           )
           .then((res) => res.rows)
@@ -1333,6 +1346,7 @@ app.post("/actualizareVieti", (req, res) => {
                   zile: data[0].zile,
                   puncte: data[0].puncte,
                   vieti: data[0].vieti,
+                  avatar: data[0].avatar,
                 },
               },
               serverSecret,
