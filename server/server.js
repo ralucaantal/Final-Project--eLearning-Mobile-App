@@ -432,6 +432,17 @@ app.post("/afisareLectiiAdmin", (req, res) => {
     });
 });
 
+app.get("/testeOrganizate", (req, res) => {
+  pgClient
+    .query("SELECT quizes.*, users.user_name,users.avatar FROM quizes INNER JOIN users ON quizes.id_utilizator = users.id;")
+    .then((result) => result.rows)
+    .then((data) => {
+      console.log(data);
+      res.send(data);
+    });
+});
+
+
 app.post("/statusIntrebariPropuse", (req, res) => {
   qry =
     "SELECT * FROM intrebari_propuse WHERE id_utilizator=" +
