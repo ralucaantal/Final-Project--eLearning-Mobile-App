@@ -33,7 +33,7 @@ export default function IntrebariGrilaAdmin() {
           .then((response) => response.json())
           .then((data) => {
             setIntrebari(data);
-            console.log(data);
+            //console.log(data);
           });
       } catch (error) {
         console.log(error);

@@ -122,7 +122,7 @@ export default function HomeAdministrator() {
                 marginBottom: 5,
               }}
               onPress={() => {
-                //navigation.navigate("Antreneaza");
+                navigation.navigate("IntrebariPropuseAdmin");
               }}
             >
               <Text className="font-xl font-bold text-center text-gray-700">

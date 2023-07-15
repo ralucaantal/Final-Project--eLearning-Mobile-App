@@ -63,7 +63,7 @@ export default function IntrebariTextAdmin() {
     fetch(input, requestOptions)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        //console.log(data);
         setIntrebari(data);
       })
       .catch((error) => {

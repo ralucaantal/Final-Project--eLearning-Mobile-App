@@ -42,6 +42,7 @@ import LectiiAdmin from "../screens/LectiiAdmin";
 import Teste from "../screens/Teste";
 import IntrebariTextAdmin from "../screens/IntrebariTextAdmin";
 import IntrebariGrilaAdmin from "../screens/IntrebariGrilaAdmin";
+import IntrebariPropuseAdmin from "../screens/IntrebariPropuseAdmin";
 
 const Stack = createNativeStackNavigator();
 
@@ -248,6 +249,11 @@ export default function AppNavigation() {
           name="IntrebariGrilaAdmin"
           options={{ headerShown: false }}
           component={IntrebariGrilaAdmin}
+        />
+        <Stack.Screen
+          name="IntrebariPropuseAdmin"
+          options={{ headerShown: false }}
+          component={IntrebariPropuseAdmin}
         />
       </Stack.Navigator>
     </NavigationContainer>

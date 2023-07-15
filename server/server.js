@@ -428,6 +428,15 @@ app.get("/cursuriDisponibile", (req, res) => {
     });
 });
 
+app.get("/cereIntrebariPropuse", (req, res) => {
+  pgClient
+    .query("SELECT * FROM intrebari_propuse;")
+    .then((res) => res.rows)
+    .then((data) => {
+      res.send(data);
+    });
+});
+
 app.post("/afisareSectiuniAdministrator", (req, res) => {
   pgClient
     .query("SELECT * FROM sectiuni WHERE materie=$1;", [req.body.nume])
@@ -665,16 +674,6 @@ app.post("/adaugareFeedback", (req, res) => {
     });
 });
 
-// app.post("/stergeIntrebare", (req, res) => {
-//   //console.log("Ai facut POST cu datele: ", req.body);
-
-//   pgClient
-//     .query("delete from intrebari where id=$1;", [req.body.idIntrebare])
-//     .then((result) => {
-//       res.send({ message: "Feedbackul s-a adaugat cu succes!" });
-//     });
-// });
-
 app.post("/stergeIntrebare", (req, res) => {
   // console.log("Ai facut POST cu datele: ", req.body);
 
@@ -695,6 +694,84 @@ app.post("/stergeIntrebare", (req, res) => {
       res
         .status(500)
         .send({ message: "A apărut o eroare la ștergerea întrebării" });
+    });
+});
+
+app.post("/aprobaIntrebare", (req, res) => {
+  const { idIntrebare } = req.body;
+
+  // Obțineți datele întrebării propuse pe care doriți să le inserați
+  pgClient
+    .query("SELECT * FROM intrebari_propuse WHERE id = $1;", [idIntrebare])
+    .then((result) => {
+      const intrebarePropusa = result.rows[0];
+
+      // Realizați operația de inserare în tabelul "intrebari" cu datele obținute
+      return pgClient.query(
+        "INSERT INTO intrebari (text_intrebare, raspuns_corect, tip_intrebare,varianta1,varianta2,varianta3,varianta4,materie) VALUES ($1, $2, $3, $4,$5,$6,$7,$8);",
+        [
+          intrebarePropusa.text_intrebare,
+          intrebarePropusa.raspuns_corect,
+          intrebarePropusa.tip_intrebare,
+          intrebarePropusa.varianta1,
+          intrebarePropusa.varianta2,
+          intrebarePropusa.varianta3,
+          intrebarePropusa.varianta4,
+          intrebarePropusa.materie,
+        ]
+      );
+    })
+    .then(() => {
+      // Actualizați statusul întrebării propuse în "Aprobata"
+      return pgClient.query(
+        "UPDATE intrebari_propuse SET status = 'Aprobata' WHERE id = $1;",
+        [idIntrebare]
+      );
+    })
+    .then(() => {
+      // După actualizarea statusului, selectați toate întrebările rămase din tabela "intrebari_propuse"
+      return pgClient.query("SELECT * FROM intrebari_propuse;");
+    })
+    .then((result) => result.rows)
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((error) => {
+      console.log(
+        "A apărut o eroare la salvarea și aprobarea întrebării:",
+        error
+      );
+      res.status(500).send({
+        message: "A apărut o eroare la salvarea și aprobarea întrebării",
+      });
+    });
+});
+
+app.post("/respingeIntrebare", (req, res) => {
+  const { idIntrebare } = req.body;
+
+  // Obțineți datele întrebării propuse pe care doriți să le inserați
+  pgClient
+    .query("UPDATE intrebari_propuse SET status = 'Respinsa' WHERE id = $1;", [
+      idIntrebare,
+    ])
+
+    .then(() => {
+      // După actualizarea statusului, selectați toate întrebările rămase din tabela "intrebari_propuse"
+      return pgClient.query("SELECT * FROM intrebari_propuse;");
+    })
+    .then((result) => result.rows)
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((error) => {
+      console.log(
+        "A apărut o eroare la salvarea și aprobarea întrebării:",
+        error
+      );
+      res.status(500).send({
+        message: "A apărut o eroare la salvarea și aprobarea întrebării",
+      });
     });
 });
 
