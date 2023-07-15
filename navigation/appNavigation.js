@@ -38,6 +38,7 @@ import Utilizatori from "../screens/Utilizatori";
 import StatisticiUtilizatori from "../screens/StatisticiUtilizatori";
 import CursuriAdmin from "../screens/CursuriAdmin";
 import SectiuniAdministrator from "../screens/SectiuniAdministrator";
+import LectiiAdmin from "../screens/LectiiAdmin";
 
 const Stack = createNativeStackNavigator();
 
@@ -224,6 +225,11 @@ export default function AppNavigation() {
           name="SectiuniAdministrator"
           options={{ headerShown: false }}
           component={SectiuniAdministrator}
+        />
+        <Stack.Screen
+          name="LectiiAdmin"
+          options={{ headerShown: false }}
+          component={LectiiAdmin}
         />
       </Stack.Navigator>
     </NavigationContainer>

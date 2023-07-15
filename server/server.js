@@ -423,6 +423,15 @@ app.post("/afisareSectiuniAdministrator", (req, res) => {
     });
 });
 
+app.post("/afisareLectiiAdmin", (req, res) => {
+  pgClient
+    .query("SELECT * FROM lectii WHERE id_sectiune=$1;", [req.body.idSectiune])
+    .then((result) => result.rows)
+    .then((data) => {
+      res.send(data);
+    });
+});
+
 app.post("/statusIntrebariPropuse", (req, res) => {
   qry =
     "SELECT * FROM intrebari_propuse WHERE id_utilizator=" +

@@ -8,45 +8,37 @@ import { themeColors } from "../theme/index";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import jwtDecode from "jwt-decode";
 import IPv4 from "../index";
+import tw from "tailwind-react-native-classnames";
 
-export default function SectiuniAdministrator({ route }) {
+export default function LectiiAdmin({ route }) {
   const navigation = useNavigation();
 
-  const [sectiuni, setSectiuni] = useState(null);
+  const [lectii, setLectii] = useState(null);
 
-  const [indexSectiune, setIndexSectiune] = useState(0);
+  const [indexLectie, setIndexLextie] = useState(0);
 
   useEffect(() => {
-    const cereSectiuni = async () => {
-      const cursCurent = {
-        nume:
-          route.params.cursCerut === "Baze De Date"
-            ? "BD"
-            : route.params.cursCerut === "Programare Orietată Obiect (POO)"
-            ? "POO"
-            : "BPC",
+    const cereLectii = async () => {
+      const sectiuneCurenta = {
+        idSectiune: route.params.idSectiune,
       };
 
       const requestOptions = {
         method: "POST",
-        body: JSON.stringify(cursCurent),
+        body: JSON.stringify(sectiuneCurenta),
         headers: { "Content-Type": "application/json" },
       };
 
-      // console.log(requestOptions);
-      let input = IPv4 + ":5000/afisareSectiuniAdministrator";
-
-      // console.log(requestOptions);
+      let input = IPv4 + ":5000/afisareLectiiAdmin";
 
       fetch(input, requestOptions)
         .then((response) => response.json())
         .then((data) => {
-          setSectiuni(data);
-          setIndexSectiune(0);
+          setLectii(data);
         });
     };
 
-    cereSectiuni();
+    cereLectii();
   }, []);
 
   return (
@@ -78,6 +70,7 @@ export default function SectiuniAdministrator({ route }) {
               CodeCampus
             </Text>
           </View>
+
           <Text
             style={{
               color: themeColors.white,
@@ -86,40 +79,34 @@ export default function SectiuniAdministrator({ route }) {
             }}
             className="ml-4 text-2xl font-bold"
           >
-            Cursul de{" "}
-            <Text style={{ fontStyle: "italic", color: themeColors.galben }}>
-              {route.params.cursCerut}
+            Pentru secțiunea{" "}
+            <Text style={{ fontStyle: "italic", color: themeColors.rozPal }}>
+              {route.params.numeSectiune}
             </Text>{" "}
-            este împărțit în următoarele secțiuni:
+            sunt disponibile următoarele lecții:
           </Text>
         </View>
-
-        {sectiuni && (
+        {lectii && (
           <ScrollView
             style={{ height: "100%", marginTop: 20 }}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{ paddingBottom: 300 }}
           >
-            {sectiuni.map((sectiune, index) => {
+            {lectii.map((lectie, index) => {
               return (
                 <TouchableOpacity
                   className="mx-4 p-2 mb-2 flex-row"
-                  key={sectiune.id}
+                  key={lectie.id}
                   style={{
                     backgroundColor: "rgba(255,255,255,0.4)",
                     borderRadius: 10,
                     alignItems: "center",
                     justifyContent: "center",
                   }}
-                  onPress={() => {
-                    navigation.navigate("LectiiAdmin", {
-                      idSectiune: sectiune.id,
-                    });
-                  }}
                 >
                   <CheckCircleIcon
                     color={themeColors.galben}
-                    size="30"
+                    size="40"
                     style={{ opacity: 0.8, marginRight: 10 }}
                   />
 
@@ -143,12 +130,30 @@ export default function SectiuniAdministrator({ route }) {
                       }}
                       className="font-semibold"
                     >
-                      {sectiune.nume}
+                      {lectie.nume}
                     </Text>
                   </View>
                 </TouchableOpacity>
               );
             })}
+            <TouchableOpacity
+              className="py-3 bg-yellow-400 rounded-xl"
+              style={{
+                width: "50%",
+                opacity: 0.8,
+                alignSelf: "flex-end",
+                marginTop: 5,
+                marginBottom: 5,
+                marginRight:20
+              }}
+              onPress={() => {
+                navigation.navigate("HomeAdministrator");
+              }}
+            >
+              <Text className="font-xl font-bold text-center text-gray-700">
+                Înapoi la Home
+              </Text>
+            </TouchableOpacity>
           </ScrollView>
         )}
       </SafeAreaView>
