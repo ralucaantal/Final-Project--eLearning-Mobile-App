@@ -34,7 +34,7 @@ export default function LoginScreen() {
 
   const handleLogin = async () => {
     if (email !== "" && password !== "") {
-     // console.log(email);
+      // console.log(email);
       //console.log(password);
       loginData.email = email;
       loginData.password = password;
@@ -55,14 +55,14 @@ export default function LoginScreen() {
         const data = await response.json();
         //console.log(data.jwt);
         if (data.message === "Login efectuat cu succes!" && data.jwt) {
-
-
           // Salvează JWT-ul în AsyncStorage
 
           await AsyncStorage.setItem("jwt", data.jwt);
 
           setErrorDataLogin({ message: "Te-ai logat cu succes........!" });
           navigation.navigate("Home");
+        } else if (data.message === "Administrator") {
+          navigation.navigate("HomeAdministrator");
         } else {
           setErrorDataLogin({ message: "Date invalide" });
         }

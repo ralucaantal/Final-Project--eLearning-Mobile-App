@@ -58,7 +58,7 @@ app.post("/login", (req, res) => {
   //verific daca exista utilizatorul in baza de date
   pgClient
     .query(
-      "select id,email,user_name, password,zile,puncte,vieti,avatar from users where email=$1;",
+      "select id,email,user_name, password,zile,puncte,vieti,avatar,tip_cont from users where email=$1;",
       [email]
     )
     .then((res) => res.rows)
@@ -73,6 +73,14 @@ app.post("/login", (req, res) => {
 
         //verific parolele
         if (password === data[0].password) {
+          let message = "";
+          if (data[0].tip_cont === "admin") {
+            message = "Administrator";
+          } else if (data[0].tip_cont === "Student") {
+            message = "Login efectuat cu succes!";
+          } else {
+            message = "Bun venit!";
+          }
           let token = jwt.sign(
             {
               data: {
@@ -92,7 +100,7 @@ app.post("/login", (req, res) => {
           console.log("tokenul tau este: ", token);
 
           res.send({
-            message: "Login efectuat cu succes!",
+            message: message,
             jwt: token,
           });
         } else {
@@ -1371,7 +1379,11 @@ app.post("/cumparaVieti", (req, res) => {
   console.log("ai facut post cu datele: ", req.body);
 
   pgClient
-    .query("UPDATE users SET vieti=vieti+$1, puncte=puncte-$2 WHERE id=$3;",[req.body.vieti, req.body.puncte,req.body.idUser])
+    .query("UPDATE users SET vieti=vieti+$1, puncte=puncte-$2 WHERE id=$3;", [
+      req.body.vieti,
+      req.body.puncte,
+      req.body.idUser,
+    ])
     .then((res) => res.rows)
     .then((data) => {
       console.log("sunt in fetch de la baza de date");

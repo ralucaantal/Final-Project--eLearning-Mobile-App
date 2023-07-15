@@ -33,6 +33,7 @@ import IntrebariLectie from "../screens/IntrebariLectii";
 import FinalizareLectie from "../screens/FinalizareLectie";
 import QuizOrganizat from "../screens/QuizOrganizat";
 import MagazinVieti from "../screens/MagazinVieti";
+import HomeAdministrator from "../screens/HomeAdministrator";
 
 const Stack = createNativeStackNavigator();
 
@@ -194,6 +195,11 @@ export default function AppNavigation() {
           name="MagazinVieti"
           options={{ headerShown: false }}
           component={MagazinVieti}
+        />
+        <Stack.Screen
+          name="HomeAdministrator"
+          options={{ headerShown: false }}
+          component={HomeAdministrator}
         />
       </Stack.Navigator>
     </NavigationContainer>
