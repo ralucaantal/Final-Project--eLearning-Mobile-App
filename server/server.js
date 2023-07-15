@@ -414,6 +414,15 @@ app.get("/cursuriDisponibile", (req, res) => {
     });
 });
 
+app.post("/afisareSectiuniAdministrator", (req, res) => {
+  pgClient
+    .query("SELECT * FROM sectiuni WHERE materie=$1;", [req.body.nume])
+    .then((result) => result.rows)
+    .then((data) => {
+      res.send(data);
+    });
+});
+
 app.post("/statusIntrebariPropuse", (req, res) => {
   qry =
     "SELECT * FROM intrebari_propuse WHERE id_utilizator=" +

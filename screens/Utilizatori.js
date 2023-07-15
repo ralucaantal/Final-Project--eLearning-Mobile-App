@@ -93,8 +93,8 @@ export default function Utilizatori() {
             style={{ color: themeColors.white }}
             className="ml-4 text-xl font-bold"
           >
-            ‼ Pentru a vedea statistici detaliate despre orice utilizator apasă
-            pe pătratul destinat lui.
+            ‼ Pentru a vedea statisticile detaliate despre orice utilizator
+            apasă pe spațiul din listă destinat lui.
           </Text>
         </View>
 
