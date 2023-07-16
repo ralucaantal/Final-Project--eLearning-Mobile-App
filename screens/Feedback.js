@@ -113,6 +113,7 @@ export default function Feedback() {
 
     const response = await fetch(input, requestOptions);
     const data = await response.json();
+    await AsyncStorage.setItem("jwt", data.jwt);
   };
 
   const punctaj = async () => {

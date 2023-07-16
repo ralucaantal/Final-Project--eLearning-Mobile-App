@@ -62,6 +62,7 @@ export default function FinalQuiz({ route }) {
 
       const response = await fetch(input, requestOptions);
       const data = await response.json();
+      await AsyncStorage.setItem("jwt", data.jwt);
     };
 
     const actualizareStatisticiTeste = async () => {

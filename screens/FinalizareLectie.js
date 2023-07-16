@@ -98,6 +98,7 @@ export default function FinalizareLectie({ route }) {
 
       const response = await fetch(input, requestOptions);
       const data = await response.json();
+      await AsyncStorage.setItem("jwt", data.jwt);
     };
 
     const adaugareStatisticiLectie = async () => {
