@@ -136,13 +136,18 @@ export default function Curs({ route }) {
                       idSectiune: sectiune.id,
                       numeSectiune: sectiune.nume,
                       idUser: idUser,
-                      materie: sectiune.materie
+                      materie: sectiune.materie,
                     });
                   }}
                 >
                   <CheckCircleIcon
                     color={
-                      sectiune.complet ? themeColors.verde : themeColors.rozPal
+                      // sectiune.complet ? themeColors.verde : themeColors.rozPal
+                      sectiune.id === 22
+                        ? themeColors.galben
+                        : sectiune.complet
+                        ? themeColors.verde
+                        : themeColors.rozPal
                     }
                     size="30"
                     style={{ opacity: 0.8, marginRight: 10 }}
