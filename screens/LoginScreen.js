@@ -14,6 +14,7 @@ import { ArrowLeftIcon } from "react-native-heroicons/solid";
 import { LinearGradient } from "expo-linear-gradient";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import IPv4 from "../index";
+import jwtDecode from "jwt-decode";
 
 export default function LoginScreen() {
   const navigation = useNavigation();
@@ -21,6 +22,8 @@ export default function LoginScreen() {
   const [password, setPassword] = useState("");
   const [errorDataLogin, setErrorDataLogin] = useState({ message: "" });
   const [loginData, setLoginData] = useState({ email: "", password: "" });
+  const [decodedJwt, setDecodedJwt] = useState(null);
+  const [id, setId] = useState(null);
 
   const handleChangeEmail = (inputText) => {
     // console.log(inputText);
@@ -60,6 +63,7 @@ export default function LoginScreen() {
           await AsyncStorage.setItem("jwt", data.jwt);
 
           setErrorDataLogin({ message: "Te-ai logat cu succes........!" });
+
           navigation.navigate("Home");
         } else if (data.message === "Administrator") {
           navigation.navigate("HomeAdministrator");

@@ -136,6 +136,14 @@ export default function FinalizareLectie({ route }) {
 
       const response = await fetch(input, requestOptions);
       const data = await response.json();
+
+      console.log("data.jwt:", data.jwt); // Add this debug statement
+      if (data.jwt) {
+        await AsyncStorage.setItem("jwt", data.jwt);
+      } else {
+        // Handle the case when data.jwt is null or undefined
+        console.error("Invalid data.jwt");
+      }
     };
 
     decodeJwt();
@@ -144,11 +152,13 @@ export default function FinalizareLectie({ route }) {
       progres();
       actualizareStatistici();
       adaugareStatisticiLectie();
-      if (vieti < 5) primesteViata();
+      if (vieti && vieti < 5) {
+        primesteViata();
+      }
     }
   }, []);
 
-  console.log("Lectia:", route.params.lectie);
+  //console.log("Lectia:", route.params.lectie);
 
   return (
     <LinearGradient

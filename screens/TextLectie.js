@@ -141,7 +141,8 @@ export default function TextLectie({ route }) {
                   opacity: 0.8,
                   alignSelf: "flex-end",
                   marginRight: 20,
-                  marginTop: 10,
+                  marginTop: 20,
+                  marginBottom: -70,
                 }}
                 onPress={() => {
                   navigation.navigate("IntrebariLectie", {
