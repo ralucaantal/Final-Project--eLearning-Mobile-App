@@ -163,6 +163,23 @@ export default function HomeAdministrator() {
                 Vezi Întrebări Grilă Existente
               </Text>
             </TouchableOpacity>
+            <TouchableOpacity
+              className="py-3 bg-yellow-400 rounded-xl"
+              style={{
+                width: "100%",
+                opacity: 0.8,
+                alignSelf: "flex-end",
+                marginTop: 5,
+                marginBottom: 5,
+              }}
+              onPress={() => {
+                navigation.navigate("FeedbackAdmin");
+              }}
+            >
+              <Text className="font-xl font-bold text-center text-gray-700">
+                Vezi Feedback-uri
+              </Text>
+            </TouchableOpacity>
           </View>
         </ScrollView>
       </SafeAreaView>

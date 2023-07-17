@@ -43,6 +43,7 @@ import Teste from "../screens/Teste";
 import IntrebariTextAdmin from "../screens/IntrebariTextAdmin";
 import IntrebariGrilaAdmin from "../screens/IntrebariGrilaAdmin";
 import IntrebariPropuseAdmin from "../screens/IntrebariPropuseAdmin";
+import FeedbackAdmin from "../screens/FeedbackAdmin";
 
 const Stack = createNativeStackNavigator();
 
@@ -254,6 +255,11 @@ export default function AppNavigation() {
           name="IntrebariPropuseAdmin"
           options={{ headerShown: false }}
           component={IntrebariPropuseAdmin}
+        />
+        <Stack.Screen
+          name="FeedbackAdmin"
+          options={{ headerShown: false }}
+          component={FeedbackAdmin}
         />
       </Stack.Navigator>
     </NavigationContainer>
