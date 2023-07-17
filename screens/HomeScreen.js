@@ -21,7 +21,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import jwtDecode from "jwt-decode";
 import IPv4 from "../index";
 
-const detaliiCont = ["Zile ⚡", "Puncte 🚀", "Vieți 🤍"];
 
 const cursuriDisponibile = [
   {

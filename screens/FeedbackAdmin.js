@@ -20,6 +20,13 @@ export default function FeedbackAdmin() {
 
   const [feedback, setFeedback] = useState(null);
 
+  const [feedbackCount, setFeedbackCount] = useState({
+    heart: 0,
+    smile: 0,
+    puzzle: 0,
+    dislike: 0,
+  });
+
   useEffect(() => {
     const cereFeedback = async () => {
       try {
@@ -29,7 +36,33 @@ export default function FeedbackAdmin() {
           .then((response) => response.json())
           .then((data) => {
             setFeedback(data);
-            console.log(data);
+            //console.log(data);
+            let count = {
+              heart: 0,
+              smile: 0,
+              puzzle: 0,
+              dislike: 0,
+            };
+            data.forEach((item) => {
+              switch (item.feedback_simbol) {
+                case "Îmi place foarte mult această aplicație":
+                  count.heart++;
+                  break;
+                case "Aplicația este ok":
+                  count.smile++;
+                  break;
+                case "Mai este de lucrat la această aplicație":
+                  count.puzzle++;
+                  break;
+                case "Nu îmi place deloc ce oferă această aplicație":
+                  count.dislike++;
+                  break;
+                default:
+                  break;
+              }
+            });
+
+            setFeedbackCount(count);
           });
       } catch (error) {
         console.log(error);
@@ -75,6 +108,34 @@ export default function FeedbackAdmin() {
             Feedback-uri oferite de utilizatorii aplicației 🌟
           </Text>
         </View>
+        <View style={{ paddingLeft: 10, marginBottom: 10 }}>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={{ alignSelf: "center" }}
+          >
+            <TouchableOpacity className="bg-purple-100 p-3 px-4 rounded-full mr-2">
+              <Text style={{ fontSize: 12, color: "black" }}>
+                {feedbackCount.heart} ❤
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity className="bg-purple-100 p-3 px-4 rounded-full mr-2">
+              <Text style={{ fontSize: 12, color: "black" }}>
+                {feedbackCount.smile} 😃
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity className="bg-purple-100 p-3 px-4 rounded-full mr-2">
+              <Text style={{ fontSize: 12, color: "black" }}>
+                {feedbackCount.puzzle} 🧩
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity className="bg-purple-100 p-3 px-4 rounded-full mr-2">
+              <Text style={{ fontSize: 12, color: "black" }}>
+                {feedbackCount.dislike} 😥
+              </Text>
+            </TouchableOpacity>
+          </ScrollView>
+        </View>
         {feedback && (
           <ScrollView
             style={{ height: "100%", marginTop: 20 }}
@@ -101,6 +162,53 @@ export default function FeedbackAdmin() {
                     >
                       {index + 1}
                     </Text>
+                  </View>
+                  {feedback.feedback_simbol ===
+                    "Îmi place foarte mult această aplicație" && (
+                    <HeartIcon
+                      color={themeColors.galben}
+                      size={40}
+                      style={{ opacity: 0.8, marginLeft: 10 }}
+                    />
+                  )}
+                  {feedback.feedback_simbol === "Aplicația este ok" && (
+                    <FaceSmileIcon
+                      color={themeColors.galben}
+                      size={40}
+                      style={{ opacity: 0.8, marginLeft: 10 }}
+                    />
+                  )}
+                  {feedback.feedback_simbol ===
+                    "Mai este de lucrat la această aplicație" && (
+                    <PuzzlePieceIcon
+                      color={themeColors.galben}
+                      size={40}
+                      style={{ opacity: 0.8, marginLeft: 10 }}
+                    />
+                  )}
+                  {feedback.feedback_simbol ===
+                    "Nu îmi place deloc ce oferă această aplicație" && (
+                    <FaceFrownIcon
+                      color={themeColors.galben}
+                      size={40}
+                      style={{ opacity: 0.8, marginLeft: 10 }}
+                    />
+                  )}
+                  <View className="flex-1 flex justify-center pl-3 space-y-3">
+                    <Text
+                      style={{ color: themeColors.white, fontSize: 16 }}
+                      className="font-semibold"
+                    >
+                      {feedback.feedback_simbol}
+                    </Text>
+                    {feedback.comentariu && (
+                      <Text
+                        style={{ color: themeColors.white, fontSize: 16 }}
+                        className="font-semibold italic"
+                      >
+                        Comentariu: {feedback.comentariu}
+                      </Text>
+                    )}
                   </View>
                 </TouchableOpacity>
               );
