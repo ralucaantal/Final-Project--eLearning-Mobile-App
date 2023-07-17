@@ -361,7 +361,7 @@ app.post("/verificareRaspunsText", (req, res) => {
     .query(qry1)
     .then((res) => res.rows)
     .then((data) => {
-      console.log("Am primit raspunsul de la prima interogare");
+      //console.log("Am primit raspunsul de la prima interogare");
       jsonResult1 = data;
     });
 
@@ -369,10 +369,10 @@ app.post("/verificareRaspunsText", (req, res) => {
     .query(qry2)
     .then((res) => res.rows)
     .then((data) => {
-      console.log("Am primit raspunsul de la a doua interogare");
+      //console.log("Am primit raspunsul de la a doua interogare");
       jsonResult2 = data;
       canCompare = 1;
-      console.log("can compare: ", canCompare);
+      //console.log("can compare: ", canCompare);
       canCompare = 1;
       if (canCompare === 1) {
         if (jsonResult1.length != jsonResult2.length) {

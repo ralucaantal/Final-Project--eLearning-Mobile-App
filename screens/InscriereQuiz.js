@@ -53,6 +53,8 @@ export default function InscriereQuiz({ route }) {
 
         if (data.message === "Nu") {
           alert("Codul nu este bun!");
+        } else if (data.message === "Quiz-ul nu este disponibil încă.") {
+          alert("Este prea devreme pentru a incepe quiz-ul!");
         } else if (data.message === "Se poate rezolva quiz-ul.") {
           console.log("urmeaza rezolvarea quiz-ului");
           actualizareStatistici();
