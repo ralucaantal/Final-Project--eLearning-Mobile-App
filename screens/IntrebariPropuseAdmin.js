@@ -253,7 +253,7 @@ export default function IntrebariPropuseAdmin() {
                       Răspuns corect: {intrebare.raspuns_corect}
                     </Text>
                   </View>
-                  {intrebare.status === "In Asteptare" && (
+                  {intrebare.status === "In asteptare" && (
                     <View style={{ alignSelf: "center" }}>
                       <TouchableOpacity
                         className="py-3 bg-green-400 rounded-xl"

@@ -134,7 +134,7 @@ export default function TextLectie({ route }) {
                   </Text>
                 </View>
               </ScrollView>
-              <TouchableOpacity
+              {/* <TouchableOpacity
                 className="py-3 bg-yellow-400 rounded-xl"
                 style={{
                   width: "30%",
@@ -154,9 +154,30 @@ export default function TextLectie({ route }) {
                 <Text className="font-xl font-bold text-center text-gray-700">
                   Ok!
                 </Text>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
           )}
+          <TouchableOpacity
+            className="py-3 bg-yellow-400 rounded-xl"
+            style={{
+              width: "30%",
+              opacity: 0.8,
+              alignSelf: "flex-end",
+              marginRight: 20,
+              marginTop: 20,
+              marginBottom: -200,
+            }}
+            onPress={() => {
+              navigation.navigate("IntrebariLectie", {
+                lectie: lectie,
+                idUser: idUser,
+              });
+            }}
+          >
+            <Text className="font-xl font-bold text-center text-gray-700">
+              Ok!
+            </Text>
+          </TouchableOpacity>
         </SafeAreaView>
       </LinearGradient>
     </KeyboardAvoidingView>

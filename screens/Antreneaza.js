@@ -72,7 +72,7 @@ export default function Antreneaza({ navigation }) {
         const jwt = await AsyncStorage.getItem("jwt");
         const decoded = jwtDecode(jwt);
         setDecodedJwt(decoded);
-        console.log(decoded);
+        //console.log(decoded);
         setUsername(decoded.data.username);
         setZile(decoded.data.zile.toString());
         setPuncte(decoded.data.puncte.toString());
@@ -82,7 +82,7 @@ export default function Antreneaza({ navigation }) {
           navigation.navigate("Home");
         }
 
-        console.log(zile);
+        //console.log(zile);
       } catch (error) {
         console.log(error);
       }
